@@ -26,6 +26,12 @@
 - Integrated [Busuanzi Statistics](http://busuanzi.ibruce.info/), `Google Analytics` and post word count statistics.
 - Support music playback and video playback on the homepage
 
+## Contributor
+
+Thanks to these contributors, without whom, hexo-theme-matery won't be this perfect.
+
+- [@HarborZeng](https://github.com/HarborZeng)
+
 ## Download
 
 You should have a [Hexo](https://hexo.io/zh-cn/) blog when you see it here.If not,try to use the hexo and [Markdown](https://www.appinn.com/markdown/) to write your blog and post.
@@ -345,11 +351,13 @@ Everything in the Front-matter option is **not required**. But I still recommend
 | summary    | null                        | Post summary, custom post summary content, if the attribute has a value, the post card summary will display the text, otherwise the program will automatically intercept part of the article as a summary |
 | categories | null                        | Article classification, the classification of this topic represents a macroscopically large classification, only one article is recommended for one classification. |
 | tags       | null                        | Post label, a post can have multiple labels |
+| reprintPolicy       | cc_by                        | Post reprint policy, value could be one of cc_by, cc_by_nd, cc_by_sa, cc_by_nc, cc_by_nc_nd, cc_by_nc_sa, cc0, noreprint and pay |
 
 > **Note**: 
 > 1. post's featured piature will take remainder if not writing the `img` property,and chose the featured picture of theme to let all of post's picture **have their own characteristics**.
 > 2. The value of `date` should try to ensure that each article is unique, because `Gitalk` and `Gitment` recognize `id` in this topic are uniquely identified by the value of `date`.
 > 3. If you want to set the ability to read the verification password for the article, you should not only set the value of the password with SHA256 encryption in Front-matter, but also activate the configuration in the theme `_config.yml`.
+> 4. you can define reprint policy for a single article in the front-matter of the specific md file using this key: reprintPolicy
 
 The following are examples of the post's `Front-matter`.
 
@@ -454,14 +462,13 @@ There are 24 featured pictures in `/source/medias/featureimages`,you can add or 
 
 ## Changelog
 
-- v1.0.0
-  - Added all the basic features;
-- v1.0.1
-  - Adjust the file request path of `css` and `js` in the `_config.yml` of the theme, so that you can quickly configure their own CDN;
-  - Whether the new code is configurable or not, the default is a line break;
-  - The `TOC` function is activated by default, and the `Front-matter` configuration option for `TOC` is turned off for a post;
-  - Fixed an issue where the highlighted directory option was inaccurate when scrolling through the post;
-  - Remove the search box under `IOS` to automatically get the focus attribute, preventing the view from moving up after automatically getting the focus;
+- v1.0.4
+  - Added the ability to customize the reprint rules for each post;
+  - Fix the problem that the custom summary of the previous page and the next page does not display;
+  - Fixed the problem that the link of the friends link was misplaced and changed to the layout of the waterfall stream;
+  - Other minor bugs fixes;
+- v1.0.3
+  - Added `TOC` expansion, shrink button and related configuration, this button is displayed by default;
 - v1.0.2
   - Upgraded the [Materialize](https://materializecss.com/) framework version to `1.0.0`, refactoring and modifying some files or problems during the upgrade process;
   - Added a full-screen carousel effect on the front cover of the home page to set more important posts to the home page carousel;
@@ -469,3 +476,11 @@ There are 24 featured pictures in `/source/medias/featureimages`,you can add or 
   - Fixed an issue where clicking search input on the iPhone to get focus;
   - Fixed an issue where the page was enlarged after the input box on the iPhone got focus;
   - Fix some posts or UI display issues;
+- v1.0.1
+  - Adjust the file request path of `css` and `js` in the `_config.yml` of the theme, so that you can quickly configure their own CDN;
+  - Whether the new code is configurable or not, the default is a line break;
+  - The `TOC` function is activated by default, and the `Front-matter` configuration option for `TOC` is turned off for a post;
+  - Fixed an issue where the highlighted directory option was inaccurate when scrolling through the post;
+  - Remove the search box under `IOS` to automatically get the focus attribute, preventing the view from moving up after automatically getting the focus;
+- v1.0.0
+  - Added all the basic features;
