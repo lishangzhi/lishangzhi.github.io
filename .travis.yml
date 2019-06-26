@@ -11,8 +11,8 @@ script:
 after_script:
   - cd ./public
   - git init
-  - git config user.name "lishangzhi"
-  - git config user.email "13680348517@163.com"
+  - git config user.name "blinkfox"
+  - git config user.email "chenjiayin1990@163.com"
   - git add .
   - git commit -a -m "Auto update docs by Travis CI."
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
@@ -22,5 +22,5 @@ branches:
     - hexo
 
 env:
- global:
-   - GH_REF: github.com/lishangzhi/lishangzhi.github.io
+  global:
+    - GH_REF: github.com/blinkfox/blinkfox.github.io.git
