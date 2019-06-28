@@ -433,7 +433,7 @@
 </ol>
 <p>俄罗斯科学家Vladimir Levenshtein在1965年提出这个概念。因此也叫Levenshtein Distance。</p>
 <h3 id="编辑距离递推公式"><a href="#编辑距离递推公式" class="headerlink" title="编辑距离递推公式"></a>编辑距离递推公式</h3><p>设字符串S，T长度分别为m, n，记S(i)为S从第1个字符到第i个字符之间的子串。S(0)表示空串，S(m)表示S本身。</p>
-<p>因此，S和T间的编辑距离，可由S(i)和T(j)的编辑距离计算而来。<br><img src="https://images.gitee.com/uploads/images/2019/0628/105818_a3953eb3_1468963.png" alt="输入图片说明" title="屏幕截图.png"></p>
+<p>因此，S和T间的编辑距离，可由S(i)和T(j)的编辑距离计算而来。<br><img src="https://images.gitee.com/uploads/images/2019/0628/105818_a3953eb3_1468963.png" alt="Edit Distance" title="屏幕截图.png"></p>
 <h3 id="基础案例"><a href="#基础案例" class="headerlink" title="基础案例"></a>基础案例</h3><ul>
 <li>如果str1=”ivan”，str2=”ivan”，那么经过计算后等于 0。没有经过转换。相似度=1-0/Math.Max(str1.length,str2.length)=1</li>
 <li>如果str1=”ivan1”，str2=”ivan2”，那么经过计算后等于1。str1的”1”转换”2”，转换了一个字符，所以距离是1，相似度=1-1/Math.Max(str1.length,str2.length)=0.8</li>
@@ -473,7 +473,7 @@
         }
     }
     return d[sourceLen][targetLen];
-}</code></pre><p>python 代码:</p>
+}</code></pre><p><code>Python 代码</code></p>
 <pre><code>def edit_distance(sources, targets):
     len1 = len(sources);
     len2 = len(targets);
@@ -487,7 +487,7 @@
         for j in range(1, len2 + 1):
             delta = 0 if sources[i-1] == targets[j-1] else 1
             dp[i][j] = min(dp[i - 1][j - 1] + delta, min(dp[i-1][j] + 1, dp[i][j - 1] + 1))
-    return dp[len1][len2]</code></pre><h3 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h3><p>java</p>
+    return dp[len1][len2]</code></pre><h3 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h3><p><code>Java 代码</code></p>
 <pre><code>String[] sources = {&quot;打球&quot;,&quot;爬山&quot;,&quot;跑步&quot;};
 String[] targets = {&quot;打球&quot;,&quot;爬山&quot;,&quot;跑步&quot;,&quot;看书&quot;,&quot;游泳&quot;};
 
