@@ -261,7 +261,7 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/article/images/K近邻算法.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -425,10 +425,10 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
                 <h2 id="经典算法问题：K近邻算法-KNN"><a href="#经典算法问题：K近邻算法-KNN" class="headerlink" title="经典算法问题：K近邻算法(KNN)"></a>经典算法问题：K近邻算法(KNN)</h2><blockquote>
 <p>K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成熟的方法，也是最简单的机器学习算法之一。该方法的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。</p>
 </blockquote>
-<p><img src="/medias/article/images/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95.png" alt="K近邻算法" title="K近邻算法.jpg"></p>
+<p><img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95.png" alt="K近邻算法" title="K近邻算法.jpg"></p>
 <h3 id="一-概述"><a href="#一-概述" class="headerlink" title="一. 概述"></a>一. 概述</h3><p>最简单最初级的分类器是将全部的训练数据所对应的类别都记录下来，当测试对象的属性和某个训练对象的属性完全匹配时，便可以对其进行分类。但是怎么可能所有测试对象都会找到与之完全匹配的训练对象呢，其次就是存在一个测试对象同时与多个训练对象匹配，导致一个训练对象被分到了多个类的问题，基于这些问题呢，就产生了KNN。KNN是通过测量不同特征值之间的距离进行分类。它的的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。K通常是不大于20的整数。KNN算法中，所选择的邻居都是已经正确分类的对象。该方法在定类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。</p>
-<p>下面通过一个简单的例子说明一下：如下图，绿色圆要被决定赋予哪个类，是红色三角形还是蓝色四方形？如果K=3，由于红色三角形所占比例为2/3，绿色圆将被赋予红色三角形那个类，如果K=5，由于蓝色四方形比例为3/5，因此绿色圆被赋予蓝色四方形类。<br><img src="https://images.gitee.com/uploads/images/2019/0630/010428_02812ef0_1468963.png" alt="案例" title="案例.jpg"></p>
-<h3 id="二-欧氏距离-哈曼顿距离"><a href="#二-欧氏距离-哈曼顿距离" class="headerlink" title="二. 欧氏距离 / 哈曼顿距离"></a>二. 欧氏距离 / 哈曼顿距离</h3><p><img src="https://images.gitee.com/uploads/images/2019/0630/011134_ec217f57_1468963.png" alt="欧氏距离  /  哈曼顿距离 " title=" 欧氏距离  /  哈曼顿距离.jpg"></p>
+<p>下面通过一个简单的例子说明一下：如下图，绿色圆要被决定赋予哪个类，是红色三角形还是蓝色四方形？如果K=3，由于红色三角形所占比例为2/3，绿色圆将被赋予红色三角形那个类，如果K=5，由于蓝色四方形比例为3/5，因此绿色圆被赋予蓝色四方形类。<br><img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95-2.png" alt="案例" title="案例.jpg"></p>
+<h3 id="二-欧氏距离-哈曼顿距离"><a href="#二-欧氏距离-哈曼顿距离" class="headerlink" title="二. 欧氏距离 / 哈曼顿距离"></a>二. 欧氏距离 / 哈曼顿距离</h3><p><img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95-3.png" alt="欧氏距离  /  哈曼顿距离 " title=" 欧氏距离  /  哈曼顿距离.jpg"></p>
 <h3 id="三-K-近邻算法（KNN）描述"><a href="#三-K-近邻算法（KNN）描述" class="headerlink" title="三. K-近邻算法（KNN）描述"></a>三. K-近邻算法（KNN）描述</h3><p>1）计算测试数据与各个训练数据之间的距离；</p>
 <p>2）按照距离的递增关系进行排序；</p>
 <p>3）选取距离最小的K个点；</p>
@@ -752,15 +752,30 @@ print res
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="经典算法问题：矩阵分解">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="LeetCode 第 557 题：反转字符串中的单词 III">
                         
-                        <span class="card-title">经典算法问题：矩阵分解</span>
+                        <span class="card-title">LeetCode 第 557 题：反转字符串中的单词 III</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             
+
+
+题目地址
+题解
+
+
+
+LeetCode 第 557 题：反转字符串中的单词 III.
+字符串处理
+
+
+LeetCode 第 557 题：反转字符串中的单词 III
+空间设想
+
+一 . 利用StringBuffer reverse()方
                         
                     </div>
                     <div class="publish-info">
@@ -771,8 +786,8 @@ print res
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/经典算法问题/" class="post-category" target="_blank">
-                                    经典算法问题
+                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
+                                    leetcode 题解
                                 </a>
                             
                             
@@ -782,12 +797,8 @@ print res
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/经典算法问题/" target="_blank">
-                        <span class="chip bg-color">经典算法问题</span>
-                    </a>
-                    
-                    <a href="/tags/推荐算法/" target="_blank">
-                        <span class="chip bg-color">推荐算法</span>
+                    <a href="/tags/字符串/" target="_blank">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>

@@ -4,8 +4,23 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="经典算法问题：矩阵分解, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="经典算法问题：矩阵分解 | 算法与数据结构、机器学习、深度学习">
+    <meta name="keywords" content="LeetCode 第 557 题：反转字符串中的单词 III, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="
+
+
+题目地址
+题解
+
+
+
+LeetCode 第 557 题：反转字符串中的单词 III.
+字符串处理
+
+
+LeetCode 第 557 题：反转字符串中的单词 III
+空间设想
+
+一 . 利用StringBuffer reverse()方">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +28,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>经典算法问题：矩阵分解 | 算法与数据结构、机器学习、深度学习</title>
+    <title>LeetCode 第 557 题：反转字符串中的单词 III | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -260,13 +275,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        经典算法问题：矩阵分解
+                        LeetCode 第 557 题：反转字符串中的单词 III
                     </div>
                 </div>
             </div>
@@ -377,12 +392,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/经典算法问题/" target="_blank">
-                                <span class="chip bg-color">经典算法问题</span>
-                            </a>
-                        
-                            <a href="/tags/推荐算法/" target="_blank">
-                                <span class="chip bg-color">推荐算法</span>
+                            <a href="/tags/字符串/" target="_blank">
+                                <span class="chip bg-color">字符串</span>
                             </a>
                         
                     </div>
@@ -393,8 +404,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/经典算法问题/" class="post-category" target="_blank">
-                                经典算法问题
+                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
+                                leetcode 题解
                             </a>
                         
                     </div>
@@ -421,7 +432,81 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <table>
+<thead>
+<tr>
+<th>题目地址</th>
+<th>题解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/" target="_blank" rel="noopener">LeetCode 第 557 题：反转字符串中的单词 III.</a></td>
+<td><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/solution/557-fan-zhuan-zi-fu-chuan-zhong-de-dan-ci-iii-ti-j/" target="_blank" rel="noopener">字符串处理</a></td>
+</tr>
+</tbody></table>
+<h2 id="LeetCode-第-557-题：反转字符串中的单词-III"><a href="#LeetCode-第-557-题：反转字符串中的单词-III" class="headerlink" title="LeetCode 第 557 题：反转字符串中的单词 III"></a>LeetCode 第 557 题：反转字符串中的单词 III</h2><ul>
+<li>空间设想<br><img src="http://ptyodd4up.bkt.clouddn.com/leecode711.png" alt="空间设想" title="设想.jpg"></li>
+</ul>
+<h3 id="一-利用StringBuffer-reverse-方法"><a href="#一-利用StringBuffer-reverse-方法" class="headerlink" title="一 . 利用StringBuffer reverse()方法"></a>一 . 利用StringBuffer reverse()方法</h3><ol>
+<li>令n为旧字符序列的长度，即在执行反向方法之前字符串缓冲区中包含的字符序列。</li>
+<li>新字符序列中索引k处的字符等于旧字符序列中索引n-k-1处的字符</li>
+</ol>
+<pre><code>public static String reverseWords(String soure) {
+        String target = &quot;&quot;;
+        //字符串拆分成数组
+        String[] temp = soure.split(&quot; &quot;);
+        for (int i = 0; i &lt; temp.length; i++) {
+            // 利用StringBuffer.reverse() 将字符逆序
+            if (i == temp.length - 1) {
+                target = target + new StringBuffer(temp[i]).reverse().toString();
+            } else {
+                target = target + new StringBuffer(temp[i]).reverse().append(&quot; &quot;).toString();
+            }
+
+        }
+        return target;
+    }</code></pre><h3 id="二-利用数组双指针思想"><a href="#二-利用数组双指针思想" class="headerlink" title="二 . 利用数组双指针思想"></a>二 . 利用数组双指针思想</h3><ol>
+<li>划分子数组</li>
+<li>子数组双指针交换；</li>
+<li>生成字符串</li>
+</ol>
+<pre><code>public static String reverseWords(String s) {
+        if (s == null || s.length() &lt; 2) {
+            return s;
+        }
+        // 将字符串转化为数组
+        char[] arr = s.toCharArray();
+        int l = 0;
+        int r = 0;
+        //
+        for (int i = 0; i &lt; arr.length; i++) {
+            if (arr[i] == &#39; &#39;) {
+                while (l &lt; r) {
+                    char t = arr[l];
+                    arr[l] = arr[r];
+                    arr[r] = t;
+                    l++;
+                    r--;
+                }
+                l = i + 1;
+                r = i + 1;
+            } else {
+                r = i;
+            }
+        }
+        while (l &lt; r) {
+            char t = arr[l];
+            arr[l] = arr[r];
+            arr[r] = t;
+            l++;
+            r--;
+        }
+        return new String(arr);
+    }
+</code></pre><blockquote>
+<p>两次的执行结果<br><img src="http://ptyodd4up.bkt.clouddn.com/leecode712.png" alt="执行结果比较" title="执行结果比较.jpg"></p>
+</blockquote>
+
             </div>
             <hr/>
 
@@ -583,15 +668,30 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="经典算法问题：矩阵分解">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="LeetCode 第 557 题：反转字符串中的单词 III">
                         
-                        <span class="card-title">经典算法问题：矩阵分解</span>
+                        <span class="card-title">LeetCode 第 557 题：反转字符串中的单词 III</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             
+
+
+题目地址
+题解
+
+
+
+LeetCode 第 557 题：反转字符串中的单词 III.
+字符串处理
+
+
+LeetCode 第 557 题：反转字符串中的单词 III
+空间设想
+
+一 . 利用StringBuffer reverse()方
                         
                     </div>
                     <div class="publish-info">
@@ -602,8 +702,8 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/经典算法问题/" class="post-category" target="_blank">
-                                    经典算法问题
+                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
+                                    leetcode 题解
                                 </a>
                             
                             
@@ -614,12 +714,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/经典算法问题/" target="_blank">
-                        <span class="chip bg-color">经典算法问题</span>
-                    </a>
-                    
-                    <a href="/tags/推荐算法/" target="_blank">
-                        <span class="chip bg-color">推荐算法</span>
+                    <a href="/tags/字符串/" target="_blank">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
@@ -636,7 +732,7 @@
                 <a href="/2019/06/29/经典算法问题：K近邻算法/">
                     <div class="card-image">
                         
-                        <img src="/medias/article/images/K近邻算法.png" class="responsive-img" alt="经典算法问题：K近邻算法">
+                        <img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95.png" class="responsive-img" alt="经典算法问题：K近邻算法">
                         
                         <span class="card-title">经典算法问题：K近邻算法</span>
                     </div>
