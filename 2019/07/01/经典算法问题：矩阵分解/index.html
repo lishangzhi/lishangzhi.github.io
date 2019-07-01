@@ -4,9 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="经典算法问题：编辑距离算法, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="经典算法问题：编辑距离算法
-编辑距离，又称Levenshtein距离（也叫做Edit Distance），是指两个字串之间，由一个转成另一个所需的最少编辑操作次数，如果它们的距离越大，说明它们越是不同。许可的编辑操作包括将一个字符替换成另一">
+    <meta name="keywords" content="经典算法问题：矩阵分解, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="经典算法问题：矩阵分解 | 算法与数据结构、机器学习、深度学习">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>经典算法问题：编辑距离算法 | 算法与数据结构、机器学习、深度学习</title>
+    <title>经典算法问题：矩阵分解 | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +260,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        经典算法问题：编辑距离算法
+                        经典算法问题：矩阵分解
                     </div>
                 </div>
             </div>
@@ -394,8 +393,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/经典算法问题/" class="post-category" target="_blank">
-                                经典算法问题
+                            <a href="/categories/推荐算法/" class="post-category" target="_blank">
+                                推荐算法
                             </a>
                         
                     </div>
@@ -406,7 +405,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-06-28
+                    2019-07-01
                 </div>
 
                 
@@ -422,76 +421,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="经典算法问题：编辑距离算法"><a href="#经典算法问题：编辑距离算法" class="headerlink" title="经典算法问题：编辑距离算法"></a>经典算法问题：编辑距离算法</h2><blockquote>
-<p>编辑距离，又称Levenshtein距离（也叫做Edit Distance），是指两个字串之间，由一个转成另一个所需的最少编辑操作次数，如果它们的距离越大，说明它们越是不同。许可的编辑操作包括将一个字符替换成另一个字符，插入一个字符，删除一个字符。</p>
-</blockquote>
-<p>例如将kitten一字转成sitting：</p>
-<ol>
-<li>sitten （k→s）</li>
-<li>sittin （e→i）</li>
-<li>sitting （→g）</li>
-</ol>
-<p>俄罗斯科学家Vladimir Levenshtein在1965年提出这个概念。因此也叫Levenshtein Distance。</p>
-<h3 id="编辑距离递推公式"><a href="#编辑距离递推公式" class="headerlink" title="编辑距离递推公式"></a>编辑距离递推公式</h3><p>设字符串S，T长度分别为m, n，记S(i)为S从第1个字符到第i个字符之间的子串。S(0)表示空串，S(m)表示S本身。</p>
-<p>因此，S和T间的编辑距离，可由S(i)和T(j)的编辑距离计算而来。<br><img src="/medias/article/images/%E7%BC%96%E8%B7%9D%E7%AE%97%E6%B3%95.png" alt="Edit Distance" title="屏幕截图.png"></p>
-<h3 id="基础案例"><a href="#基础案例" class="headerlink" title="基础案例"></a>基础案例</h3><ul>
-<li>如果str1=”ivan”，str2=”ivan”，那么经过计算后等于 0。没有经过转换。相似度=1-0/Math.Max(str1.length,str2.length)=1</li>
-<li>如果str1=”ivan1”，str2=”ivan2”，那么经过计算后等于1。str1的”1”转换”2”，转换了一个字符，所以距离是1，相似度=1-1/Math.Max(str1.length,str2.length)=0.8</li>
-</ul>
-<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
-<li>DNA分析</li>
-<li>拼字检查</li>
-<li>语音辨识 </li>
-<li>抄袭侦测</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><code>Java 代码</code></p>
-<pre><code>private static int EditDistance(String[] sources, String[] targets) {
-    int sourceLen = sources.length;
-    int targetLen = targets.length;
-    int[][] d = new int[sourceLen + 1][targetLen + 1];
-    for (int i = 0; i &lt;= sourceLen; i++) {
-        d[i][0] = i;
-    }
-    for (int i = 0; i &lt;= targetLen; i++) {
-        d[0][i] = i;
-    }
-
-    for (int i = 1; i &lt;= sourceLen; i++) {
-        for (int j = 1; j &lt;= targetLen; j++) {
-            if (sources[i - 1] == targets[j - 1]) {
-                d[i][j] = d[i - 1][j - 1];
-            } else {
-                //插入
-                int insert = d[i][j - 1] + 1;
-                //删除
-                int delete = d[i - 1][j] + 1;
-                //替换
-                int replace = d[i - 1][j - 1] + 1;
-                d[i][j] = Math.min(insert, delete) &gt; Math.min(delete, replace) ? Math.min(delete, replace) :
-                        Math.min(insert, delete);
-            }
-        }
-    }
-    return d[sourceLen][targetLen];
-}</code></pre><p><code>Python 代码</code></p>
-<pre><code>def edit_distance(sources, targets):
-    len1 = len(sources);
-    len2 = len(targets);
-    dp = np.zeros((len1 + 1,len2 + 1))
-    for i in range(len1 + 1):
-        dp[i][0] = i;     
-    for j in range(len2 + 1):
-        dp[0][j] = j;
-
-    for i in range(1, len1 + 1):
-        for j in range(1, len2 + 1):
-            delta = 0 if sources[i-1] == targets[j-1] else 1
-            dp[i][j] = min(dp[i - 1][j - 1] + delta, min(dp[i-1][j] + 1, dp[i][j - 1] + 1))
-    return dp[len1][len2]</code></pre><h3 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h3><p><code>Java 代码</code></p>
-<pre><code>String[] sources = {&quot;打球&quot;,&quot;爬山&quot;,&quot;跑步&quot;};
-String[] targets = {&quot;打球&quot;,&quot;爬山&quot;,&quot;跑步&quot;,&quot;看书&quot;,&quot;游泳&quot;};
-
-返回结果 ：2</code></pre>
+                
             </div>
             <hr/>
 
@@ -644,9 +574,64 @@ String[] targets = {&quot;打球&quot;,&quot;爬山&quot;,&quot;跑步&quot;,&qu
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/07/01/经典算法问题：矩阵分解/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="经典算法问题：矩阵分解">
+                        
+                        <span class="card-title">经典算法问题：矩阵分解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/推荐算法/" class="post-category" target="_blank">
+                                    推荐算法
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/经典算法问题/" target="_blank">
+                        <span class="chip bg-color">经典算法问题</span>
+                    </a>
+                    
+                    <a href="/tags/推荐算法/" target="_blank">
+                        <span class="chip bg-color">推荐算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2019/06/29/经典算法问题：K近邻算法/">
                     <div class="card-image">
@@ -664,9 +649,9 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -685,60 +670,6 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
                     <a href="/tags/分类算法/" target="_blank">
                         <span class="chip bg-color">分类算法</span>
                     </a>
-                    
-                    <a href="/tags/经典算法问题/" target="_blank">
-                        <span class="chip bg-color">经典算法问题</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/06/27/经典算法问题：数组中的逆序对/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="经典算法问题：数组中的逆序对">
-                        
-                        <span class="card-title">经典算法问题：数组中的逆序对</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            经典算法问题：数组中的逆序对
-在数组中的两个数字如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。
-
-  输入一个数组，求出这个数组中的逆序对的总数。
-输入：[1,2,3,4,5,6,0]
- 输出：6
-思路1：使用定义挨个数出来，
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-27
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/算法与数据结构/" class="post-category" target="_blank">
-                                    算法与数据结构
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
                     
                     <a href="/tags/经典算法问题/" target="_blank">
                         <span class="chip bg-color">经典算法问题</span>
