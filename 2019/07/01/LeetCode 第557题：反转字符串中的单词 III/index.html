@@ -4,9 +4,24 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="经典算法问题：K近邻算法, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="经典算法问题：K近邻算法(KNN)
-K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成熟的方法，也是最简单的机器学习算法之一。该方法的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本">
+    <meta name="keywords" content="LeetCode 第 557 题：反转字符串中的单词, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="
+
+
+题目地址
+题解
+
+
+
+LeetCode 第 557 题：反转字符串中的单词.
+字符串处理
+
+
+LeetCode 第 557 题：反转字符串中的单词
+空间设想
+
+一 . 利用StringBuffer reverse()方法
+令n为旧字符">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +29,7 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>经典算法问题：K近邻算法 | 算法与数据结构、机器学习、深度学习</title>
+    <title>LeetCode 第 557 题：反转字符串中的单词 | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +276,13 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        经典算法问题：K近邻算法
+                        LeetCode 第 557 题：反转字符串中的单词
                     </div>
                 </div>
             </div>
@@ -378,12 +393,8 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/分类算法/" target="_blank">
-                                <span class="chip bg-color">分类算法</span>
-                            </a>
-                        
-                            <a href="/tags/经典算法问题/" target="_blank">
-                                <span class="chip bg-color">经典算法问题</span>
+                            <a href="/tags/字符串/" target="_blank">
+                                <span class="chip bg-color">字符串</span>
                             </a>
                         
                     </div>
@@ -394,8 +405,8 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/经典算法问题/" class="post-category" target="_blank">
-                                经典算法问题
+                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
+                                leetcode 题解
                             </a>
                         
                     </div>
@@ -406,7 +417,7 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-06-29
+                    2019-07-01
                 </div>
 
                 
@@ -422,176 +433,82 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="经典算法问题：K近邻算法-KNN"><a href="#经典算法问题：K近邻算法-KNN" class="headerlink" title="经典算法问题：K近邻算法(KNN)"></a>经典算法问题：K近邻算法(KNN)</h2><blockquote>
-<p>K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成熟的方法，也是最简单的机器学习算法之一。该方法的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。</p>
-</blockquote>
-<p><img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95.png" alt="K近邻算法" title="K近邻算法.jpg"></p>
-<h3 id="一-概述"><a href="#一-概述" class="headerlink" title="一. 概述"></a>一. 概述</h3><p>最简单最初级的分类器是将全部的训练数据所对应的类别都记录下来，当测试对象的属性和某个训练对象的属性完全匹配时，便可以对其进行分类。但是怎么可能所有测试对象都会找到与之完全匹配的训练对象呢，其次就是存在一个测试对象同时与多个训练对象匹配，导致一个训练对象被分到了多个类的问题，基于这些问题呢，就产生了KNN。KNN是通过测量不同特征值之间的距离进行分类。它的的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。K通常是不大于20的整数。KNN算法中，所选择的邻居都是已经正确分类的对象。该方法在定类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。</p>
-<p>下面通过一个简单的例子说明一下：如下图，绿色圆要被决定赋予哪个类，是红色三角形还是蓝色四方形？如果K=3，由于红色三角形所占比例为2/3，绿色圆将被赋予红色三角形那个类，如果K=5，由于蓝色四方形比例为3/5，因此绿色圆被赋予蓝色四方形类。<br><img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95-2.png" alt="案例" title="案例.jpg"></p>
-<h3 id="二-欧氏距离-哈曼顿距离"><a href="#二-欧氏距离-哈曼顿距离" class="headerlink" title="二. 欧氏距离 / 哈曼顿距离"></a>二. 欧氏距离 / 哈曼顿距离</h3><p><img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95-3.png" alt="欧氏距离  /  哈曼顿距离 " title=" 欧氏距离  /  哈曼顿距离.jpg"></p>
-<h3 id="三-K-近邻算法（KNN）描述"><a href="#三-K-近邻算法（KNN）描述" class="headerlink" title="三. K-近邻算法（KNN）描述"></a>三. K-近邻算法（KNN）描述</h3><p>1）计算测试数据与各个训练数据之间的距离；</p>
-<p>2）按照距离的递增关系进行排序；</p>
-<p>3）选取距离最小的K个点；</p>
-<p>4）确定前K个点所在类别的出现频率；</p>
-<p>5）返回前K个点中出现频率最高的类别作为测试数据的预测分类。</p>
-<h3 id="四-代码"><a href="#四-代码" class="headerlink" title="四. 代码"></a>四. 代码</h3><p>Java 代码</p>
-<pre><code>public class KNN {
-
-    /**
-     * KNN数据模型
-     */
-    public static class KNNModel implements Comparable&lt;KNNModel&gt; {
-        public double a;
-        public double b;
-        public double c;
-        public double distince;
-        String type;
-
-        public KNNModel(double a, double b, double c, String type) {
-            this.a = a;
-            this.b = b;
-            this.c = c;
-            this.type = type;
-        }
-        /**
-         * 按距离排序
-         *
-         * @param arg
-         * @return
-         */
-        @Override
-        public int compareTo(KNNModel arg) {
-            return Double.valueOf(this.distince).compareTo(Double.valueOf(arg.distince));
-        }
-    }
-
-    /**
-     * 计算距离
-     *
-     * @param knnModelList
-     * @param i
-     */
-    private static void calDistince(List&lt;KNNModel&gt; knnModelList, KNNModel i) {
-        double distince;
-        for (KNNModel m : knnModelList) {
-            distince = Math.sqrt((i.a - m.a) * (i.a - m.a) + (i.b - m.b) * (i.b - m.b) + (i.c - m.c) * (i.c - m.c));
-            m.distince = distince;
-        }
-    }
-
-    /**
-     * 找出前k个数据中分类最多的数据
-     *
-     * @param knnModelList
-     * @return
-     */
-    private static String findMostData(List&lt;KNNModel&gt; knnModelList) {
-        Map&lt;String, Integer&gt; typeCountMap = new HashMap&lt;String, Integer&gt;();
-        String type = &quot;&quot;;
-        Integer tempVal = 0;
-        // 统计分类个数
-        for (KNNModel model : knnModelList) {
-            if (typeCountMap.containsKey(model.type)) {
-                typeCountMap.put(model.type, typeCountMap.get(model.type) + 1);
+                <table>
+<thead>
+<tr>
+<th>题目地址</th>
+<th>题解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/" target="_blank" rel="noopener">LeetCode 第 557 题：反转字符串中的单词.</a></td>
+<td><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/solution/557-fan-zhuan-zi-fu-chuan-zhong-de-dan-ci-iii-ti-j/" target="_blank" rel="noopener">字符串处理</a></td>
+</tr>
+</tbody></table>
+<h2 id="LeetCode-第-557-题：反转字符串中的单词"><a href="#LeetCode-第-557-题：反转字符串中的单词" class="headerlink" title="LeetCode 第 557 题：反转字符串中的单词"></a>LeetCode 第 557 题：反转字符串中的单词</h2><ul>
+<li>空间设想<br><img src="http://ptyodd4up.bkt.clouddn.com/leecode711.png" alt="空间设想" title="设想.jpg"></li>
+</ul>
+<h3 id="一-利用StringBuffer-reverse-方法"><a href="#一-利用StringBuffer-reverse-方法" class="headerlink" title="一 . 利用StringBuffer reverse()方法"></a>一 . 利用StringBuffer reverse()方法</h3><ol>
+<li>令n为旧字符序列的长度，即在执行反向方法之前字符串缓冲区中包含的字符序列。</li>
+<li>新字符序列中索引k处的字符等于旧字符序列中索引n-k-1处的字符</li>
+</ol>
+<pre><code>public static String reverseWords(String soure) {
+        String target = &quot;&quot;;
+        //字符串拆分成数组
+        String[] temp = soure.split(&quot; &quot;);
+        for (int i = 0; i &lt; temp.length; i++) {
+            // 利用StringBuffer.reverse() 将字符逆序
+            if (i == temp.length - 1) {
+                target = target + new StringBuffer(temp[i]).reverse().toString();
             } else {
-                typeCountMap.put(model.type, 1);
+                target = target + new StringBuffer(temp[i]).reverse().append(&quot; &quot;).toString();
+            }
+
+        }
+        return target;
+    }</code></pre><h3 id="二-利用数组双指针思想"><a href="#二-利用数组双指针思想" class="headerlink" title="二 . 利用数组双指针思想"></a>二 . 利用数组双指针思想</h3><ol>
+<li>划分子数组</li>
+<li>子数组双指针交换；</li>
+<li>生成字符串</li>
+</ol>
+<pre><code>public static String reverseWords(String s) {
+        if (s == null || s.length() &lt; 2) {
+            return s;
+        }
+        // 将字符串转化为数组
+        char[] arr = s.toCharArray();
+        int l = 0;
+        int r = 0;
+        //
+        for (int i = 0; i &lt; arr.length; i++) {
+            if (arr[i] == &#39; &#39;) {
+                while (l &lt; r) {
+                    char t = arr[l];
+                    arr[l] = arr[r];
+                    arr[r] = t;
+                    l++;
+                    r--;
+                }
+                l = i + 1;
+                r = i + 1;
+            } else {
+                r = i;
             }
         }
-        // 找出最多分类
-        for (Map.Entry&lt;String, Integer&gt; entry : typeCountMap.entrySet()) {
-            if (entry.getValue() &gt; tempVal) {
-                tempVal = entry.getValue();
-                type = entry.getKey();
-            }
+        while (l &lt; r) {
+            char t = arr[l];
+            arr[l] = arr[r];
+            arr[r] = t;
+            l++;
+            r--;
         }
-        return type;
+        return new String(arr);
     }
+</code></pre><blockquote>
+<p>两次的执行结果</p>
+</blockquote>
+<p><img src="http://ptyodd4up.bkt.clouddn.com/leecode712.png" alt="执行结果比较" title="执行结果比较.jpg"></p>
 
-    /**
-     * KNN 算法的实现
-     *
-     * @param k
-     * @param knnModelList
-     * @param inputModel
-     * @return
-     */
-    public static String calKNN(int k, List&lt;KNNModel&gt; knnModelList, KNNModel inputModel) {
-        System.out.println(&quot;1.计算距离&quot;);
-        calDistince(knnModelList, inputModel);
-        System.out.println(&quot;2.按距离（近--&gt;远）排序&quot;);
-        Collections.sort(knnModelList);
-        System.out.println(&quot;3.取前k个数据&quot;);
-        while (knnModelList.size() &gt; k) {
-            knnModelList.remove(k);
-        }
-        System.out.println(&quot;4.找出前k个数据中分类出现频率最大的数据&quot;);
-        String type = findMostData(knnModelList);
-        return type;
-    }
-
-    /**
-     * 测试KNN算法
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        // 准备数据
-        List&lt;KNNModel&gt; knnModelList = new ArrayList&lt;KNNModel&gt;();
-        knnModelList.add(new KNNModel(1.1, 1.1, 1.1, &quot;A&quot;));
-        knnModelList.add(new KNNModel(1.2, 1.1, 1.0, &quot;A&quot;));
-        knnModelList.add(new KNNModel(1.1, 1.0, 1.0, &quot;A&quot;));
-        knnModelList.add(new KNNModel(3.0, 3.1, 1.0, &quot;B&quot;));
-        knnModelList.add(new KNNModel(3.1, 3.0, 1.0, &quot;B&quot;));
-        knnModelList.add(new KNNModel(5.4, 6.0, 4.0, &quot;C&quot;));
-        knnModelList.add(new KNNModel(5.5, 6.3, 4.1, &quot;C&quot;));
-        knnModelList.add(new KNNModel(6.0, 6.0, 4.0, &quot;C&quot;));
-        knnModelList.add(new KNNModel(10.0, 12.0, 10.0, &quot;M&quot;));
-        // 预测数据
-        KNNModel predictionData = new KNNModel(5.1, 6.2, 2.0, &quot;NB&quot;);
-        // 计算
-        String result = calKNN(3, knnModelList, predictionData);
-        System.out.println(&quot;预测结果：&quot;+result);
-    }
-}</code></pre><p>Python 代码</p>
-<pre><code>#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
-from numpy import *
-import operator
-
-def createDataSet():
-    &#39;创建数据集&#39;
-    group=array([[1.0,1.1],[1.0,1.0],[0,0],[0,1.1]])
-    labels=[&quot;A&quot;,&quot;A&quot;,&quot;B&quot;,&quot;B&quot;]
-    return group,labels
-
-def classify(inX,dataSet,labels,k):
-    # 获取维度
-    dataSetSize=dataSet.shape[0]   # 训练数据集数量
-    print dataSetSize
-    print tile(inX,(dataSetSize,1))
-    diffMat=tile(inX,(dataSetSize,1))-dataSet  # 测试样本的各维度的差值
-    print diffMat
-    sqDiffMat=diffMat**2  # 平方计算
-    print sqDiffMat
-    sqDistance=sqDiffMat.sum(axis=1)  # 输出每行的值
-    print sqDistance
-    distances=sqDistance**0.5   # 开方计算
-    print distances
-    sortedDistances=distances.argsort()   # 排序 按距离从小到大 输出索引
-    print sortedDistances
-    classCount={}
-    for i in range(k):
-        voteIlabel=labels[sortedDistances[i]]
-        classCount[voteIlabel]=classCount.get(voteIlabel,0)+1.0
-    sortedClassCount=sorted(classCount.iteritems(),key=operator.itemgetter(1),reverse=True)
-
-    return sortedClassCount[0][0]
-
-group,labels=createDataSet()
-res=classify([1,1],group,labels,3)
-print res
-</code></pre>
             </div>
             <hr/>
 
@@ -748,40 +665,27 @@ print res
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/07/01/LeetCode 第557题：反转字符串中的单词 III/">
+                <a href="/2019/07/02/LeetCode 第44题：通配符匹配/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="LeetCode 第 557 题：反转字符串中的单词">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="LeetCode 第 44 题：通配符匹配">
                         
-                        <span class="card-title">LeetCode 第 557 题：反转字符串中的单词</span>
+                        <span class="card-title">LeetCode 第 44 题：通配符匹配</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-
-
-题目地址
-题解
-
-
-
-LeetCode 第 557 题：反转字符串中的单词.
-字符串处理
-
-
-LeetCode 第 557 题：反转字符串中的单词
-空间设想
-
-一 . 利用StringBuffer reverse()方法
-令n为旧字符
+                            给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 ‘?’ 和 ‘*’ 的通配符匹配。
+‘?’ 可以匹配任何单个字符。‘*’ 可以匹配任意字符串（包括空字符串）。两个字符串完全匹配才算匹配成功。
+说明:
+s 可能为空，且只包含从
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-01
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-02
                         </span>
                         <span class="publish-author">
                             
@@ -798,6 +702,18 @@ LeetCode 第 557 题：反转字符串中的单词
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/贪心算法/" target="_blank">
+                        <span class="chip bg-color">贪心算法</span>
+                    </a>
+                    
+                    <a href="/tags/动态规划/" target="_blank">
+                        <span class="chip bg-color">动态规划</span>
+                    </a>
+                    
+                    <a href="/tags/回溯算法/" target="_blank">
+                        <span class="chip bg-color">回溯算法</span>
+                    </a>
+                    
                     <a href="/tags/字符串/" target="_blank">
                         <span class="chip bg-color">字符串</span>
                     </a>
@@ -813,25 +729,24 @@ LeetCode 第 557 题：反转字符串中的单词
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/06/28/经典算法问题：编辑距离算法/">
+                <a href="/2019/06/29/经典算法问题：K近邻算法/">
                     <div class="card-image">
                         
+                        <img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95.png" class="responsive-img" alt="经典算法问题：K近邻算法">
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="经典算法问题：编辑距离算法">
-                        
-                        <span class="card-title">经典算法问题：编辑距离算法</span>
+                        <span class="card-title">经典算法问题：K近邻算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            经典算法问题：编辑距离算法
-编辑距离，又称Levenshtein距离（也叫做Edit Distance），是指两个字串之间，由一个转成另一个所需的最少编辑操作次数，如果它们的距离越大，说明它们越是不同。许可的编辑操作包括将一个字符替换成另一
+                            经典算法问题：K近邻算法(KNN)
+K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成熟的方法，也是最简单的机器学习算法之一。该方法的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-28
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-29
                             </span>
                         <span class="publish-author">
                             
@@ -848,12 +763,12 @@ LeetCode 第 557 题：反转字符串中的单词
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/经典算法问题/" target="_blank">
-                        <span class="chip bg-color">经典算法问题</span>
+                    <a href="/tags/分类算法/" target="_blank">
+                        <span class="chip bg-color">分类算法</span>
                     </a>
                     
-                    <a href="/tags/推荐算法/" target="_blank">
-                        <span class="chip bg-color">推荐算法</span>
+                    <a href="/tags/经典算法问题/" target="_blank">
+                        <span class="chip bg-color">经典算法问题</span>
                     </a>
                     
                 </div>

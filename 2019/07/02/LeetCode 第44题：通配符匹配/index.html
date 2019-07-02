@@ -4,24 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="LeetCode 第 557 题：反转字符串中的单词, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="
-
-
-题目地址
-题解
-
-
-
-LeetCode 第 557 题：反转字符串中的单词.
-字符串处理
-
-
-LeetCode 第 557 题：反转字符串中的单词
-空间设想
-
-一 . 利用StringBuffer reverse()方法
-令n为旧字符">
+    <meta name="keywords" content="LeetCode 第 44 题：通配符匹配, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 ‘?’ 和 ‘*’ 的通配符匹配。
+‘?’ 可以匹配任何单个字符。‘*’ 可以匹配任意字符串（包括空字符串）。两个字符串完全匹配才算匹配成功。
+说明:
+s 可能为空，且只包含从">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -29,7 +16,7 @@ LeetCode 第 557 题：反转字符串中的单词
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>LeetCode 第 557 题：反转字符串中的单词 | 算法与数据结构、机器学习、深度学习</title>
+    <title>LeetCode 第 44 题：通配符匹配 | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -276,13 +263,13 @@ LeetCode 第 557 题：反转字符串中的单词
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        LeetCode 第 557 题：反转字符串中的单词
+                        LeetCode 第 44 题：通配符匹配
                     </div>
                 </div>
             </div>
@@ -393,6 +380,18 @@ LeetCode 第 557 题：反转字符串中的单词
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/贪心算法/" target="_blank">
+                                <span class="chip bg-color">贪心算法</span>
+                            </a>
+                        
+                            <a href="/tags/动态规划/" target="_blank">
+                                <span class="chip bg-color">动态规划</span>
+                            </a>
+                        
+                            <a href="/tags/回溯算法/" target="_blank">
+                                <span class="chip bg-color">回溯算法</span>
+                            </a>
+                        
                             <a href="/tags/字符串/" target="_blank">
                                 <span class="chip bg-color">字符串</span>
                             </a>
@@ -417,7 +416,7 @@ LeetCode 第 557 题：反转字符串中的单词
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-01
+                    2019-07-02
                 </div>
 
                 
@@ -433,81 +432,100 @@ LeetCode 第 557 题：反转字符串中的单词
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <table>
-<thead>
-<tr>
-<th>题目地址</th>
-<th>题解</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/" target="_blank" rel="noopener">LeetCode 第 557 题：反转字符串中的单词.</a></td>
-<td><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/solution/557-fan-zhuan-zi-fu-chuan-zhong-de-dan-ci-iii-ti-j/" target="_blank" rel="noopener">字符串处理</a></td>
-</tr>
-</tbody></table>
-<h2 id="LeetCode-第-557-题：反转字符串中的单词"><a href="#LeetCode-第-557-题：反转字符串中的单词" class="headerlink" title="LeetCode 第 557 题：反转字符串中的单词"></a>LeetCode 第 557 题：反转字符串中的单词</h2><ul>
-<li>空间设想<br><img src="http://ptyodd4up.bkt.clouddn.com/leecode711.png" alt="空间设想" title="设想.jpg"></li>
-</ul>
-<h3 id="一-利用StringBuffer-reverse-方法"><a href="#一-利用StringBuffer-reverse-方法" class="headerlink" title="一 . 利用StringBuffer reverse()方法"></a>一 . 利用StringBuffer reverse()方法</h3><ol>
-<li>令n为旧字符序列的长度，即在执行反向方法之前字符串缓冲区中包含的字符序列。</li>
-<li>新字符序列中索引k处的字符等于旧字符序列中索引n-k-1处的字符</li>
-</ol>
-<pre><code>public static String reverseWords(String soure) {
-        String target = &quot;&quot;;
-        //字符串拆分成数组
-        String[] temp = soure.split(&quot; &quot;);
-        for (int i = 0; i &lt; temp.length; i++) {
-            // 利用StringBuffer.reverse() 将字符逆序
-            if (i == temp.length - 1) {
-                target = target + new StringBuffer(temp[i]).reverse().toString();
-            } else {
-                target = target + new StringBuffer(temp[i]).reverse().append(&quot; &quot;).toString();
-            }
+                <p>给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 ‘?’ 和 ‘*’ 的通配符匹配。</p>
+<p>‘?’ 可以匹配任何单个字符。<br>‘*’ 可以匹配任意字符串（包括空字符串）。<br>两个字符串完全匹配才算匹配成功。</p>
+<pre><code>说明:
+s 可能为空，且只包含从 a-z 的小写字母。
+p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 *。</code></pre><pre><code>示例 1:
 
-        }
-        return target;
-    }</code></pre><h3 id="二-利用数组双指针思想"><a href="#二-利用数组双指针思想" class="headerlink" title="二 . 利用数组双指针思想"></a>二 . 利用数组双指针思想</h3><ol>
-<li>划分子数组</li>
-<li>子数组双指针交换；</li>
-<li>生成字符串</li>
-</ol>
-<pre><code>public static String reverseWords(String s) {
-        if (s == null || s.length() &lt; 2) {
-            return s;
-        }
-        // 将字符串转化为数组
-        char[] arr = s.toCharArray();
-        int l = 0;
-        int r = 0;
-        //
-        for (int i = 0; i &lt; arr.length; i++) {
-            if (arr[i] == &#39; &#39;) {
-                while (l &lt; r) {
-                    char t = arr[l];
-                    arr[l] = arr[r];
-                    arr[r] = t;
-                    l++;
-                    r--;
-                }
-                l = i + 1;
-                r = i + 1;
+输入:
+s = &quot;aa&quot;
+p = &quot;a&quot;
+输出: false
+解释: &quot;a&quot; 无法匹配 &quot;aa&quot; 整个字符串。</code></pre><pre><code>示例 2:
+
+输入:
+s = &quot;aa&quot;
+p = &quot;*&quot;
+输出: true
+解释: &#39;*&#39; 可以匹配任意字符串。</code></pre><pre><code>示例 3:
+
+输入:
+s = &quot;cb&quot;
+p = &quot;?a&quot;
+输出: false
+解释: &#39;?&#39; 可以匹配 &#39;c&#39;, 但第二个 &#39;a&#39; 无法匹配 &#39;b&#39;。</code></pre><pre><code>示例 4:
+
+输入:
+s = &quot;adceb&quot;
+p = &quot;*a*b&quot;
+输出: true
+解释: 第一个 &#39;*&#39; 可以匹配空字符串, 第二个 &#39;*&#39; 可以匹配字符串 &quot;dce&quot;.</code></pre><pre><code>示例 5:
+
+输入:
+s = &quot;acdcb&quot;
+p = &quot;a*c?b&quot;
+输入: false</code></pre><h2 id="LeetCode-第-44-题：通配符匹配"><a href="#LeetCode-第-44-题：通配符匹配" class="headerlink" title="LeetCode 第 44 题：通配符匹配"></a>LeetCode 第 44 题：通配符匹配</h2><h3 id="思路一-利用两个指针进行遍历"><a href="#思路一-利用两个指针进行遍历" class="headerlink" title="思路一: 利用两个指针进行遍历"></a>思路一: 利用两个指针进行遍历</h3><pre><code>public boolean isMatch(String s, String p) {
+        int sn = s.length();
+        int pn = p.length();
+        int i = 0;
+        int j = 0;
+        int start = -1;
+        int match = 0;
+        while (i &lt; sn) {
+            if (j &lt; pn &amp;&amp; (s.charAt(i) == p.charAt(j) || p.charAt(j) == &#39;?&#39;)) {
+                i++;
+                j++;
+            } else if (j &lt; pn &amp;&amp; p.charAt(j) == &#39;*&#39;) {
+                start = j;
+                match = i;
+                j++;
+            } else if (start != -1) {
+                j = start + 1;
+                match++;
+                i = match;
             } else {
-                r = i;
+                return false;
             }
         }
-        while (l &lt; r) {
-            char t = arr[l];
-            arr[l] = arr[r];
-            arr[r] = t;
-            l++;
-            r--;
+        while (j &lt; pn) {
+            if (p.charAt(j) != &#39;*&#39;) return false;
+            j++;
         }
-        return new String(arr);
+        return true;
+
+    }</code></pre><h3 id="思路二-动态规划"><a href="#思路二-动态规划" class="headerlink" title="思路二: 动态规划"></a>思路二: 动态规划</h3><p><code>dp[i][j]</code>表示<code>s</code>到<code>i</code>位置,<code>p</code>到<code>j</code>位置是否匹配!</p>
+<p>初始化:<br><code>dp[0][0]</code>:什么都没有,所以为true<br>第一行<code>dp[0][j]</code>,换句话说,<code>s</code>为空,与<code>p</code>匹配,所以只要<code>p</code>开始为<code>*</code>才为<code>true</code><br>第一列<code>dp[i][0]</code>,当然全部为<code>False</code><br>动态方程:</p>
+<p>如果<code>(s[i] == p[j] || p[j] == &quot;?&quot;)</code> &amp;&amp; <code>dp[i-1][j-1] ,有dp[i][j] = true</code></p>
+<p>如果<code>p[j] == &quot;*&quot; &amp;&amp; (dp[i-1][j] = true || dp[i][j-1] = true)</code>有<code>dp[i][j] = true</code></p>
+<h5 id="note"><a href="#note" class="headerlink" title="note:"></a>note:</h5><p>​    <code>dp[i-1][j]</code>,表示<code>*</code>代表是空字符,例如<code>ab,ab*</code></p>
+<p>​    <code>dp[i][j-1]</code>,表示<code>*</code>代表非空任何字符,例如<code>abcd,ab*</code></p>
+<pre><code>public boolean isMatch(String text, String pattern) {
+        // 多一维的空间，因为求 dp[len - 1][j] 的时候需要知道 dp[len][j] 的情况，
+        // 多一维的话，就可以把 对 dp[len - 1][j] 也写进循环了
+        boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
+        // dp[len][len] 代表两个空串是否匹配了，&quot;&quot; 和 &quot;&quot; ，当然是 true 了。
+        dp[text.length()][pattern.length()] = true;
+
+        // 从 len 开始减少
+        for (int i = text.length(); i &gt;= 0; i--) {
+            for (int j = pattern.length(); j &gt;= 0; j--) {
+                // dp[text.length()][pattern.length()] 已经进行了初始化
+                if (i == text.length() &amp;&amp; j == pattern.length())
+                    continue;
+                //相比之前增加了判断是否等于 *
+                boolean first_match = (i &lt; text.length() &amp;&amp; j &lt; pattern.length() &amp;&amp; (pattern.charAt(j) == text.charAt(i) || pattern.charAt(j) == &#39;?&#39; || pattern.charAt(j) == &#39;*&#39;));
+                if (j &lt; pattern.length() &amp;&amp; pattern.charAt(j) == &#39;*&#39;) {
+                    //将 * 跳过 和将字符匹配一个并且 pattern 不变两种情况
+                    dp[i][j] = dp[i][j + 1] || first_match &amp;&amp; dp[i + 1][j];
+                } else {
+                    dp[i][j] = first_match &amp;&amp; dp[i + 1][j + 1];
+                }
+            }
+        }
+        return dp[0][0];
     }
-</code></pre><blockquote>
-<p>两次的执行结果</p>
-</blockquote>
-<p><img src="http://ptyodd4up.bkt.clouddn.com/leecode712.png" alt="执行结果比较" title="执行结果比较.jpg"></p>
+</code></pre><h2 id="题目地址"><a href="#题目地址" class="headerlink" title=" 题目地址   "></a> 题目地址   </h2><p> <a href="https://leetcode-cn.com/problems/wildcard-matching/" target="_blank" rel="noopener">LeetCode 第 44 题：通配符匹配.</a>                    </p>
 
             </div>
             <hr/>
@@ -666,7 +684,72 @@ LeetCode 第 557 题：反转字符串中的单词
                 <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2019/07/01/LeetCode 第 557 题：反转字符串中的单词 III/">
+                <a href="/2019/07/02/LeetCode 第44题：通配符匹配/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="LeetCode 第 44 题：通配符匹配">
+                        
+                        <span class="card-title">LeetCode 第 44 题：通配符匹配</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 ‘?’ 和 ‘*’ 的通配符匹配。
+‘?’ 可以匹配任何单个字符。‘*’ 可以匹配任意字符串（包括空字符串）。两个字符串完全匹配才算匹配成功。
+说明:
+s 可能为空，且只包含从
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
+                                    leetcode 题解
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/贪心算法/" target="_blank">
+                        <span class="chip bg-color">贪心算法</span>
+                    </a>
+                    
+                    <a href="/tags/动态规划/" target="_blank">
+                        <span class="chip bg-color">动态规划</span>
+                    </a>
+                    
+                    <a href="/tags/回溯算法/" target="_blank">
+                        <span class="chip bg-color">回溯算法</span>
+                    </a>
+                    
+                    <a href="/tags/字符串/" target="_blank">
+                        <span class="chip bg-color">字符串</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/07/01/LeetCode 第557题：反转字符串中的单词 III/">
                     <div class="card-image">
                         
                         
@@ -713,65 +796,11 @@ LeetCode 第 557 题：反转字符串中的单词
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
                     <a href="/tags/字符串/" target="_blank">
                         <span class="chip bg-color">字符串</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/06/29/经典算法问题：K近邻算法/">
-                    <div class="card-image">
-                        
-                        <img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95.png" class="responsive-img" alt="经典算法问题：K近邻算法">
-                        
-                        <span class="card-title">经典算法问题：K近邻算法</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            经典算法问题：K近邻算法(KNN)
-K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成熟的方法，也是最简单的机器学习算法之一。该方法的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-29
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/经典算法问题/" class="post-category" target="_blank">
-                                    经典算法问题
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/分类算法/" target="_blank">
-                        <span class="chip bg-color">分类算法</span>
-                    </a>
-                    
-                    <a href="/tags/经典算法问题/" target="_blank">
-                        <span class="chip bg-color">经典算法问题</span>
                     </a>
                     
                 </div>
