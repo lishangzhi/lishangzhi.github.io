@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="经典算法问题：K近邻算法, 算法与数据结构">
+    <meta name="keywords" content="经典算法问题：K近邻算法, 算法与数据结构、机器学习、深度学习">
     <meta name="description" content="经典算法问题：K近邻算法(KNN)
 K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成熟的方法，也是最简单的机器学习算法之一。该方法的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>经典算法问题：K近邻算法 | 算法与数据结构</title>
+    <title>经典算法问题：K近邻算法 | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -42,7 +42,7 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">算法与数据结构</span>
+                    <span class="logo-span">算法与数据结构、机器学习、深度学习</span>
                 </a>
             </div>
             
@@ -117,7 +117,7 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">算法与数据结构</div>
+        <div class="logo-name">算法与数据结构、机器学习、深度学习</div>
         <div class="logo-desc">
             
             简单、诚实
@@ -554,45 +554,46 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <p>Python 代码</p>
-<pre><code>#!/usr/bin/python
-# -*- coding: utf-8 -*-
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!/usr/bin/python</span>
+<span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
 
-from numpy import *
-import operator
+<span class="token keyword">from</span> numpy <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">import</span> operator
 
-def createDataSet():
-    &#39;创建数据集&#39;
-    group=array([[1.0,1.1],[1.0,1.0],[0,0],[0,1.1]])
-    labels=[&quot;A&quot;,&quot;A&quot;,&quot;B&quot;,&quot;B&quot;]
-    return group,labels
+<span class="token keyword">def</span> <span class="token function">createDataSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token string">'创建数据集'</span>
+    group<span class="token operator">=</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">1.1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">1.0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1.1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    labels<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"A"</span><span class="token punctuation">,</span><span class="token string">"A"</span><span class="token punctuation">,</span><span class="token string">"B"</span><span class="token punctuation">,</span><span class="token string">"B"</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> group<span class="token punctuation">,</span>labels
 
-def classify(inX,dataSet,labels,k):
-    # 获取维度
-    dataSetSize=dataSet.shape[0]   # 训练数据集数量
-    print dataSetSize
-    print tile(inX,(dataSetSize,1))
-    diffMat=tile(inX,(dataSetSize,1))-dataSet  # 测试样本的各维度的差值
-    print diffMat
-    sqDiffMat=diffMat**2  # 平方计算
-    print sqDiffMat
-    sqDistance=sqDiffMat.sum(axis=1)  # 输出每行的值
-    print sqDistance
-    distances=sqDistance**0.5   # 开方计算
-    print distances
-    sortedDistances=distances.argsort()   # 排序 按距离从小到大 输出索引
-    print sortedDistances
-    classCount={}
-    for i in range(k):
-        voteIlabel=labels[sortedDistances[i]]
-        classCount[voteIlabel]=classCount.get(voteIlabel,0)+1.0
-    sortedClassCount=sorted(classCount.iteritems(),key=operator.itemgetter(1),reverse=True)
+<span class="token keyword">def</span> <span class="token function">classify</span><span class="token punctuation">(</span>inX<span class="token punctuation">,</span>dataSet<span class="token punctuation">,</span>labels<span class="token punctuation">,</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 获取维度</span>
+    dataSetSize<span class="token operator">=</span>dataSet<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>   <span class="token comment" spellcheck="true"># 训练数据集数量</span>
+    <span class="token keyword">print</span> dataSetSize
+    <span class="token keyword">print</span> tile<span class="token punctuation">(</span>inX<span class="token punctuation">,</span><span class="token punctuation">(</span>dataSetSize<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    diffMat<span class="token operator">=</span>tile<span class="token punctuation">(</span>inX<span class="token punctuation">,</span><span class="token punctuation">(</span>dataSetSize<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">-</span>dataSet  <span class="token comment" spellcheck="true"># 测试样本的各维度的差值</span>
+    <span class="token keyword">print</span> diffMat
+    sqDiffMat<span class="token operator">=</span>diffMat<span class="token operator">**</span><span class="token number">2</span>  <span class="token comment" spellcheck="true"># 平方计算</span>
+    <span class="token keyword">print</span> sqDiffMat
+    sqDistance<span class="token operator">=</span>sqDiffMat<span class="token punctuation">.</span>sum<span class="token punctuation">(</span>axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 输出每行的值</span>
+    <span class="token keyword">print</span> sqDistance
+    distances<span class="token operator">=</span>sqDistance<span class="token operator">**</span><span class="token number">0.5</span>   <span class="token comment" spellcheck="true"># 开方计算</span>
+    <span class="token keyword">print</span> distances
+    sortedDistances<span class="token operator">=</span>distances<span class="token punctuation">.</span>argsort<span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 排序 按距离从小到大 输出索引</span>
+    <span class="token keyword">print</span> sortedDistances
+    classCount<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        voteIlabel<span class="token operator">=</span>labels<span class="token punctuation">[</span>sortedDistances<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span>
+        classCount<span class="token punctuation">[</span>voteIlabel<span class="token punctuation">]</span><span class="token operator">=</span>classCount<span class="token punctuation">.</span>get<span class="token punctuation">(</span>voteIlabel<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1.0</span>
+    sortedClassCount<span class="token operator">=</span>sorted<span class="token punctuation">(</span>classCount<span class="token punctuation">.</span>iteritems<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>key<span class="token operator">=</span>operator<span class="token punctuation">.</span>itemgetter<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
 
-    return sortedClassCount[0][0]
+    <span class="token keyword">return</span> sortedClassCount<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
 
-group,labels=createDataSet()
-res=classify([1,1],group,labels,3)
-print res
+group<span class="token punctuation">,</span>labels<span class="token operator">=</span>createDataSet<span class="token punctuation">(</span><span class="token punctuation">)</span>
+res<span class="token operator">=</span>classify<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>group<span class="token punctuation">,</span>labels<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> res
 </code></pre>
+
             </div>
             <hr/>
 

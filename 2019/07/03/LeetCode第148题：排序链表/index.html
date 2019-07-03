@@ -4,9 +4,15 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="经典算法问题：编辑距离算法, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="经典算法问题：编辑距离算法
-编辑距离，又称Levenshtein距离（也叫做Edit Distance），是指两个字串之间，由一个转成另一个所需的最少编辑操作次数，如果它们的距离越大，说明它们越是不同。许可的编辑操作包括将一个字符替换成另一">
+    <meta name="keywords" content="LeetCode第148题：排序链表, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="LeetCode第148题：排序链表在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。
+示例 1:
+输入: 4-&gt;2-&gt;1-&gt;3
+输出: 1-&gt;2-&gt;3-&gt;4
+
+示例 2:
+输入: -1-&gt;5-&gt;3-&gt;4-&gt;0
+输出">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +20,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>经典算法问题：编辑距离算法 | 算法与数据结构、机器学习、深度学习</title>
+    <title>LeetCode第148题：排序链表 | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +267,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('http://ptyodd4up.bkt.clouddn.com/2019/7/3/16.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        经典算法问题：编辑距离算法
+                        LeetCode第148题：排序链表
                     </div>
                 </div>
             </div>
@@ -378,12 +384,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/经典算法问题/" target="_blank">
-                                <span class="chip bg-color">经典算法问题</span>
+                            <a href="/tags/归并排序/" target="_blank">
+                                <span class="chip bg-color">归并排序</span>
                             </a>
                         
-                            <a href="/tags/推荐算法/" target="_blank">
-                                <span class="chip bg-color">推荐算法</span>
+                            <a href="/tags/排序，链表/" target="_blank">
+                                <span class="chip bg-color">排序，链表</span>
                             </a>
                         
                     </div>
@@ -394,8 +400,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/经典算法问题/" class="post-category" target="_blank">
-                                经典算法问题
+                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
+                                leetcode 题解
                             </a>
                         
                     </div>
@@ -406,7 +412,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-06-28
+                    2019-07-03
                 </div>
 
                 
@@ -422,78 +428,109 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="经典算法问题：编辑距离算法"><a href="#经典算法问题：编辑距离算法" class="headerlink" title="经典算法问题：编辑距离算法"></a>经典算法问题：编辑距离算法</h2><blockquote>
-<p>编辑距离，又称Levenshtein距离（也叫做Edit Distance），是指两个字串之间，由一个转成另一个所需的最少编辑操作次数，如果它们的距离越大，说明它们越是不同。许可的编辑操作包括将一个字符替换成另一个字符，插入一个字符，删除一个字符。</p>
-</blockquote>
-<p>例如将kitten一字转成sitting：</p>
-<ol>
-<li>sitten （k→s）</li>
-<li>sittin （e→i）</li>
-<li>sitting （→g）</li>
-</ol>
-<p>俄罗斯科学家Vladimir Levenshtein在1965年提出这个概念。因此也叫Levenshtein Distance。</p>
-<h3 id="编辑距离递推公式"><a href="#编辑距离递推公式" class="headerlink" title="编辑距离递推公式"></a>编辑距离递推公式</h3><p>设字符串S，T长度分别为m, n，记S(i)为S从第1个字符到第i个字符之间的子串。S(0)表示空串，S(m)表示S本身。</p>
-<p>因此，S和T间的编辑距离，可由S(i)和T(j)的编辑距离计算而来。<br><img src="http://ptyodd4up.bkt.clouddn.com/%E7%BC%96%E8%B7%9D%E7%AE%97%E6%B3%95.png" alt="Edit Distance" title="屏幕截图.png"></p>
-<h3 id="基础案例"><a href="#基础案例" class="headerlink" title="基础案例"></a>基础案例</h3><ul>
-<li>如果str1=”ivan”，str2=”ivan”，那么经过计算后等于 0。没有经过转换。相似度=1-0/Math.Max(str1.length,str2.length)=1</li>
-<li>如果str1=”ivan1”，str2=”ivan2”，那么经过计算后等于1。str1的”1”转换”2”，转换了一个字符，所以距离是1，相似度=1-1/Math.Max(str1.length,str2.length)=0.8</li>
-</ul>
-<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
-<li>DNA分析</li>
-<li>拼字检查</li>
-<li>语音辨识 </li>
-<li>抄袭侦测</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><code>Java 代码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">EditDistance</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> sources<span class="token punctuation">,</span> String<span class="token punctuation">[</span><span class="token punctuation">]</span> targets<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> sourceLen <span class="token operator">=</span> sources<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> targetLen <span class="token operator">=</span> targets<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> d <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>sourceLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>targetLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> sourceLen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        d<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> targetLen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        d<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+                <h2 id="LeetCode第148题：排序链表"><a href="#LeetCode第148题：排序链表" class="headerlink" title="LeetCode第148题：排序链表"></a>LeetCode第148题：排序链表</h2><p>在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。</p>
+<pre class=" language-$xslt"><code class="language-$xslt">示例 1:
+输入: 4->2->1->3
+输出: 1->2->3->4
 
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> sourceLen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> targetLen<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>sources<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> targets<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                d<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> d<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">//插入</span>
-                <span class="token keyword">int</span> insert <span class="token operator">=</span> d<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">//删除</span>
-                <span class="token keyword">int</span> delete <span class="token operator">=</span> d<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">//替换</span>
-                <span class="token keyword">int</span> replace <span class="token operator">=</span> d<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                d<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>insert<span class="token punctuation">,</span> delete<span class="token punctuation">)</span> <span class="token operator">></span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>delete<span class="token punctuation">,</span> replace<span class="token punctuation">)</span> <span class="token operator">?</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>delete<span class="token punctuation">,</span> replace<span class="token punctuation">)</span> <span class="token operator">:</span>
-                        Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>insert<span class="token punctuation">,</span> delete<span class="token punctuation">)</span><span class="token punctuation">;</span>
+示例 2:
+输入: -1->5->3->4->0
+输出: -1->0->3->4->5</code></pre>
+<h3 id="“单链表”自底向上实现”归并排序”"><a href="#“单链表”自底向上实现”归并排序”" class="headerlink" title="“单链表”自底向上实现”归并排序”"></a>“单链表”自底向上实现”归并排序”</h3><p><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/1.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-1" title="配图-1.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/2.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-2" title="配图-2.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/3.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-3" title="配图-3.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/4.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-4" title="配图-4.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/5.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-5" title="配图-5.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/6.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-6" title="配图-6.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/7.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-7" title="配图-7.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/8.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-8" title="配图-8.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/9.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-9" title="配图-9.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/10.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-10" title="配图-10.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/11.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-11" title="配图-11.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/12.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-12" title="配图-12.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/13.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-13" title="配图-13.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/14.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-14" title="配图-14.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/15.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-15" title="配图-15.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/16.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-16" title="配图-16.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/17.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-17" title="配图-17.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/18.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-18" title="配图-18.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/19.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-19" title="配图-19.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/20.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-20" title="配图-20.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/21.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-21" title="配图-21.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/22.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-22" title="配图-22.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/23.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-23" title="配图-23.png"><br><img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/24.png" alt="&quot;单链表&quot;自底向上实现&quot;归并排序&quot;题解配图-24" title="配图-24.png"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>lishangzhi<span class="token punctuation">.</span>test<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/**
+ * @Author: lishangzhi
+ * @Date: 2019/7/3
+ * @Description: &lt;自下而上进行归并>
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MergeSort</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     *     int val;
+     *     ListNode next;
+     *     ListNode(int x) { val = x; }
+     * }
+     */</span>
+
+    <span class="token keyword">public</span> ListNode <span class="token function">sortList</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 这里设置 64 ，是一个绰绰有余的数字，可以满足结点数量为 2^64 这么多的单链表的排序</span>
+        ListNode<span class="token punctuation">[</span><span class="token punctuation">]</span> counter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        ListNode curNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 遍历到的最大的 counter 数组的索引</span>
+        <span class="token keyword">int</span> maxIndex <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>curNode <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 先把当前元素暂存起来，马上我们就要把它放到 counter 数组合适的位置上</span>
+            ListNode carryNode <span class="token operator">=</span> curNode<span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// curNode 指针马上后移，方便下次处理</span>
+            curNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 拿出的节点就和原来的链表没有关系了，我们在 counter 数组中完成排序，所以要切断它和原链表的关系</span>
+            carryNode<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 尝试从 counter 数组 0 号索引开始放置</span>
+            <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 只要非空当前位置非空，就进行一次 merge，merge 以后尝试放到下一格，如果下一格非空就继续合并</span>
+            <span class="token comment" spellcheck="true">// 合并以后再尝试放到下一格，直到下一格为空，直接放在那个为空的下一格就好</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>counter<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                ListNode newMergeNode <span class="token operator">=</span> <span class="token function">mergeOfTwoSortedListNode</span><span class="token punctuation">(</span>carryNode<span class="token punctuation">,</span> counter<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                counter<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> null<span class="token punctuation">;</span>
+                i<span class="token operator">++</span><span class="token punctuation">;</span>
+                carryNode <span class="token operator">=</span> newMergeNode<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// 遇到了空，就把 carryNode 放在数组的这个位置上</span>
+            counter<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> carryNode<span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 记录最多使用到 counter 数组的第几位，最后合并的时候要用上</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">></span> maxIndex<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                maxIndex <span class="token operator">=</span> i<span class="token punctuation">;</span>
             <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 遍历整个 count 数组，将它们全部归并，这个操作就和归并 n 个有序单链表是一样的了，我们这里采用两两归并</span>
+        ListNode res <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> maxIndex<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>counter<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                res <span class="token operator">=</span> <span class="token function">mergeOfTwoSortedListNode</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> counter<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> d<span class="token punctuation">[</span>sourceLen<span class="token punctuation">]</span><span class="token punctuation">[</span>targetLen<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p><code>Python 代码</code></p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">edit_distance</span><span class="token punctuation">(</span>sources<span class="token punctuation">,</span> targets<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    len1 <span class="token operator">=</span> len<span class="token punctuation">(</span>sources<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    len2 <span class="token operator">=</span> len<span class="token punctuation">(</span>targets<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    dp <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span>len1 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>len2 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>len1 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>     
-    <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>len2 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> j<span class="token punctuation">;</span>
 
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> len1 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> len2 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            delta <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">if</span> sources<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token operator">==</span> targets<span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token keyword">else</span> <span class="token number">1</span>
-            dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> min<span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> delta<span class="token punctuation">,</span> min<span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> dp<span class="token punctuation">[</span>len1<span class="token punctuation">]</span><span class="token punctuation">[</span>len2<span class="token punctuation">]</span></code></pre>
-<h3 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h3><p><code>Java 代码</code></p>
-<pre class=" language-java"><code class="language-java">String<span class="token punctuation">[</span><span class="token punctuation">]</span> sources <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"打球"</span><span class="token punctuation">,</span><span class="token string">"爬山"</span><span class="token punctuation">,</span><span class="token string">"跑步"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-String<span class="token punctuation">[</span><span class="token punctuation">]</span> targets <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"打球"</span><span class="token punctuation">,</span><span class="token string">"爬山"</span><span class="token punctuation">,</span><span class="token string">"跑步"</span><span class="token punctuation">,</span><span class="token string">"看书"</span><span class="token punctuation">,</span><span class="token string">"游泳"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/**
+     * 归并两个已经排好序的单链表，是我们非常熟悉的操作了，可以递归完成，也可以穿针引线，这里我们递归完成
+     *
+     * @param l1 顺序存放的单链表1
+     * @param l2 顺序存放的单链表2
+     * @return 合并以后的单链表
+     */</span>
+    <span class="token keyword">private</span> ListNode <span class="token function">mergeOfTwoSortedListNode</span><span class="token punctuation">(</span>ListNode l1<span class="token punctuation">,</span> ListNode l2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>l1 <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> l2<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>l2 <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> l1<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>l1<span class="token punctuation">.</span>val <span class="token operator">&lt;</span> l2<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            l1<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token function">mergeOfTwoSortedListNode</span><span class="token punctuation">(</span>l1<span class="token punctuation">.</span>next<span class="token punctuation">,</span> l2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> l1<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            l2<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token function">mergeOfTwoSortedListNode</span><span class="token punctuation">(</span>l1<span class="token punctuation">,</span> l2<span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> l2<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-返回结果 ：<span class="token number">2</span></code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//定义长度为5的单链表</span>
+        ListNode head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        MergeSort solution2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MergeSort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ListNode sortList <span class="token operator">=</span> solution2<span class="token punctuation">.</span><span class="token function">sortList</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>sortList<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="题目地址"><a href="#题目地址" class="headerlink" title=" 题目地址   "></a> 题目地址   </h2><p> <a href="https://leetcode-cn.com/problems/sort-list/" target="_blank" rel="noopener">LeetCode第148题：排序链表.</a>    </p>
 
             </div>
             <hr/>
@@ -647,50 +684,58 @@ String<span class="token punctuation">[</span><span class="token punctuation">]<
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/06/29/经典算法问题：K近邻算法/">
+                <a href="/2019/07/03/LeetCode第148题：排序链表/">
                     <div class="card-image">
                         
-                        <img src="http://ptyodd4up.bkt.clouddn.com/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95.png" class="responsive-img" alt="经典算法问题：K近邻算法">
+                        <img src="http://ptyodd4up.bkt.clouddn.com/2019/7/3/16.png" class="responsive-img" alt="LeetCode第148题：排序链表">
                         
-                        <span class="card-title">经典算法问题：K近邻算法</span>
+                        <span class="card-title">LeetCode第148题：排序链表</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            经典算法问题：K近邻算法(KNN)
-K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成熟的方法，也是最简单的机器学习算法之一。该方法的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本
+                            LeetCode第148题：排序链表在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。
+示例 1:
+输入: 4->2->1->3
+输出: 1->2->3->4
+
+示例 2:
+输入: -1->5->3->4->0
+输出
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/经典算法问题/" class="post-category" target="_blank">
-                                    经典算法问题
+                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
+                                    leetcode 题解
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/分类算法/" target="_blank">
-                        <span class="chip bg-color">分类算法</span>
+                    <a href="/tags/归并排序/" target="_blank">
+                        <span class="chip bg-color">归并排序</span>
                     </a>
                     
-                    <a href="/tags/经典算法问题/" target="_blank">
-                        <span class="chip bg-color">经典算法问题</span>
+                    <a href="/tags/排序，链表/" target="_blank">
+                        <span class="chip bg-color">排序，链表</span>
                     </a>
                     
                 </div>
@@ -704,36 +749,34 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/06/27/经典算法问题：数组中的逆序对/">
+                <a href="/2019/07/02/LeetCode 第44题：通配符匹配/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="经典算法问题：数组中的逆序对">
                         
-                        <span class="card-title">经典算法问题：数组中的逆序对</span>
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="LeetCode 第 44 题：通配符匹配">
+                        
+                        <span class="card-title">LeetCode 第 44 题：通配符匹配</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            经典算法问题：数组中的逆序对
-在数组中的两个数字如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。
-
-  输入一个数组，求出这个数组中的逆序对的总数。
-输入：[1,2,3,4,5,6,0]
- 输出：6
-思路1：使用定义挨个数出来，
+                            给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 ‘?’ 和 ‘*’ 的通配符匹配。
+‘?’ 可以匹配任何单个字符。‘*’ 可以匹配任意字符串（包括空字符串）。两个字符串完全匹配才算匹配成功。
+说明:
+s 可能为空，且只包含从
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-27
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-02
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/经典算法问题/" class="post-category" target="_blank">
-                                    经典算法问题
+                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
+                                    leetcode 题解
                                 </a>
                             
                             
@@ -743,8 +786,20 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/经典算法问题/" target="_blank">
-                        <span class="chip bg-color">经典算法问题</span>
+                    <a href="/tags/贪心算法/" target="_blank">
+                        <span class="chip bg-color">贪心算法</span>
+                    </a>
+                    
+                    <a href="/tags/动态规划/" target="_blank">
+                        <span class="chip bg-color">动态规划</span>
+                    </a>
+                    
+                    <a href="/tags/回溯算法/" target="_blank">
+                        <span class="chip bg-color">回溯算法</span>
+                    </a>
+                    
+                    <a href="/tags/字符串/" target="_blank">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
