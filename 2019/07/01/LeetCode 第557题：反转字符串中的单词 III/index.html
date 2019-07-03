@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="LeetCode 第 557 题：反转字符串中的单词, 算法与数据结构、机器学习、深度学习">
+    <meta name="keywords" content="LeetCode 第 557 题：反转字符串中的单词, 算法与数据结构">
     <meta name="description" content="
 
 
@@ -29,7 +29,7 @@ LeetCode 第 557 题：反转字符串中的单词
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>LeetCode 第 557 题：反转字符串中的单词 | 算法与数据结构、机器学习、深度学习</title>
+    <title>LeetCode 第 557 题：反转字符串中的单词 | 算法与数据结构</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -57,7 +57,7 @@ LeetCode 第 557 题：反转字符串中的单词
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">算法与数据结构、机器学习、深度学习</span>
+                    <span class="logo-span">算法与数据结构</span>
                 </a>
             </div>
             
@@ -132,7 +132,7 @@ LeetCode 第 557 题：反转字符串中的单词
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">算法与数据结构、机器学习、深度学习</div>
+        <div class="logo-name">算法与数据结构</div>
         <div class="logo-desc">
             
             简单、诚实
@@ -452,59 +452,61 @@ LeetCode 第 557 题：反转字符串中的单词
 <li>令n为旧字符序列的长度，即在执行反向方法之前字符串缓冲区中包含的字符序列。</li>
 <li>新字符序列中索引k处的字符等于旧字符序列中索引n-k-1处的字符</li>
 </ol>
-<pre><code>public static String reverseWords(String soure) {
-        String target = &quot;&quot;;
-        //字符串拆分成数组
-        String[] temp = soure.split(&quot; &quot;);
-        for (int i = 0; i &lt; temp.length; i++) {
-            // 利用StringBuffer.reverse() 将字符逆序
-            if (i == temp.length - 1) {
-                target = target + new StringBuffer(temp[i]).reverse().toString();
-            } else {
-                target = target + new StringBuffer(temp[i]).reverse().append(&quot; &quot;).toString();
-            }
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">reverseWords</span><span class="token punctuation">(</span>String soure<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String target <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//字符串拆分成数组</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> soure<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> temp<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 利用StringBuffer.reverse() 将字符逆序</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> temp<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                target <span class="token operator">=</span> target <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span>temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                target <span class="token operator">=</span> target <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span>temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-        }
-        return target;
-    }</code></pre><h3 id="二-利用数组双指针思想"><a href="#二-利用数组双指针思想" class="headerlink" title="二 . 利用数组双指针思想"></a>二 . 利用数组双指针思想</h3><ol>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> target<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="二-利用数组双指针思想"><a href="#二-利用数组双指针思想" class="headerlink" title="二 . 利用数组双指针思想"></a>二 . 利用数组双指针思想</h3><ol>
 <li>划分子数组</li>
 <li>子数组双指针交换；</li>
 <li>生成字符串</li>
 </ol>
-<pre><code>public static String reverseWords(String s) {
-        if (s == null || s.length() &lt; 2) {
-            return s;
-        }
-        // 将字符串转化为数组
-        char[] arr = s.toCharArray();
-        int l = 0;
-        int r = 0;
-        //
-        for (int i = 0; i &lt; arr.length; i++) {
-            if (arr[i] == &#39; &#39;) {
-                while (l &lt; r) {
-                    char t = arr[l];
-                    arr[l] = arr[r];
-                    arr[r] = t;
-                    l++;
-                    r--;
-                }
-                l = i + 1;
-                r = i + 1;
-            } else {
-                r = i;
-            }
-        }
-        while (l &lt; r) {
-            char t = arr[l];
-            arr[l] = arr[r];
-            arr[r] = t;
-            l++;
-            r--;
-        }
-        return new String(arr);
-    }
-</code></pre><blockquote>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">reverseWords</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">==</span> null <span class="token operator">||</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> s<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 将字符串转化为数组</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> r <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">' '</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">char</span> t <span class="token operator">=</span> arr<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    arr<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    arr<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">;</span>
+                    l<span class="token operator">++</span><span class="token punctuation">;</span>
+                    r<span class="token operator">--</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                l <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                r <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                r <span class="token operator">=</span> i<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">char</span> t <span class="token operator">=</span> arr<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            arr<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            arr<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">;</span>
+            l<span class="token operator">++</span><span class="token punctuation">;</span>
+            r<span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
 <p>两次的执行结果</p>
 </blockquote>
 <p><img src="http://ptyodd4up.bkt.clouddn.com/leecode712.png" alt="执行结果比较" title="执行结果比较.jpg"></p>

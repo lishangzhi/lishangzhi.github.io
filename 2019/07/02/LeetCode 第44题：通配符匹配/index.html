@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="LeetCode 第 44 题：通配符匹配, 算法与数据结构、机器学习、深度学习">
+    <meta name="keywords" content="LeetCode 第 44 题：通配符匹配, 算法与数据结构">
     <meta name="description" content="给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 ‘?’ 和 ‘*’ 的通配符匹配。
 ‘?’ 可以匹配任何单个字符。‘*’ 可以匹配任意字符串（包括空字符串）。两个字符串完全匹配才算匹配成功。
 说明:
@@ -16,7 +16,7 @@ s 可能为空，且只包含从">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>LeetCode 第 44 题：通配符匹配 | 算法与数据结构、机器学习、深度学习</title>
+    <title>LeetCode 第 44 题：通配符匹配 | 算法与数据结构</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -44,7 +44,7 @@ s 可能为空，且只包含从">
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">算法与数据结构、机器学习、深度学习</span>
+                    <span class="logo-span">算法与数据结构</span>
                 </a>
             </div>
             
@@ -119,7 +119,7 @@ s 可能为空，且只包含从">
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">算法与数据结构、机器学习、深度学习</div>
+        <div class="logo-name">算法与数据结构</div>
         <div class="logo-desc">
             
             简单、诚实
@@ -465,67 +465,69 @@ p = &quot;*a*b&quot;
 输入:
 s = &quot;acdcb&quot;
 p = &quot;a*c?b&quot;
-输入: false</code></pre><h2 id="LeetCode-第-44-题：通配符匹配"><a href="#LeetCode-第-44-题：通配符匹配" class="headerlink" title="LeetCode 第 44 题：通配符匹配"></a>LeetCode 第 44 题：通配符匹配</h2><h3 id="思路一-利用两个指针进行遍历"><a href="#思路一-利用两个指针进行遍历" class="headerlink" title="思路一: 利用两个指针进行遍历"></a>思路一: 利用两个指针进行遍历</h3><pre><code>public boolean isMatch(String s, String p) {
-        int sn = s.length();
-        int pn = p.length();
-        int i = 0;
-        int j = 0;
-        int start = -1;
-        int match = 0;
-        while (i &lt; sn) {
-            if (j &lt; pn &amp;&amp; (s.charAt(i) == p.charAt(j) || p.charAt(j) == &#39;?&#39;)) {
-                i++;
-                j++;
-            } else if (j &lt; pn &amp;&amp; p.charAt(j) == &#39;*&#39;) {
-                start = j;
-                match = i;
-                j++;
-            } else if (start != -1) {
-                j = start + 1;
-                match++;
-                i = match;
-            } else {
-                return false;
-            }
-        }
-        while (j &lt; pn) {
-            if (p.charAt(j) != &#39;*&#39;) return false;
-            j++;
-        }
-        return true;
+输入: false</code></pre><h2 id="LeetCode-第-44-题：通配符匹配"><a href="#LeetCode-第-44-题：通配符匹配" class="headerlink" title="LeetCode 第 44 题：通配符匹配"></a>LeetCode 第 44 题：通配符匹配</h2><h3 id="思路一-利用两个指针进行遍历"><a href="#思路一-利用两个指针进行遍历" class="headerlink" title="思路一: 利用两个指针进行遍历"></a>思路一: 利用两个指针进行遍历</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isMatch</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> sn <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> pn <span class="token operator">=</span> p<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> start <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> match <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> sn<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;</span> pn <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> p<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">||</span> p<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'?'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                i<span class="token operator">++</span><span class="token punctuation">;</span>
+                j<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;</span> pn <span class="token operator">&amp;&amp;</span> p<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'*'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                start <span class="token operator">=</span> j<span class="token punctuation">;</span>
+                match <span class="token operator">=</span> i<span class="token punctuation">;</span>
+                j<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                j <span class="token operator">=</span> start <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                match<span class="token operator">++</span><span class="token punctuation">;</span>
+                i <span class="token operator">=</span> match<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;</span> pn<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>p<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token string">'*'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            j<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 
-    }</code></pre><h3 id="思路二-动态规划"><a href="#思路二-动态规划" class="headerlink" title="思路二: 动态规划"></a>思路二: 动态规划</h3><p><code>dp[i][j]</code>表示<code>s</code>到<code>i</code>位置,<code>p</code>到<code>j</code>位置是否匹配!</p>
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="思路二-动态规划"><a href="#思路二-动态规划" class="headerlink" title="思路二: 动态规划"></a>思路二: 动态规划</h3><p><code>dp[i][j]</code>表示<code>s</code>到<code>i</code>位置,<code>p</code>到<code>j</code>位置是否匹配!</p>
 <p>初始化:<br><code>dp[0][0]</code>:什么都没有,所以为true<br>第一行<code>dp[0][j]</code>,换句话说,<code>s</code>为空,与<code>p</code>匹配,所以只要<code>p</code>开始为<code>*</code>才为<code>true</code><br>第一列<code>dp[i][0]</code>,当然全部为<code>False</code><br>动态方程:</p>
 <p>如果<code>(s[i] == p[j] || p[j] == &quot;?&quot;)</code> &amp;&amp; <code>dp[i-1][j-1] ,有dp[i][j] = true</code></p>
 <p>如果<code>p[j] == &quot;*&quot; &amp;&amp; (dp[i-1][j] = true || dp[i][j-1] = true)</code>有<code>dp[i][j] = true</code></p>
 <h5 id="note"><a href="#note" class="headerlink" title="note:"></a>note:</h5><p>​    <code>dp[i-1][j]</code>,表示<code>*</code>代表是空字符,例如<code>ab,ab*</code></p>
 <p>​    <code>dp[i][j-1]</code>,表示<code>*</code>代表非空任何字符,例如<code>abcd,ab*</code></p>
-<pre><code>public boolean isMatch(String text, String pattern) {
-        // 多一维的空间，因为求 dp[len - 1][j] 的时候需要知道 dp[len][j] 的情况，
-        // 多一维的话，就可以把 对 dp[len - 1][j] 也写进循环了
-        boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
-        // dp[len][len] 代表两个空串是否匹配了，&quot;&quot; 和 &quot;&quot; ，当然是 true 了。
-        dp[text.length()][pattern.length()] = true;
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isMatch</span><span class="token punctuation">(</span>String text<span class="token punctuation">,</span> String pattern<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 多一维的空间，因为求 dp[len - 1][j] 的时候需要知道 dp[len][j] 的情况，</span>
+        <span class="token comment" spellcheck="true">// 多一维的话，就可以把 对 dp[len - 1][j] 也写进循环了</span>
+        <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">boolean</span><span class="token punctuation">[</span>text<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>pattern<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// dp[len][len] 代表两个空串是否匹配了，"" 和 "" ，当然是 true 了。</span>
+        dp<span class="token punctuation">[</span>text<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">[</span>pattern<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 
-        // 从 len 开始减少
-        for (int i = text.length(); i &gt;= 0; i--) {
-            for (int j = pattern.length(); j &gt;= 0; j--) {
-                // dp[text.length()][pattern.length()] 已经进行了初始化
-                if (i == text.length() &amp;&amp; j == pattern.length())
-                    continue;
-                //相比之前增加了判断是否等于 *
-                boolean first_match = (i &lt; text.length() &amp;&amp; j &lt; pattern.length() &amp;&amp; (pattern.charAt(j) == text.charAt(i) || pattern.charAt(j) == &#39;?&#39; || pattern.charAt(j) == &#39;*&#39;));
-                if (j &lt; pattern.length() &amp;&amp; pattern.charAt(j) == &#39;*&#39;) {
-                    //将 * 跳过 和将字符匹配一个并且 pattern 不变两种情况
-                    dp[i][j] = dp[i][j + 1] || first_match &amp;&amp; dp[i + 1][j];
-                } else {
-                    dp[i][j] = first_match &amp;&amp; dp[i + 1][j + 1];
-                }
-            }
-        }
-        return dp[0][0];
-    }
-</code></pre><h2 id="题目地址"><a href="#题目地址" class="headerlink" title=" 题目地址   "></a> 题目地址   </h2><p> <a href="https://leetcode-cn.com/problems/wildcard-matching/" target="_blank" rel="noopener">LeetCode 第 44 题：通配符匹配.</a>                    </p>
+        <span class="token comment" spellcheck="true">// 从 len 开始减少</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> pattern<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> j <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// dp[text.length()][pattern.length()] 已经进行了初始化</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> text<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> j <span class="token operator">==</span> pattern<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//相比之前增加了判断是否等于 *</span>
+                <span class="token keyword">boolean</span> first_match <span class="token operator">=</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> text<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> j <span class="token operator">&lt;</span> pattern<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>pattern<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">==</span> text<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">||</span> pattern<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'?'</span> <span class="token operator">||</span> pattern<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'*'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;</span> pattern<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> pattern<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'*'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">//将 * 跳过 和将字符匹配一个并且 pattern 不变两种情况</span>
+                    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">||</span> first_match <span class="token operator">&amp;&amp;</span> dp<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> first_match <span class="token operator">&amp;&amp;</span> dp<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h2 id="题目地址"><a href="#题目地址" class="headerlink" title=" 题目地址   "></a> 题目地址   </h2><p> <a href="https://leetcode-cn.com/problems/wildcard-matching/" target="_blank" rel="noopener">LeetCode 第 44 题：通配符匹配.</a>                    </p>
 
             </div>
             <hr/>

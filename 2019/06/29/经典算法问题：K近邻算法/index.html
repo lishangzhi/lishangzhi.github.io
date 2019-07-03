@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="经典算法问题：K近邻算法, 算法与数据结构、机器学习、深度学习">
+    <meta name="keywords" content="经典算法问题：K近邻算法, 算法与数据结构">
     <meta name="description" content="经典算法问题：K近邻算法(KNN)
 K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成熟的方法，也是最简单的机器学习算法之一。该方法的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>经典算法问题：K近邻算法 | 算法与数据结构、机器学习、深度学习</title>
+    <title>经典算法问题：K近邻算法 | 算法与数据结构</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -42,7 +42,7 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">算法与数据结构、机器学习、深度学习</span>
+                    <span class="logo-span">算法与数据结构</span>
                 </a>
             </div>
             
@@ -117,7 +117,7 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">算法与数据结构、机器学习、深度学习</div>
+        <div class="logo-name">算法与数据结构</div>
         <div class="logo-desc">
             
             简单、诚实
@@ -435,124 +435,125 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
 <p>4）确定前K个点所在类别的出现频率；</p>
 <p>5）返回前K个点中出现频率最高的类别作为测试数据的预测分类。</p>
 <h3 id="四-代码"><a href="#四-代码" class="headerlink" title="四. 代码"></a>四. 代码</h3><p>Java 代码</p>
-<pre><code>public class KNN {
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">KNN</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * KNN数据模型
-     */
-    public static class KNNModel implements Comparable&lt;KNNModel&gt; {
-        public double a;
-        public double b;
-        public double c;
-        public double distince;
-        String type;
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">KNNModel</span> <span class="token keyword">implements</span> <span class="token class-name">Comparable</span><span class="token operator">&lt;</span>KNNModel<span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token keyword">public</span> <span class="token keyword">double</span> a<span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">double</span> b<span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">double</span> c<span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">double</span> distince<span class="token punctuation">;</span>
+        String type<span class="token punctuation">;</span>
 
-        public KNNModel(double a, double b, double c, String type) {
-            this.a = a;
-            this.b = b;
-            this.c = c;
-            this.type = type;
-        }
-        /**
+        <span class="token keyword">public</span> <span class="token function">KNNModel</span><span class="token punctuation">(</span><span class="token keyword">double</span> a<span class="token punctuation">,</span> <span class="token keyword">double</span> b<span class="token punctuation">,</span> <span class="token keyword">double</span> c<span class="token punctuation">,</span> String type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>a <span class="token operator">=</span> a<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>b <span class="token operator">=</span> b<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>c <span class="token operator">=</span> c<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>type <span class="token operator">=</span> type<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">/**
          * 按距离排序
          *
          * @param arg
          * @return
-         */
-        @Override
-        public int compareTo(KNNModel arg) {
-            return Double.valueOf(this.distince).compareTo(Double.valueOf(arg.distince));
-        }
-    }
+         */</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compareTo</span><span class="token punctuation">(</span>KNNModel arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> Double<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>distince<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>Double<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>arg<span class="token punctuation">.</span>distince<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 计算距离
      *
      * @param knnModelList
      * @param i
-     */
-    private static void calDistince(List&lt;KNNModel&gt; knnModelList, KNNModel i) {
-        double distince;
-        for (KNNModel m : knnModelList) {
-            distince = Math.sqrt((i.a - m.a) * (i.a - m.a) + (i.b - m.b) * (i.b - m.b) + (i.c - m.c) * (i.c - m.c));
-            m.distince = distince;
-        }
-    }
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">calDistince</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>KNNModel<span class="token operator">></span> knnModelList<span class="token punctuation">,</span> KNNModel i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">double</span> distince<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>KNNModel m <span class="token operator">:</span> knnModelList<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            distince <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">sqrt</span><span class="token punctuation">(</span><span class="token punctuation">(</span>i<span class="token punctuation">.</span>a <span class="token operator">-</span> m<span class="token punctuation">.</span>a<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>i<span class="token punctuation">.</span>a <span class="token operator">-</span> m<span class="token punctuation">.</span>a<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span>i<span class="token punctuation">.</span>b <span class="token operator">-</span> m<span class="token punctuation">.</span>b<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>i<span class="token punctuation">.</span>b <span class="token operator">-</span> m<span class="token punctuation">.</span>b<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span>i<span class="token punctuation">.</span>c <span class="token operator">-</span> m<span class="token punctuation">.</span>c<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>i<span class="token punctuation">.</span>c <span class="token operator">-</span> m<span class="token punctuation">.</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            m<span class="token punctuation">.</span>distince <span class="token operator">=</span> distince<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 找出前k个数据中分类最多的数据
      *
      * @param knnModelList
      * @return
-     */
-    private static String findMostData(List&lt;KNNModel&gt; knnModelList) {
-        Map&lt;String, Integer&gt; typeCountMap = new HashMap&lt;String, Integer&gt;();
-        String type = &quot;&quot;;
-        Integer tempVal = 0;
-        // 统计分类个数
-        for (KNNModel model : knnModelList) {
-            if (typeCountMap.containsKey(model.type)) {
-                typeCountMap.put(model.type, typeCountMap.get(model.type) + 1);
-            } else {
-                typeCountMap.put(model.type, 1);
-            }
-        }
-        // 找出最多分类
-        for (Map.Entry&lt;String, Integer&gt; entry : typeCountMap.entrySet()) {
-            if (entry.getValue() &gt; tempVal) {
-                tempVal = entry.getValue();
-                type = entry.getKey();
-            }
-        }
-        return type;
-    }
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> String <span class="token function">findMostData</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>KNNModel<span class="token operator">></span> knnModelList<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Integer<span class="token operator">></span> typeCountMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String type <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        Integer tempVal <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 统计分类个数</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>KNNModel model <span class="token operator">:</span> knnModelList<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>typeCountMap<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>model<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                typeCountMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>model<span class="token punctuation">.</span>type<span class="token punctuation">,</span> typeCountMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>model<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                typeCountMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>model<span class="token punctuation">.</span>type<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 找出最多分类</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Map<span class="token punctuation">.</span>Entry<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Integer<span class="token operator">></span> entry <span class="token operator">:</span> typeCountMap<span class="token punctuation">.</span><span class="token function">entrySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>entry<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> tempVal<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                tempVal <span class="token operator">=</span> entry<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                type <span class="token operator">=</span> entry<span class="token punctuation">.</span><span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> type<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * KNN 算法的实现
      *
      * @param k
      * @param knnModelList
      * @param inputModel
      * @return
-     */
-    public static String calKNN(int k, List&lt;KNNModel&gt; knnModelList, KNNModel inputModel) {
-        System.out.println(&quot;1.计算距离&quot;);
-        calDistince(knnModelList, inputModel);
-        System.out.println(&quot;2.按距离（近--&gt;远）排序&quot;);
-        Collections.sort(knnModelList);
-        System.out.println(&quot;3.取前k个数据&quot;);
-        while (knnModelList.size() &gt; k) {
-            knnModelList.remove(k);
-        }
-        System.out.println(&quot;4.找出前k个数据中分类出现频率最大的数据&quot;);
-        String type = findMostData(knnModelList);
-        return type;
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">calKNN</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>KNNModel<span class="token operator">></span> knnModelList<span class="token punctuation">,</span> KNNModel inputModel<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1.计算距离"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">calDistince</span><span class="token punctuation">(</span>knnModelList<span class="token punctuation">,</span> inputModel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2.按距离（近-->远）排序"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Collections<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>knnModelList<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3.取前k个数据"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>knnModelList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            knnModelList<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"4.找出前k个数据中分类出现频率最大的数据"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String type <span class="token operator">=</span> <span class="token function">findMostData</span><span class="token punctuation">(</span>knnModelList<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> type<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 测试KNN算法
      *
      * @param args
-     */
-    public static void main(String[] args) {
-        // 准备数据
-        List&lt;KNNModel&gt; knnModelList = new ArrayList&lt;KNNModel&gt;();
-        knnModelList.add(new KNNModel(1.1, 1.1, 1.1, &quot;A&quot;));
-        knnModelList.add(new KNNModel(1.2, 1.1, 1.0, &quot;A&quot;));
-        knnModelList.add(new KNNModel(1.1, 1.0, 1.0, &quot;A&quot;));
-        knnModelList.add(new KNNModel(3.0, 3.1, 1.0, &quot;B&quot;));
-        knnModelList.add(new KNNModel(3.1, 3.0, 1.0, &quot;B&quot;));
-        knnModelList.add(new KNNModel(5.4, 6.0, 4.0, &quot;C&quot;));
-        knnModelList.add(new KNNModel(5.5, 6.3, 4.1, &quot;C&quot;));
-        knnModelList.add(new KNNModel(6.0, 6.0, 4.0, &quot;C&quot;));
-        knnModelList.add(new KNNModel(10.0, 12.0, 10.0, &quot;M&quot;));
-        // 预测数据
-        KNNModel predictionData = new KNNModel(5.1, 6.2, 2.0, &quot;NB&quot;);
-        // 计算
-        String result = calKNN(3, knnModelList, predictionData);
-        System.out.println(&quot;预测结果：&quot;+result);
-    }
-}</code></pre><p>Python 代码</p>
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 准备数据</span>
+        List<span class="token operator">&lt;</span>KNNModel<span class="token operator">></span> knnModelList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>KNNModel<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        knnModelList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">,</span> <span class="token number">1.1</span><span class="token punctuation">,</span> <span class="token number">1.1</span><span class="token punctuation">,</span> <span class="token string">"A"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        knnModelList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">1.2</span><span class="token punctuation">,</span> <span class="token number">1.1</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token string">"A"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        knnModelList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token string">"A"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        knnModelList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">3.0</span><span class="token punctuation">,</span> <span class="token number">3.1</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token string">"B"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        knnModelList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">3.1</span><span class="token punctuation">,</span> <span class="token number">3.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token string">"B"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        knnModelList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">5.4</span><span class="token punctuation">,</span> <span class="token number">6.0</span><span class="token punctuation">,</span> <span class="token number">4.0</span><span class="token punctuation">,</span> <span class="token string">"C"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        knnModelList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">5.5</span><span class="token punctuation">,</span> <span class="token number">6.3</span><span class="token punctuation">,</span> <span class="token number">4.1</span><span class="token punctuation">,</span> <span class="token string">"C"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        knnModelList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">6.0</span><span class="token punctuation">,</span> <span class="token number">6.0</span><span class="token punctuation">,</span> <span class="token number">4.0</span><span class="token punctuation">,</span> <span class="token string">"C"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        knnModelList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">10.0</span><span class="token punctuation">,</span> <span class="token number">12.0</span><span class="token punctuation">,</span> <span class="token number">10.0</span><span class="token punctuation">,</span> <span class="token string">"M"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 预测数据</span>
+        KNNModel predictionData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">KNNModel</span><span class="token punctuation">(</span><span class="token number">5.1</span><span class="token punctuation">,</span> <span class="token number">6.2</span><span class="token punctuation">,</span> <span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token string">"NB"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 计算</span>
+        String result <span class="token operator">=</span> <span class="token function">calKNN</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> knnModelList<span class="token punctuation">,</span> predictionData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"预测结果："</span><span class="token operator">+</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Python 代码</p>
 <pre><code>#!/usr/bin/python
 # -*- coding: utf-8 -*-
 

@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="经典算法问题：数组中的逆序对, 算法与数据结构、机器学习、深度学习">
+    <meta name="keywords" content="经典算法问题：数组中的逆序对, 算法与数据结构">
     <meta name="description" content="经典算法问题：数组中的逆序对
 在数组中的两个数字如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。
 
@@ -19,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>经典算法问题：数组中的逆序对 | 算法与数据结构、机器学习、深度学习</title>
+    <title>经典算法问题：数组中的逆序对 | 算法与数据结构</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -47,7 +47,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">算法与数据结构、机器学习、深度学习</span>
+                    <span class="logo-span">算法与数据结构</span>
                 </a>
             </div>
             
@@ -122,7 +122,7 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">算法与数据结构、机器学习、深度学习</div>
+        <div class="logo-name">算法与数据结构</div>
         <div class="logo-desc">
             
             简单、诚实
@@ -431,17 +431,18 @@
  输出：6</code></p>
 <h3 id="思路1：使用定义"><a href="#思路1：使用定义" class="headerlink" title="思路1：使用定义"></a>思路1：使用定义</h3><p>挨个数出来，使用定义计算逆序数。不过时间复杂度是 O(n2)。</p>
 <p>python代码：</p>
-<pre><code>class Solution(object):
-    def inversePairs(self, nums):
-        l = len(nums)
-        if l &lt; 2:
-            return 0
-        res = 0
-        for i in range(0, l - 1):
-            for j in range(i + 1, l):
-                if nums[i] &gt; nums[j]:
-                    res += 1
-        return res</code></pre><p>这种思路虽然很直接，但编写出错的概率很低，在没有在线评测系统的时候，它可以作为一个“正确的”参考答案，用以检验我们自己编写的算法是否正确。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inversePairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        res <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    res <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> res</code></pre>
+<p>这种思路虽然很直接，但编写出错的概率很低，在没有在线评测系统的时候，它可以作为一个“正确的”参考答案，用以检验我们自己编写的算法是否正确。</p>
 <h3 id="思路2：分治"><a href="#思路2：分治" class="headerlink" title="思路2：分治"></a>思路2：分治</h3><p>这道题最经典的思路是使用分治法计算，借助“归并排序”的分治思想，排好序以后，逆序对就求出来了，时间复杂度为 O(nlogn)。下面举例说明：例如：前有序数组：[2,3,5,8]，后有序数组：[4,6,7,12]。</p>
 <p>做归并的时候，步骤如下：</p>
 <p>第 1 步，2 先出列，2 比“后有序数组”中所有的元素都小，构成“顺序对”；</p>
@@ -454,153 +455,155 @@
 <p>第 8 步，12 出列，此时“前有序数组”为空。</p>
 <p>因此，我们只需要在“前有序数组”非空，且“后有序数组”中有元素出列的时候，即上面的第 3、5、6 步计算“逆序对”就可以了。</p>
 <p>python代码：</p>
-<pre><code>class Solution(object):
-    def inversePairs1(self, nums):
-        l = len(nums)
-        if l &lt; 2:
-            return 0
-        res = 0
-        for i in range(0, l - 1):
-            for j in range(i + 1, l):
-                if nums[i] &gt; nums[j]:
-                    res += 1
-        return res
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inversePairs1</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        res <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    res <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> res
 
-    def inversePairs(self, nums):
-        &quot;&quot;&quot;
+    <span class="token keyword">def</span> <span class="token function">inversePairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type nums: List[int]
         :rtype: int
-        &quot;&quot;&quot;
+        """</span>
 
-        l = len(nums)
-        if l &lt; 2:
-            return 0
-        temp = [0 for _ in range(l)]
-        return self.count_inversion_pairs(nums, 0, l - 1, temp)
+        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        temp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>count_inversion_pairs<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
 
-    def count_inversion_pairs(self, nums, l, r, temp):
-        &quot;&quot;&quot;
+    <span class="token keyword">def</span> <span class="token function">count_inversion_pairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         在数组 nums 的区间 [l,r] 统计逆序对
         :param nums:
         :param l: 待统计数组的左边界，可以取到
         :param r: 待统计数组的右边界，可以取到
         :param temp:
         :return:
-        &quot;&quot;&quot;
-        # 极端情况下，就是只有 1 个元素的时候
-        if l == r:
-            return 0
-        mid = l + (r - l) // 2
-        left_pairs = self.count_inversion_pairs(nums, l, mid, temp)
-        right_pairs = self.count_inversion_pairs(nums, mid + 1, r, temp)
+        """</span>
+        <span class="token comment" spellcheck="true"># 极端情况下，就是只有 1 个元素的时候</span>
+        <span class="token keyword">if</span> l <span class="token operator">==</span> r<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+        left_pairs <span class="token operator">=</span> self<span class="token punctuation">.</span>count_inversion_pairs<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
+        right_pairs <span class="token operator">=</span> self<span class="token punctuation">.</span>count_inversion_pairs<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
 
-        merge_pairs = 0
-        # 代码走到这里的时候，
-        # [l, mid] 已经完成了排序并且计算好逆序对
-        # [mid + 1, r] 已经完成了排序并且计算好逆序对
-        # 如果 nums[mid] &lt;= nums[mid + 1]，此时就不存在逆序对
-        # 当 nums[mid] &gt; nums[mid + 1] 的时候，就要继续计算逆序对
-        if nums[mid] &gt; nums[mid + 1]:
-            # 在归并的过程中计算逆序对
-            merge_pairs = self.merge_and_count(nums, l, mid, r, temp)
-        # 走到这里有 nums[mid] &lt;= nums[mid + 1] 成立，已经是顺序结构
-        return left_pairs + right_pairs + merge_pairs
+        merge_pairs <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token comment" spellcheck="true"># 代码走到这里的时候，</span>
+        <span class="token comment" spellcheck="true"># [l, mid] 已经完成了排序并且计算好逆序对</span>
+        <span class="token comment" spellcheck="true"># [mid + 1, r] 已经完成了排序并且计算好逆序对</span>
+        <span class="token comment" spellcheck="true"># 如果 nums[mid] &lt;= nums[mid + 1]，此时就不存在逆序对</span>
+        <span class="token comment" spellcheck="true"># 当 nums[mid] > nums[mid + 1] 的时候，就要继续计算逆序对</span>
+        <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 在归并的过程中计算逆序对</span>
+            merge_pairs <span class="token operator">=</span> self<span class="token punctuation">.</span>merge_and_count<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 走到这里有 nums[mid] &lt;= nums[mid + 1] 成立，已经是顺序结构</span>
+        <span class="token keyword">return</span> left_pairs <span class="token operator">+</span> right_pairs <span class="token operator">+</span> merge_pairs
 
-    def merge_and_count(self, nums, l, mid, r, temp):
-        &quot;&quot;&quot;
+    <span class="token keyword">def</span> <span class="token function">merge_and_count</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         前：[2,3,5,8]，后：[4,6,7,12]
         我们只需要在后面数组元素出列的时候，数一数前面这个数组还剩下多少个数字，
-        因为&quot;前&quot;数组和&quot;后&quot;数组都有序，
-        因此，&quot;前&quot;数组剩下的元素个数 mid - i + 1 就是与&quot;后&quot;数组元素出列的这个元素构成的逆序对个数
+        因为"前"数组和"后"数组都有序，
+        因此，"前"数组剩下的元素个数 mid - i + 1 就是与"后"数组元素出列的这个元素构成的逆序对个数
 
-        &quot;&quot;&quot;
-        for i in range(l, r + 1):
-            temp[i] = nums[i]
-        i = l
-        j = mid + 1
-        res = 0
-        for k in range(l, r + 1):
-            if i &gt; mid:
-                nums[k] = temp[j]
-                j += 1
-            elif j &gt; r:
-                nums[k] = temp[i]
-                i += 1
-            elif temp[i] &lt;= temp[j]:
-                # 不统计逆序对，只做排序
-                nums[k] = temp[i]
-                i += 1
-            else:
-                assert temp[i] &gt; temp[j]
-                nums[k] = temp[j]
-                j += 1
-                # 快就快在这里，一次可以数出一个区间的个数的逆序对
-                # 例：[7,8,9][4,6,9]，4 与 7 以及 7 前面所有的数都构成逆序对
-                res += (mid - i + 1)
-        return res</code></pre><p>说明：归并两个有序数组的时候，我们要借助额外的辅助空间，为此可以全局使用一个和原始数组等长的辅助数组，否则每一次进入 merge 函数都要 new 新数组，开销很大。</p>
+        """</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">,</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        i <span class="token operator">=</span> l
+        j <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
+        res <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> k <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">,</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> i <span class="token operator">></span> mid<span class="token punctuation">:</span>
+                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                j <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> j <span class="token operator">></span> r<span class="token punctuation">:</span>
+                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 不统计逆序对，只做排序</span>
+                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">assert</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                j <span class="token operator">+=</span> <span class="token number">1</span>
+                <span class="token comment" spellcheck="true"># 快就快在这里，一次可以数出一个区间的个数的逆序对</span>
+                <span class="token comment" spellcheck="true"># 例：[7,8,9][4,6,9]，4 与 7 以及 7 前面所有的数都构成逆序对</span>
+                res <span class="token operator">+=</span> <span class="token punctuation">(</span>mid <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res</code></pre>
+<p>说明：归并两个有序数组的时候，我们要借助额外的辅助空间，为此可以全局使用一个和原始数组等长的辅助数组，否则每一次进入 merge 函数都要 new 新数组，开销很大。</p>
 <p>上述解法的缺点是修改了原始数组，排序完成以后，逆序数就计算出来了。为此：（1）我们可以引入一个索引数组；（2）或者直接拷贝一个原始数组，这样就不用修改原始数组了。</p>
 <h3 id="思路3：使用“树状数组”"><a href="#思路3：使用“树状数组”" class="headerlink" title="思路3：使用“树状数组”"></a>思路3：使用“树状数组”</h3><p>python 代码：</p>
-<pre><code>class Solution(object):
-    def inversePairs(self, nums):
-        &quot;&quot;&quot;
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inversePairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type nums: List[int]
         :rtype: int
-        &quot;&quot;&quot;
+        """</span>
 
-        class FenwickTree:
-            def __init__(self, n):
-                self.size = n
-                self.tree = [0 for _ in range(n + 1)]
+        <span class="token keyword">class</span> <span class="token class-name">FenwickTree</span><span class="token punctuation">:</span>
+            <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>size <span class="token operator">=</span> n
+                self<span class="token punctuation">.</span>tree <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
 
-            def __lowbit(self, index):
-                return index &amp; (-index)
+            <span class="token keyword">def</span> <span class="token function">__lowbit</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> index <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token operator">-</span>index<span class="token punctuation">)</span>
 
-            # 单点更新：从下到上，最多到 size，可以取等
-            def update(self, index, delta):
-                while index &lt;= self.size:
-                    self.tree[index] += delta
-                    index += self.__lowbit(index)
+            <span class="token comment" spellcheck="true"># 单点更新：从下到上，最多到 size，可以取等</span>
+            <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> index<span class="token punctuation">,</span> delta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">while</span> index <span class="token operator">&lt;=</span> self<span class="token punctuation">.</span>size<span class="token punctuation">:</span>
+                    self<span class="token punctuation">.</span>tree<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">+=</span> delta
+                    index <span class="token operator">+=</span> self<span class="token punctuation">.</span>__lowbit<span class="token punctuation">(</span>index<span class="token punctuation">)</span>
 
-            # 区间查询：从上到下，最少到 1，可以取等
-            def query(self, index):
-                res = 0
-                while index &gt; 0:
-                    res += self.tree[index]
-                    index -= self.__lowbit(index)
-                return res
+            <span class="token comment" spellcheck="true"># 区间查询：从上到下，最少到 1，可以取等</span>
+            <span class="token keyword">def</span> <span class="token function">query</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                res <span class="token operator">=</span> <span class="token number">0</span>
+                <span class="token keyword">while</span> index <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+                    res <span class="token operator">+=</span> self<span class="token punctuation">.</span>tree<span class="token punctuation">[</span>index<span class="token punctuation">]</span>
+                    index <span class="token operator">-=</span> self<span class="token punctuation">.</span>__lowbit<span class="token punctuation">(</span>index<span class="token punctuation">)</span>
+                <span class="token keyword">return</span> res
 
-        # 特判
-        l = len(nums)
-        if l &lt; 2:
-            return 0
+        <span class="token comment" spellcheck="true"># 特判</span>
+        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
 
-        # 原始数组去除重复以后从小到大排序
-        s = list(set(nums))
+        <span class="token comment" spellcheck="true"># 原始数组去除重复以后从小到大排序</span>
+        s <span class="token operator">=</span> list<span class="token punctuation">(</span>set<span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-        # 构建最小堆，因为从小到大一个一个拿出来，用堆比较合适
-        import heapq
-        heapq.heapify(s)
+        <span class="token comment" spellcheck="true"># 构建最小堆，因为从小到大一个一个拿出来，用堆比较合适</span>
+        <span class="token keyword">import</span> heapq
+        heapq<span class="token punctuation">.</span>heapify<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
 
-        # 由数字查排名
-        rank_map = dict()
-        index = 1
-        # 不重复数字的个数
-        size = len(s)
-        for _ in range(size):
-            num = heapq.heappop(s)
-            rank_map[num] = index
-            index += 1
+        <span class="token comment" spellcheck="true"># 由数字查排名</span>
+        rank_map <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        index <span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token comment" spellcheck="true"># 不重复数字的个数</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            num <span class="token operator">=</span> heapq<span class="token punctuation">.</span>heappop<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+            rank_map<span class="token punctuation">[</span>num<span class="token punctuation">]</span> <span class="token operator">=</span> index
+            index <span class="token operator">+=</span> <span class="token number">1</span>
 
-        res = 0
-        # 树状数组只要不重复数字个数这么多空间就够了
-        ft = FenwickTree(size)
-        # 从后向前看，拿出一个数字来，就更新一下，然后向前查询比它小的个数
-        for i in range(l - 1, -1, -1):
-            rank = rank_map[nums[i]]
-            ft.update(rank, 1)
-            res += ft.query(rank - 1)
-        return res
-</code></pre><p>说明：中间将数字映射到排名是将原数组“离散化”，“离散化”的原因有 2 点：</p>
+        res <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token comment" spellcheck="true"># 树状数组只要不重复数字个数这么多空间就够了</span>
+        ft <span class="token operator">=</span> FenwickTree<span class="token punctuation">(</span>size<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 从后向前看，拿出一个数字来，就更新一下，然后向前查询比它小的个数</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            rank <span class="token operator">=</span> rank_map<span class="token punctuation">[</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span>
+            ft<span class="token punctuation">.</span>update<span class="token punctuation">(</span>rank<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            res <span class="token operator">+=</span> ft<span class="token punctuation">.</span>query<span class="token punctuation">(</span>rank <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res
+</code></pre>
+<p>说明：中间将数字映射到排名是将原数组“离散化”，“离散化”的原因有 2 点：</p>
 <p>1、树状数组我们看到，索引是从“1”开始的，我们不能保证我们的数组所有的元素都大于等于 1；</p>
 <p>2、即使元素都大于等于“1”，为了节约树状数组的空间，我们将之“离散化”可以把原始的数都压缩到一个小区间。我说的有点不太清楚，这一点可以参考 树</p>
 <hr>
