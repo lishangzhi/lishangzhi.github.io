@@ -422,7 +422,7 @@ Java开发中，某个类中需要依赖其它类的方法，则通常是new一�
 <p><font size="1">Java开发中，某个类中需要依赖其它类的方法，则通常是new一个依赖类再调用类实例的方法，这种开发存在的问题是new的类实例不好统一管理，spring提出了依赖注入的思想，即依赖类不由程序员实例化，而是通过spring容器帮我们new指定实例并且将实例注入到需要该对象的类中。依赖注入的另一种说法是“控制反转”，通俗的理解是：平常我们new一个实例，这个实例的控制权是我们程序员，而控制反转是指new实例工作不由我们程序员来做而是交给spring容器来做</font></p>
 </blockquote>
 <p><strong>Spring有多种依赖注入的形式，下面介绍spring进行DI的方式</strong></p>
-<h3 id="一-Autowired：自动装配"><a href="#一-Autowired：自动装配" class="headerlink" title="一 @Autowired：自动装配"></a>一 @Autowired：自动装配</h3><p>前面已经比较过<code>@Autowired</code>和<code>@Resource</code>的区别<br><a href="https://lishangzhi.github.io/2019/07/08/Autowired%E5%92%8C-Resource%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank" rel="noopener">@Autowired和@Resource的区别?</a></p>
+<h3 id="一-Autowired：自动装配"><a href="#一-Autowired：自动装配" class="headerlink" title="一 @Autowired：自动装配"></a>一 @Autowired：自动装配</h3><p>前面已经比较过<code>@Autowired</code>和<code>@Resource</code>的区别<br><a href="https://lishangzhi.github.io/2019/07/08/Autowired%E5%92%8C-Resource%E7%9A%84%E5%8C%BA%E5%88%AB/">@Autowired和@Resource的区别?</a></p>
 <p>@Autowired默认是根据参数类型进行自动装配，且必须有一个Bean候选者注入<font color="red">默认required=true，如果允许出现0个Bean候选者需要设置属性“required=false”</font>，“required”属性含义和@Required一样，只是@Required只适用于基于XML配置的setter注入方式,只能打在setting方法上</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IServiceImpl</span> <span class="token punctuation">{</span>
    <span class="token annotation punctuation">@Autowired</span>
