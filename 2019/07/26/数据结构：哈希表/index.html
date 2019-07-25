@@ -4,9 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="数据结构：栈, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="数据结构：栈栈也是一种数据呈现线性排列的数据结构，不过在这种结构中，我们只能访问最新添加的数据。栈就像是一摞书，拿到的新书时我们会把它放在书堆的最上面，取书的时候也只能从最上面的新书开始取
-如:现在存储在栈中的只有数据Blue然后，栈中增加">
+    <meta name="keywords" content="数据结构：哈希表, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="数据结构：哈希表哈希表存储的是由键（key）和值（value）组成的数据
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>数据结构：栈 | 算法与数据结构、机器学习、深度学习</title>
+    <title>数据结构：哈希表 | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -249,7 +249,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        数据结构：栈
+                        数据结构：哈希表
                     </div>
                 </div>
             </div>
@@ -360,12 +360,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/数据结构/" target="_blank">
-                                <span class="chip bg-color">数据结构</span>
+                            <a href="/tags/哈希表/" target="_blank">
+                                <span class="chip bg-color">哈希表</span>
                             </a>
                         
-                            <a href="/tags/链表/" target="_blank">
-                                <span class="chip bg-color">链表</span>
+                            <a href="/tags/数据结构/" target="_blank">
+                                <span class="chip bg-color">数据结构</span>
                             </a>
                         
                     </div>
@@ -388,14 +388,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-24
+                    2019-07-26
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        424
+                        25
                     </div>
                     
 
@@ -418,10 +418,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="数据结构：栈"><a href="#数据结构：栈" class="headerlink" title="数据结构：栈"></a>数据结构：栈</h2><p>栈也是一种数据呈现线性排列的数据结构，不过在这种结构中，我们只能访问最新添加的数据。栈就像是一摞书，拿到的新书时我们会把它放在书堆的最上面，取书的时候也只能从最上面的新书开始取<br><img src="/medias/article/images/2019/7/24/1.jpg" alt></p>
-<p>如:现在存储在栈中的只有数据Blue<br><img src="/medias/article/images/2019/7/24/2.jpg" alt><br>然后，栈中增加数据Green<br><img src="/medias/article/images/2019/7/24/3.jpg" alt><br>数据Red入栈<br><img src="/medias/article/images/2019/7/24/3.jpg" alt><br>从栈中取出数据时，是从最上面，也就是从最新的数据取出的，这里取出的是Red<br><img src="/medias/article/images/2019/7/24/4.png" alt></p>
-<h3 id="1-理解"><a href="#1-理解" class="headerlink" title="1. 理解"></a>1. 理解</h3><p>像栈这种最后添加的数据最先被取出，即“后进先出”的结构，我们称为Last In First Out，简称LIFO。<br>与链表和数组一样，栈的数据也是线性排列，但在栈中，添加和删除数据的操作只能在一端进行，访问数据也只能访问到顶端的数据。想要访问中间的数据时，就必须通过出栈操作将目标数据移到栈顶才行</p>
-<h4 id="1-1-应用示例"><a href="#1-1-应用示例" class="headerlink" title="1.1 应用示例"></a>1.1 应用示例</h4><p>栈只能在一端操作这一点看起来似乎十分不便，但在只需要访问最新数据时，使用它就比较方便了。<br>比如，规定（AB（C（DE）F）（G（（H）I J）K））这一串字符中括号的处理方式如下：首先从左边开始读取字符，读到左括号就将其入栈，读到右括号就将栈顶的左括号出栈。此时，出栈的左括号便与当前读取的右括号相匹配。通过这种处理方式，我们就能得知配对括号的具体位置</p>
+                <h2 id="数据结构：哈希表"><a href="#数据结构：哈希表" class="headerlink" title="数据结构：哈希表"></a>数据结构：哈希表</h2><p>哈希表存储的是由键（key）和值（value）组成的数据</p>
 
             </div>
             <hr/>
@@ -575,9 +572,64 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/07/26/数据结构：哈希表/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/banner/1.jpg" class="responsive-img" alt="数据结构：哈希表">
+                        
+                        <span class="card-title">数据结构：哈希表</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            数据结构：哈希表哈希表存储的是由键（key）和值（value）组成的数据
+
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/数据结构/" class="post-category" target="_blank">
+                                    数据结构
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/哈希表/" target="_blank">
+                        <span class="chip bg-color">哈希表</span>
+                    </a>
+                    
+                    <a href="/tags/数据结构/" target="_blank">
+                        <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2019/07/25/数据结构：队列/">
                     <div class="card-image">
@@ -595,9 +647,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -619,58 +671,6 @@
                     
                     <a href="/tags/队列/" target="_blank">
                         <span class="chip bg-color">队列</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/07/23/数据结构：数组/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/banner/1.jpg" class="responsive-img" alt="数据结构：数组">
-                        
-                        <span class="card-title">数据结构：数组</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            数据结构：数组数组也是数据呈现线性排列的一种数据结。与前面一篇文章 数据结构：链表在数组中，访问数据十分简单，而添加数据和删除数据比较耗工夫数据按顺序存储在内存的连续空间内由于数据是存储在连续空间内的，所以每个数据的内存地址（在内存上的位置
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-23
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/数据结构/" class="post-category" target="_blank">
-                                    数据结构
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/数据结构/" target="_blank">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
-                    <a href="/tags/数组/" target="_blank">
-                        <span class="chip bg-color">数组</span>
                     </a>
                     
                 </div>
