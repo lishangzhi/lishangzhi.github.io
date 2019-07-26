@@ -5,8 +5,8 @@
     
     <entry>
       <title>数据结构：堆</title>
-      <link href="/2019/07/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E5%A0%86/"/>
-      <url>/2019/07/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E5%A0%86/</url>
+      <link href="/2019/07/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E5%A0%86/"/>
+      <url>/2019/07/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E5%A0%86/</url>
       
         <content type="html"><![CDATA[<h2 id="数据结构：堆"><a href="#数据结构：堆" class="headerlink" title="数据结构：堆"></a>数据结构：堆</h2>]]></content>
       
@@ -35,7 +35,7 @@
       <link href="/2019/07/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
       <url>/2019/07/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E5%93%88%E5%B8%8C%E8%A1%A8/</url>
       
-        <content type="html"><![CDATA[<h2 id="数据结构：哈希表"><a href="#数据结构：哈希表" class="headerlink" title="数据结构：哈希表"></a>数据结构：哈希表</h2><p>哈希表存储的是由键（key）和值（value）组成的数据</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="数据结构：哈希表"><a href="#数据结构：哈希表" class="headerlink" title="数据结构：哈希表"></a>数据结构：哈希表</h2><p>哈希表存储的是由键（key）和值（value）组成的数据<br><img src="/medias/article/images/2019/7/26/1.png" alt><br>例如，我们将每个人的性别作为数据进行存储，键为人名，值为对应的性别。<br><img src="/medias/article/images/2019/7/26/2.png" alt><br>此处准备了6个箱子（即长度为6的数组）来存储数据。假设我们需要查询Ally的性别，由于不知道Ally的数据存储在哪个箱子里，所以只能从头开始查询。这个操作便叫作“线性查找”（线性查找的讲解在3-1节）。<br><img src="/medias/article/images/2019/7/26/3.png" alt><br>0号箱子中存储的键是Joe而不是Ally。<br><img src="/medias/article/images/2019/7/26/4.png" alt><br>1号箱子中的也不是Ally。<br>同样，2号、3号箱子中的也都不是Ally。<br>查找到4号箱子的时候，发现其中数据的键为<br><img src="/medias/article/images/2019/7/26/7.jpg" alt><br>Ally。把键对应的值取出，我们就知道Ally的性别为女（F）了。<br>数据量越多，线性查找耗费的时间就越长。由此可知：由于数据的查询较为耗时，所以此处并不适合使用数组来存储数据。<br>但使用哈希表便可以解决这个问题。首先准备好数组，这次我们用5个箱子的数组来存储数据。<br>尝试把Joe存进去。<br><img src="/medias/article/images/2019/7/26/8.jpg" alt><br>使用哈希函数（Hash）计算Joe的键，也就是字符串“Joe”的哈希值。得到的结果为4928<br><img src="/medias/article/images/2019/7/26/9.jpg" alt><br>将得到的哈希值除以数组的长度5，求得其余数。这样的求余运算叫作“mod运算”。此处mod运算的结果为3。<br><img src="/medias/article/images/2019/7/26/10.jpg" alt><br>因此，我们将Joe的数据存进数组的3号箱子中。重复前面的操作，将其他数据也存进数组中。<br><img src="/medias/article/images/2019/7/26/11.jpg" alt><br>Sue键的哈希值为7291, mod 5的结果为1，将Sue的数据存进1号箱中。<br>Dan键的哈希值为1539, mod 5的结果为4，将Dan的数据存进4号箱中。<br><img src="/medias/article/images/2019/7/26/14.png" alt><br>Nell键的哈希值为6276, mod 5的结果为1。本应将其存进数组的1号箱中，但此时1号箱中已经存储了Sue的数据。这种存储位置重复了的情况便叫作“冲突”。<br><img src="/medias/article/images/2019/7/26/15.png" alt><br>遇到这种情况，可使用链表在已有数据的后面继续存储新的数据。<br><img src="/medias/article/images/2019/7/26/16.png" alt><br>Ally键的哈希值为9143, mod 5的结果为3。本应将其存储在数组的3号箱中，但3号箱中已经有了Joe的数据，所以使用链表，在其后面存储Ally的数据。<br>Bob键的哈希值为5278, mod 5的结果为3。本应将其存储在数组的3号箱中，但3号箱中已经有了Joe和Ally的数据，所以使用链表，在Ally的后面继续存储Bob的数据。<br>像这样存储完所有数据，哈希表也就制作完成了。<br>接下来讲解数据的查询方法。假设我们要查询Dan的性别。<br>为了知道Dan存储在哪个箱子里，首先需要算出Dan键的哈希值，然后对其进行mod运算。最后得到的结果为4，于是我们知道了它存储在4号箱中。<br>查看4号箱可知，其中的数据的键与Dan一致，于是取出对应的值。由此我们便知道了Dan的性别为男（M）。<br><img src="/medias/article/images/2019/7/26/21.png" alt><br>那么，想要查询Ally的性别时该怎么做呢？为了找到它的存储位置，先要算出Ally键的哈希值，再对其进行mod运算。最终得到的结果为3。<br><img src="/medias/article/images/2019/7/26/22.png" alt><br>然而3号箱中数据的键是Joe而不是Ally。此时便需要对Joe所在的链表进行线性查找。<br><img src="/medias/article/images/2019/7/26/23.png" alt><br>于是我们找到了键为Ally的数据。取出其对应的值，便知道了Ally的性别为女（F）。<br><img src="/medias/article/images/2019/7/26/24.png" alt></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在哈希表中，我们可以利用哈希函数快速访问到数组中的目标数据。如果发生哈希冲突，就使用链表进行存储。这样一来，不管数据量为多少，我们都能够灵活应对。<br>如果数组的空间太小，使用哈希表的时候就容易发生冲突，线性查找的使用频率也会更高；反过来，如果数组的空间太大，就会出现很多空箱子，造成内存的浪费。因此，给数组设定合适的空间非常重要。</p><h3 id="1-补充说明"><a href="#1-补充说明" class="headerlink" title="1. 补充说明"></a>1. 补充说明</h3><h4 id="1-1-链地址法"><a href="#1-1-链地址法" class="headerlink" title="1.1 链地址法"></a>1.1 链地址法</h4><p>在存储数据的过程中，如果发生冲突，可以利用链表在已有数据的后面插入新数据来解决冲突。这种方法被称为“链地址法”。</p><h4 id="1-2-开放地址法"><a href="#1-2-开放地址法" class="headerlink" title="1.2 开放地址法"></a>1.2 开放地址法</h4><p>除了链地址法以外，还有几种解决冲突的方法。其中，应用较为广泛的是“开放地址法”。这种方法是指当冲突发生时，立刻计算出一个候补地址（数组上的位置）并将数据存进去。<br>如果仍然有冲突，便继续计算下一个候补地址，直到有空地址为止。可以通过多次使用哈希函数或“线性探测法”等方法计算候补地址。</p>]]></content>
       
       
       <categories>
@@ -490,11 +490,11 @@
       
         <tags>
             
+            <tag> 回溯算法 </tag>
+            
             <tag> 动态规划 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> 回溯算法 </tag>
             
             <tag> 贪心算法 </tag>
             
