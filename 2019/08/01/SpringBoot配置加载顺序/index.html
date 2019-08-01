@@ -4,10 +4,13 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="LeetCode 第 60 题：排列组合问题, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="LeetCode 第 60 题：第k个排列问题给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。
-按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：&amp;quot;123&amp;quot;
-   &amp;quot;1">
+    <meta name="keywords" content="SpringBoot配置加载顺序, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="SpringBoot配置加载顺序
+昨天被loback日志折腾一宿,发现问题、定位问题、处理问题一路心酸，原因在于对SpringBoot配置的加载顺序不了解，这边相对复盘下处理过程
+
+
+
+核心工程包中定义了 logback-config.xm">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>LeetCode 第 60 题：排列组合问题 | 算法与数据结构、机器学习、深度学习</title>
+    <title>SpringBoot配置加载顺序 | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -244,13 +247,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/article/images/spring.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        LeetCode 第 60 题：排列组合问题
+                        SpringBoot配置加载顺序
                     </div>
                 </div>
             </div>
@@ -359,17 +362,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/回溯算法/" target="_blank">
-                                <span class="chip bg-color">回溯算法</span>
-                            </a>
-                        
-                            <a href="/tags/排列组合/" target="_blank">
-                                <span class="chip bg-color">排列组合</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -377,8 +372,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
-                                leetcode 题解
+                            <a href="/categories/Java-知识库/" class="post-category" target="_blank">
+                                Java 知识库
                             </a>
                         
                     </div>
@@ -389,14 +384,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-11
+                    2019-08-01
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        485
+                        735
                     </div>
                     
 
@@ -419,89 +414,52 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="LeetCode-第-60-题：第k个排列"><a href="#LeetCode-第-60-题：第k个排列" class="headerlink" title="LeetCode 第 60 题：第k个排列"></a>LeetCode 第 60 题：第k个排列</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>给出集合 <code>[1,2,3,…,n]</code>，其所有元素共有 n! 种排列。</p>
-<p>按大小顺序列出所有排列情况，并一一标记，当 <code>n = 3</code> 时, 所有排列如下：<br><code>&quot;123&quot;
-   &quot;132&quot;
-   &quot;213&quot;
-   &quot;231&quot;
-   &quot;312&quot;
-   &quot;321&quot;</code><br>给定 n 和 k，返回第 k 个排列。</p>
-<p>说明：</p>
+                <h2 id="SpringBoot配置加载顺序"><a href="#SpringBoot配置加载顺序" class="headerlink" title="SpringBoot配置加载顺序"></a>SpringBoot配置加载顺序</h2><blockquote>
+<p>昨天被loback日志折腾一宿,发现问题、定位问题、处理问题一路心酸，原因在于对SpringBoot配置的加载顺序不了解，这边相对复盘下处理过程</p>
+</blockquote>
 <ul>
-<li>给定 n 的范围是<code>[1, 9]</code>。</li>
-<li>给定 k 的范围是<code>[1,  n!]</code>。</li>
-</ul>
-<p>示例 1:</p>
-<pre><code>输入: n = 3, k = 3
-输出: &quot;213&quot;</code></pre><h3 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h3><p>核心公式：</p>
-<p>当前位置字符 = ((k - 1) % n!) / (n - 1)! 由于排列是按顺序的，那么第k个排列是可以计算出来的</p>
-<p>比如:</p>
-<ul>
-<li><p><code>n=3</code>时。在所有<code>3！= 6</code>个排列中，第一个字符是按照<code>（3-1）！</code>个一组排列的，也就是<code>123,132（（3-1）！）</code>。</p>
+<li><ol>
+<li>核心工程包中定义了 <code>logback-config.xml</code> </li>
+</ol>
 </li>
-<li><p><code>n=4</code>也一样<code>1234,1243,1324,1342,1423,1432（（4-1）！）</code>。 </p>
+<li><ol start="2">
+<li>项目启动工程包中指定日志配置 <code>loback.config:classpath:logback-config.xml</code> 即：<code>System.setProperty(&quot;loback.config&quot;,&quot;classpath:logback-config.xml&quot;)</code></li>
+</ol>
+</li>
+<li><ol start="3">
+<li>服务项目启动以来启动工程 自定义配置加载失效 <code>System.setProperty(&quot;loback.config&quot;,&quot;classpath:logback-aip.xml&quot;)</code></li>
+</ol>
 </li>
 </ul>
-<p>那么就可以根据这个规律设计核心公式，前提是在程序设计上需要一个基本字符串。比如当n=3，k=3时第一个字符所在位置为2，是针对123这个字符串来说的，在把2提出后，源字符串应该改写为13.根据这两点不断递归得到结果</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LeetCode60</span> <span class="token punctuation">{</span>
-
-    <span class="token comment" spellcheck="true">/**
-     * 生成基本字符串
-     *
-     * @param n
-     * @param k
-     * @return
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">getPermutation</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        StringBuffer baseStr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        StringBuffer str <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> baseStr<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>k <span class="token operator">></span> <span class="token function">factorial</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">return</span> <span class="token function">doCount</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> baseStr<span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">/**
-     * 根据公式生成字符串
-     *
-     * @param n
-     * @param k
-     * @param baseStr
-     * @param str
-     * @return
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> StringBuffer <span class="token function">doCount</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">,</span> StringBuffer baseStr<span class="token punctuation">,</span> StringBuffer str<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> str<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>baseStr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        Integer fac <span class="token operator">=</span> <span class="token function">factorial</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> index <span class="token operator">=</span> k <span class="token operator">/</span> fac<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//获取当前位置的字符</span>
-        str<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>baseStr<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        baseStr<span class="token punctuation">.</span><span class="token function">deleteCharAt</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token function">doCount</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> k <span class="token operator">%</span> fac<span class="token punctuation">,</span> baseStr<span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">/**
-     * 阶乘计算公式
-     *
-     * @param n
-     * @return
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">factorial</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> fac <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            fac <span class="token operator">*=</span> i<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> fac<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>LeetCode60<span class="token punctuation">.</span><span class="token function">getPermutation</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<h3 id="基础配置方式"><a href="#基础配置方式" class="headerlink" title="基础配置方式"></a>基础配置方式</h3><p><strong>可以使用以下几种方式来加载配置</strong><br>1、<code>properties</code>文件<br>2、<code>YAML</code>文件<br>3、系统环境变量<br>4、命令行参数<br>等…一些常用的配置方式</p>
+<p><strong>Spring Beans 里面直接使用这些配置文件中加载的值</strong><br>1、使用 <code>@Value</code> 注解直接注入对应的值，这能获取到 <code>Spring</code> 中 <code>Environment</code> 的值；<br>2、使用 <code>@ConfigurationProperties</code> 注解把对应的值绑定到一个对象；<br>3、直接获取注入 <code>Environment</code> 进行获取；<br>配置属性的方式很多，<code>Spring boot</code>使用了一种独有的 <code>PropertySource</code> 可以很方便的覆盖属性的值。</p>
+<h3 id="配置属性加载的顺序"><a href="#配置属性加载的顺序" class="headerlink" title="配置属性加载的顺序"></a>配置属性加载的顺序</h3><p>1、开发者工具 <code>Devtools</code> 全局配置参数；</p>
+<p>2、单元测试上的 <code>@TestPropertySource</code> 注解指定的参数；</p>
+<p>3、单元测试上的 <code>@SpringBootTest</code> 注解指定的参数；</p>
+<p>4、命令行指定的参数，如 <code>java -jar springboot.jar -Dlogging.config=classpath:config/logback-spring.xml</code>；</p>
+<p>5、命令行中的 <code>SPRING_APPLICATION_JSONJSON</code> 指定参数, 如 <code>java -Dspring.application.json=&#39;{&quot;logging.config&quot;:&quot;config/logback-spring.xml&quot;}&#39; -jar springboot.jar</code></p>
+<p>6、<code>ServletConfig</code> 初始化参数；</p>
+<p>7、<code>ServletContext</code> 初始化参数；</p>
+<p>8、JNDI参数（如 <code>java:comp/env/spring.application.json</code>）；</p>
+<p>9、Java系统参数（来源：<code>System.getProperties()</code>）；</p>
+<p>10、操作系统环境变量参数；</p>
+<p>11、<code>RandomValuePropertySource</code> 随机数，仅匹配：<code>ramdom.*</code>；</p>
+<p>12、JAR包外面的配置文件参数（<code>application-{profile}.properties（YAML）</code>）</p>
+<p>13、JAR包里面的配置文件参数（<code>application-{profile}.properties（YAML）</code>）</p>
+<p>14、JAR包外面的配置文件参数（<code>application.properties（YAML）</code>）</p>
+<p>15、JAR包里面的配置文件参数（<code>application.properties（YAML）</code>）</p>
+<p>16、<code>@Configuration</code>配置文件上 <code>@PropertySource</code> 注解加载的参数；</p>
+<p>17、默认参数（通过 <code>SpringApplication.setDefaultProperties</code> 指定）；</p>
+<p><font color="red"><strong>数字小的优先级越高，即数字小的会覆盖数字大的参数值，我们来实践下，验证以上配置参数的加载顺序</strong></font></p>
+<h3 id="配置案例"><a href="#配置案例" class="headerlink" title="配置案例"></a>配置案例</h3><p>1、开发者工具 <code>Devtools</code> 全局配置参数<br><img src="/medias/article/images/2019/8/1/1.png" alt><br>2、在主应用程序中添加 Java 系统参数</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> CommandLineRunner <span class="token function">commandLineRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>args<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"logging.config"</span><span class="token punctuation">,</span> <span class="token string">"config/logback-spring.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+<p>3、在 application.properties 文件中添加属性。<br><code>logging.config:config/logback-spring.xml</code><br>根据以上参数动态调整，发现参数会被正确被覆盖。了解了 Spring Boot 各种配置的加载顺序，如果配置被覆盖了我们就知道是什么问题了。</p>
+<h4 id="loback-配置拓展"><a href="#loback-配置拓展" class="headerlink" title="loback 配置拓展"></a>loback 配置拓展</h4><p><code>&lt;include resource=&quot;logback-oper.xml&quot; optional=&quot;true&quot;/&gt;</code> 在loback配置文件上指定对应应用配置加载<br><img src="/medias/article/images/2019/8/1/2.png" alt></p>
 
             </div>
             <hr/>
@@ -655,30 +613,34 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/07/14/SpringBoot内置容器undertow优化/">
+                <a href="/2019/08/01/SpringBoot配置加载顺序/">
                     <div class="card-image">
                         
-                        <img src="http://ptyodd4up.bkt.clouddn.com/2019/7/15/undertow.png" class="responsive-img" alt="Spring Boot 内置容器优化">
+                        <img src="/medias/article/images/spring.png" class="responsive-img" alt="SpringBoot配置加载顺序">
                         
-                        <span class="card-title">Spring Boot 内置容器优化</span>
+                        <span class="card-title">SpringBoot配置加载顺序</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            SpringBoot容器调整为 UndertowSpring Boot内嵌容器支持Tomcat、Jetty、Undertow。为什么选择Undertow？
-这里有一篇文章，时间 2017年1月26日发布的：
-Tomcat vs. Jetty
+                            SpringBoot配置加载顺序
+昨天被loback日志折腾一宿,发现问题、定位问题、处理问题一路心酸，原因在于对SpringBoot配置的加载顺序不了解，这边相对复盘下处理过程
+
+
+
+核心工程包中定义了 logback-config.xm
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -691,18 +653,7 @@ Tomcat vs. Jetty
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/SpringBoot/" target="_blank">
-                        <span class="chip bg-color">SpringBoot</span>
-                    </a>
-                    
-                    <a href="/tags/undertow/" target="_blank">
-                        <span class="chip bg-color">undertow</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -713,35 +664,30 @@ Tomcat vs. Jetty
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/09/LeetCode 第 98 题：验证二叉搜索树/">
+                <a href="/2019/07/27/数据结构：堆/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="LeetCode 第 98 题：验证二叉搜索树">
+                        <img src="/medias/banner/1.jpg" class="responsive-img" alt="数据结构：堆">
                         
-                        <span class="card-title">LeetCode 第 98 题：验证二叉搜索树</span>
+                        <span class="card-title">数据结构：堆</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            LeetCode 第 98 题：验证二叉搜索树题目给定一个二叉树，判断其是否是一个有效的二叉搜索树。
-假设一个二叉搜索树具有如下特征：
-
-节点的左子树只包含小于当前节点的数。
-节点的右子树只包含大于当前节点的数。
-所有左子树和右子树自身必须
+                            数据结构：堆
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-27
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/leetcode-题解/" class="post-category" target="_blank">
-                                    leetcode 题解
+                            <a href="/categories/数据结构/" class="post-category" target="_blank">
+                                    数据结构
                                 </a>
                             
                             
@@ -751,12 +697,12 @@ Tomcat vs. Jetty
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/树/" target="_blank">
-                        <span class="chip bg-color">树</span>
+                    <a href="/tags/数据结构/" target="_blank">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
-                    <a href="/tags/深度优先搜索/" target="_blank">
-                        <span class="chip bg-color">深度优先搜索</span>
+                    <a href="/tags/堆/" target="_blank">
+                        <span class="chip bg-color">堆</span>
                     </a>
                     
                 </div>
