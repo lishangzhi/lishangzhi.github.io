@@ -4,9 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="数据结构：栈, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="数据结构：栈栈也是一种数据呈现线性排列的数据结构，不过在这种结构中，我们只能访问最新添加的数据。栈就像是一摞书，拿到的新书时我们会把它放在书堆的最上面，取书的时候也只能从最上面的新书开始取
-如:现在存储在栈中的只有数据Blue然后，栈中增加">
+    <meta name="keywords" content="LeetCode第509题:斐波那契数, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="LeetCode第509题：斐波那契数说明斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和F(0) = 0,   F(1) = 1   F(N) = F(N -">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>数据结构：栈 | 算法与数据结构、机器学习、深度学习</title>
+    <title>LeetCode第509题:斐波那契数 | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -243,13 +242,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/banner/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        数据结构：栈
+                        LeetCode第509题:斐波那契数
                     </div>
                 </div>
             </div>
@@ -360,12 +359,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/数据结构/" target="_blank">
-                                <span class="chip bg-color">数据结构</span>
+                            <a href="/tags/动态规划/" target="_blank">
+                                <span class="chip bg-color">动态规划</span>
                             </a>
                         
-                            <a href="/tags/栈/" target="_blank">
-                                <span class="chip bg-color">栈</span>
+                            <a href="/tags/数组/" target="_blank">
+                                <span class="chip bg-color">数组</span>
+                            </a>
+                        
+                            <a href="/tags/斐波那契数/" target="_blank">
+                                <span class="chip bg-color">斐波那契数</span>
                             </a>
                         
                     </div>
@@ -373,36 +376,27 @@
                 </div>
                 <div class="col s5 right-align">
                     
-                    <div class="post-cate">
-                        <i class="fa fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/数据结构/" class="post-category" target="_blank">
-                                数据结构
-                            </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
 
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-24
+                    2019-08-05
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        424
+                        675
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        2 分
                     </div>
                     
                 
@@ -418,11 +412,15 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="数据结构：栈"><a href="#数据结构：栈" class="headerlink" title="数据结构：栈"></a>数据结构：栈</h2><p>栈也是一种数据呈现线性排列的数据结构，不过在这种结构中，我们只能访问最新添加的数据。栈就像是一摞书，拿到的新书时我们会把它放在书堆的最上面，取书的时候也只能从最上面的新书开始取<br><img src="/medias/article/images/2019/7/24/1.jpg" alt></p>
-<p>如:现在存储在栈中的只有数据Blue<br><img src="/medias/article/images/2019/7/24/2.jpg" alt><br>然后，栈中增加数据Green<br><img src="/medias/article/images/2019/7/24/3.jpg" alt><br>数据Red入栈<br><img src="/medias/article/images/2019/7/24/3.jpg" alt><br>从栈中取出数据时，是从最上面，也就是从最新的数据取出的，这里取出的是Red<br><img src="/medias/article/images/2019/7/24/4.png" alt></p>
-<h3 id="1-理解"><a href="#1-理解" class="headerlink" title="1. 理解"></a>1. 理解</h3><p>像栈这种最后添加的数据最先被取出，即“后进先出”的结构，我们称为Last In First Out，简称LIFO。<br>与链表和数组一样，栈的数据也是线性排列，但在栈中，添加和删除数据的操作只能在一端进行，访问数据也只能访问到顶端的数据。想要访问中间的数据时，就必须通过出栈操作将目标数据移到栈顶才行</p>
-<h4 id="1-1-应用示例"><a href="#1-1-应用示例" class="headerlink" title="1.1 应用示例"></a>1.1 应用示例</h4><p>栈只能在一端操作这一点看起来似乎十分不便，但在只需要访问最新数据时，使用它就比较方便了。<br>比如，规定（AB（C（DE）F）（G（（H）I J）K））这一串字符中括号的处理方式如下：首先从左边开始读取字符，读到左括号就将其入栈，读到右括号就将栈顶的左括号出栈。此时，出栈的左括号便与当前读取的右括号相匹配。通过这种处理方式，我们就能得知配对括号的具体位置</p>
-
+                <h2 id="LeetCode第509题：斐波那契数"><a href="#LeetCode第509题：斐波那契数" class="headerlink" title="LeetCode第509题：斐波那契数"></a>LeetCode第509题：斐波那契数</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和<br><code>F(0) = 0,   F(1) = 1   F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.</code></p>
+<p>动态规划算法似乎是一种很高深莫测的算法，你会在一些面试或算法书籍的高级技巧部分看到相关内容，什么状态转移方程，重叠子问题，最优子结构等高大上的词汇也可能让你望而却步。</p>
+<p>而且，当你去看用动态规划解决某个问题的代码时，你会觉得这样解决问题竟然如此巧妙，但却难以理解，你可能惊讶于人家是怎么想到这种解法的。</p>
+<p>实际上，动态规划是一种常见的「算法设计技巧」，并没有什么高深莫测，至于各种高大上的术语，那是吓唬别人用的，只要你亲自体验几把，这些名词的含义其实显而易见，再简单不过了。</p>
+<p>至于为什么最终的解法看起来如此精妙，是因为<strong>动态规划遵循一套固定的流程：递归的暴力解法 -&gt; 带备忘录的递归解法 -&gt; 非递归的动态规划解法</strong>。这个过程是层层递进的解决问题的过程，你如果没有前面的铺垫，直接看最终的非递归动态规划解法，当然会觉得牛逼而不可及了。</p>
+<p>当然，见的多了，思考多了，是可以一步写出非递归的动态规划解法的。任何技巧都需要练习，我们先遵循这个流程走，算法设计也就这些套路，除此之外，真的没啥高深的。</p>
+<p>以下，先通过两个个比较简单的例子：斐波那契和凑零钱问题，揭开动态规划的神秘面纱，描述上述三个流程。后续还会写几篇文章探讨如何使用动态规划技巧解决比较复杂的经典问题。</p>
+<p>首先，第一个快被举烂了的例子，斐波那契数列。请读者不要嫌弃这个例子简单，因为简单的例子才能让你把精力充分集中在算法背后的通用思想和技巧上，而不会被那些隐晦的细节问题搞的莫名其妙。后续，困难的例子有的是。</p>
+<h3 id="步骤一-暴力的递归算法"><a href="#步骤一-暴力的递归算法" class="headerlink" title="步骤一: 暴力的递归算法"></a>步骤一: 暴力的递归算法</h3><h3 id="步骤二-带备忘录的递归解法"><a href="#步骤二-带备忘录的递归解法" class="headerlink" title="步骤二: 带备忘录的递归解法"></a>步骤二: 带备忘录的递归解法</h3><h3 id="步骤三-动态规划"><a href="#步骤三-动态规划" class="headerlink" title="步骤三: 动态规划"></a>步骤三: 动态规划</h3>
             </div>
             <hr/>
 
@@ -575,50 +573,51 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/07/25/数据结构：队列/">
+                <a href="/2019/08/05/LeetCode第509题：斐波那契数/">
                     <div class="card-image">
                         
-                        <img src="/medias/banner/1.jpg" class="responsive-img" alt="数据结构：队列">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="LeetCode第509题:斐波那契数">
                         
-                        <span class="card-title">数据结构：队列</span>
+                        <span class="card-title">LeetCode第509题:斐波那契数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据结构:队列队列中的数据也呈线性排列。虽然与栈有些相似，但队列中添加和删除数据的操作分别是在两端进行的。就和“队列”这个名字一样，把它想象成排成一队的人更容易理解。在队列中，处理总是从第一名开始往后进行，而新来的人只能排在队尾
-这就是队列
+                            LeetCode第509题：斐波那契数说明斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和F(0) = 0,   F(1) = 1   F(N) = F(N -
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-05
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/数据结构/" class="post-category" target="_blank">
-                                    数据结构
-                                </a>
-                            
+                            <i class="fa fa-user fa-fw"></i>
+                            李尚志
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/数据结构/" target="_blank">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/动态规划/" target="_blank">
+                        <span class="chip bg-color">动态规划</span>
                     </a>
                     
-                    <a href="/tags/队列/" target="_blank">
-                        <span class="chip bg-color">队列</span>
+                    <a href="/tags/数组/" target="_blank">
+                        <span class="chip bg-color">数组</span>
+                    </a>
+                    
+                    <a href="/tags/斐波那契数/" target="_blank">
+                        <span class="chip bg-color">斐波那契数</span>
                     </a>
                     
                 </div>
@@ -632,32 +631,29 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/23/数据结构：数组/">
+                <a href="/2019/08/02/LeetCode第20题：有效的括号/">
                     <div class="card-image">
                         
-                        <img src="/medias/banner/1.jpg" class="responsive-img" alt="数据结构：数组">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="LeetCode第20题:有效括号">
                         
-                        <span class="card-title">数据结构：数组</span>
+                        <span class="card-title">LeetCode第20题:有效括号</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据结构：数组数组也是数据呈现线性排列的一种数据结。与前面一篇文章 数据结构：链表在数组中，访问数据十分简单，而添加数据和删除数据比较耗工夫数据按顺序存储在内存的连续空间内由于数据是存储在连续空间内的，所以每个数据的内存地址（在内存上的位置
+                            LeetCode第20题:有效括号数据结构：栈  
+问题案例给定一个只包括 &#39;(&#39;，&#39;)&#39;，&#39;{&#39;，&#39;}&#39;，&#39;[&#39;，&#39;]&#39; 的字符串，判断字符串
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-23
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-02
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/数据结构/" class="post-category" target="_blank">
-                                    数据结构
-                                </a>
-                            
+                            <i class="fa fa-user fa-fw"></i>
+                            李尚志
                             
                         </span>
                     </div>
@@ -665,12 +661,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/数组/" target="_blank">
-                        <span class="chip bg-color">数组</span>
+                    <a href="/tags/动态规划/" target="_blank">
+                        <span class="chip bg-color">动态规划</span>
                     </a>
                     
-                    <a href="/tags/数据结构/" target="_blank">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/中心扩散/" target="_blank">
+                        <span class="chip bg-color">中心扩散</span>
+                    </a>
+                    
+                    <a href="/tags/字符串/" target="_blank">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
