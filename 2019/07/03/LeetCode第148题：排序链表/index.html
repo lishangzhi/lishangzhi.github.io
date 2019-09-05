@@ -827,7 +827,7 @@ s 可能为空，且只包含从
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             // headingsOffset: -205,
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -839,7 +839,7 @@ s 可能为空，且只包含从
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -881,6 +881,7 @@ s 可能为空，且只包含从
         const expandedClass = 'expanded';
         let $tocAside = $('#toc-aside');
         let $mainContent = $('#main-content');
+
         $('#floating-toc-btn .btn-floating').click(function () {
             if ($tocAside.hasClass(expandedClass)) {
                 $tocAside.removeClass(expandedClass).slideUp(500);
@@ -891,6 +892,11 @@ s 可能为空，且只包含从
             }
             fixPostCardWidth('artDetail', 'prenext-posts');
         });
+
+        // 阅读8秒后展开
+        setTimeout( function(){
+            $('#floating-toc-btn .btn-floating').click();
+        }, 8 * 1000 )
         
     });
 </script>

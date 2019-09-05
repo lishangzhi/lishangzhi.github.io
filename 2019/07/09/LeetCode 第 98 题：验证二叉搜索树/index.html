@@ -798,7 +798,7 @@ Java开发中，某个类中需要依赖其它类的方法，则通常是new一�
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             // headingsOffset: -205,
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -810,7 +810,7 @@ Java开发中，某个类中需要依赖其它类的方法，则通常是new一�
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -852,6 +852,7 @@ Java开发中，某个类中需要依赖其它类的方法，则通常是new一�
         const expandedClass = 'expanded';
         let $tocAside = $('#toc-aside');
         let $mainContent = $('#main-content');
+
         $('#floating-toc-btn .btn-floating').click(function () {
             if ($tocAside.hasClass(expandedClass)) {
                 $tocAside.removeClass(expandedClass).slideUp(500);
@@ -862,6 +863,11 @@ Java开发中，某个类中需要依赖其它类的方法，则通常是new一�
             }
             fixPostCardWidth('artDetail', 'prenext-posts');
         });
+
+        // 阅读8秒后展开
+        setTimeout( function(){
+            $('#floating-toc-btn .btn-floating').click();
+        }, 8 * 1000 )
         
     });
 </script>
