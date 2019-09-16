@@ -4,9 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="数据结构：栈, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="数据结构：栈栈也是一种数据呈现线性排列的数据结构，不过在这种结构中，我们只能访问最新添加的数据。栈就像是一摞书，拿到的新书时我们会把它放在书堆的最上面，取书的时候也只能从最上面的新书开始取
-如:现在存储在栈中的只有数据Blue然后，栈中增加">
+    <meta name="keywords" content="Paxos算法, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="Paxos算法详解
+Paxos、Raft分布式一致性算法应用场景一文讲述了分布式一致性问题与分布式一致性算法的典型应用场景。作为分布式一致性代名词的Paxos算法号称是最难理解的算法
+
+一、Paxos算法背景Paxos算法是Lamport宗">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>数据结构：栈 | 算法与数据结构、机器学习、深度学习</title>
+    <title>Paxos算法 | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -243,13 +245,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/banner/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/article/images/arithmetic.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        数据结构：栈
+                        Paxos算法
                     </div>
                 </div>
             </div>
@@ -360,12 +362,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/数据结构/" target="_blank">
-                                <span class="chip bg-color">数据结构</span>
-                            </a>
-                        
-                            <a href="/tags/栈/" target="_blank">
-                                <span class="chip bg-color">栈</span>
+                            <a href="/tags/算法/" target="_blank">
+                                <span class="chip bg-color">算法</span>
                             </a>
                         
                     </div>
@@ -376,8 +374,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/数据结构/" class="post-category" target="_blank">
-                                数据结构
+                            <a href="/categories/Java-知识库/" class="post-category" target="_blank">
+                                Java 知识库
                             </a>
                         
                     </div>
@@ -388,21 +386,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-24
+                    2019-09-16
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        424
+                        1.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        5 分
                     </div>
                     
                 
@@ -418,10 +416,42 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="数据结构：栈"><a href="#数据结构：栈" class="headerlink" title="数据结构：栈"></a>数据结构：栈</h2><p>栈也是一种数据呈现线性排列的数据结构，不过在这种结构中，我们只能访问最新添加的数据。栈就像是一摞书，拿到的新书时我们会把它放在书堆的最上面，取书的时候也只能从最上面的新书开始取<br><img src="/medias/article/images/2019/7/24/1.jpg" alt></p>
-<p>如:现在存储在栈中的只有数据Blue<br><img src="/medias/article/images/2019/7/24/2.jpg" alt><br>然后，栈中增加数据Green<br><img src="/medias/article/images/2019/7/24/3.jpg" alt><br>数据Red入栈<br><img src="/medias/article/images/2019/7/24/3.jpg" alt><br>从栈中取出数据时，是从最上面，也就是从最新的数据取出的，这里取出的是Red<br><img src="/medias/article/images/2019/7/24/4.png" alt></p>
-<h3 id="1-理解"><a href="#1-理解" class="headerlink" title="1. 理解"></a>1. 理解</h3><p>像栈这种最后添加的数据最先被取出，即“后进先出”的结构，我们称为Last In First Out，简称LIFO。<br>与链表和数组一样，栈的数据也是线性排列，但在栈中，添加和删除数据的操作只能在一端进行，访问数据也只能访问到顶端的数据。想要访问中间的数据时，就必须通过出栈操作将目标数据移到栈顶才行</p>
-<h4 id="1-1-应用示例"><a href="#1-1-应用示例" class="headerlink" title="1.1 应用示例"></a>1.1 应用示例</h4><p>栈只能在一端操作这一点看起来似乎十分不便，但在只需要访问最新数据时，使用它就比较方便了。<br>比如，规定（AB（C（DE）F）（G（（H）I J）K））这一串字符中括号的处理方式如下：首先从左边开始读取字符，读到左括号就将其入栈，读到右括号就将栈顶的左括号出栈。此时，出栈的左括号便与当前读取的右括号相匹配。通过这种处理方式，我们就能得知配对括号的具体位置</p>
+                <h2 id="Paxos算法详解"><a href="#Paxos算法详解" class="headerlink" title="Paxos算法详解"></a>Paxos算法详解</h2><blockquote>
+<p>Paxos、Raft分布式一致性算法应用场景一文讲述了分布式一致性问题与分布式一致性算法的典型应用场景。作为分布式一致性代名词的Paxos算法号称是最难理解的算法</p>
+</blockquote>
+<h3 id="一、Paxos算法背景"><a href="#一、Paxos算法背景" class="headerlink" title="一、Paxos算法背景"></a>一、Paxos算法背景</h3><p>Paxos算法是Lamport宗师提出的一种基于消息传递的分布式一致性算法，使其获得2013年图灵奖。</p>
+<p>Paxos由Lamport于1998年在《The Part-Time Parliament》论文中首次公开，最初的描述使用希腊的一个小岛Paxos作为比喻，描述了Paxos小岛中通过决议的流程，并以此命名这个算法，但是这个描述理解起来比较有挑战性。后来在2001年，Lamport觉得同行不能理解他的幽默感，于是重新发表了朴实的算法描述版本《Paxos Made Simple》。</p>
+<p>自Paxos问世以来就持续垄断了分布式一致性算法，Paxos这个名词几乎等同于分布式一致性。Google的很多大型分布式系统都采用了Paxos算法来解决分布式一致性问题，如Chubby、Megastore以及Spanner等。开源的ZooKeeper，以及MySQL 5.7推出的用来取代传统的主从复制的MySQL Group Replication等纷纷采用Paxos算法解决分布式一致性问题。</p>
+<p>然而，Paxos的最大特点就是难，不仅难以理解，更难以实现。</p>
+<h3 id="二、Paxos算法流程"><a href="#二、Paxos算法流程" class="headerlink" title="二、Paxos算法流程"></a>二、Paxos算法流程</h3><p>Paxos算法解决的问题正是分布式一致性问题，即一个分布式系统中的各个进程如何就某个值（决议）达成一致。</p>
+<h3 id="三、Multi-Paxos算法"><a href="#三、Multi-Paxos算法" class="headerlink" title="三、Multi-Paxos算法"></a>三、Multi-Paxos算法</h3><h4 id="附Paxos算法推导过程"><a href="#附Paxos算法推导过程" class="headerlink" title="附Paxos算法推导过程"></a>附Paxos算法推导过程</h4><p>Paxos算法的设计过程就是从正确性开始的，对于分布式一致性问题，很多进程提出（Propose）不同的值，共识算法保证最终只有其中一个值被选定，Safety表述如下：</p>
+<ul>
+<li>只有被提出（Propose）的值才可能被最终选定（Chosen）。</li>
+<li>只有一个值会被选定（Chosen）。</li>
+<li>进程只会获知到已经确认被选定（Chosen）的值。</li>
+<li>Paxos以这几条约束作为出发点进行设计，只要算法最终满足这几点，正确性就不需要证明了。Paxos算法中共分为三种参与者：Proposer、Acceptor以及Learner，通常实现中每个进程都同时扮演这三个角色。</li>
+</ul>
+<p>Proposers向Acceptors提出Proposal，为了保证最多只有一个值被选定（Chosen），Proposal必须被超过一半的Acceptors所接受（Accept），且每个Acceptor只能接受一个值。</p>
+<p>为了保证正常运行（必须有值被接受），所以Paxos算法中：</p>
+<p>  <strong>P1：Acceptor必须接受（Accept）它所收到的第一个Proposal。</strong><br>  先来先服务，合情合理。但这样产生一个问题，如果多个Proposers同时提出Proposal，很可能会导致无法达成一致，因为没有Propopal被超过一半Acceptors的接受，因此，Acceptor必须能够接受多个Proposal，不同的Proposal由不同的编号进行区分，当某个Proposal被超过一半的Acceptors接受后，这个Proposal就被选定了。<br>  既然允许Acceptors接受多个Proposal就有可能出现多个不同值都被最终选定的情况，这违背了Safety要求，为了保证Safety要求，Paxos进一步提出：</p>
+<p>  <strong>P2：如果值为v的Proposal被选定（Chosen），则任何被选定（Chosen）的具有更高编号的Proposal值也一定为v</strong><br>  只要算法同时满足P1和P2，就保证了Safety。P2是一个比较宽泛的约定，完全没有算法细节，我们对其进一步延伸：</p>
+<p>  <strong>P2a：如果值为v的Proposal被选定（Chosen），则对所有的Acceptors，它们接受（Accept）的任何具有更高编号的Proposal值也一定为v。</strong><br>  如果满足P2a则一定满足P2，显然，因为只有首先被接受才有可能被最终选定。但是P2a依然难以实现，因为acceptor很有可能并不知道之前被选定的Proposal（恰好不在接受它的多数派中），因此进一步延伸</p>
+<p>  <strong>P2b：如果值为v的Proposal被选定（Chosen），则对所有的Proposer，它们提出的的任何具有更高编号的Proposal值也一定为v。</strong><br>  更进一步的：</p>
+<p>  <strong>P2c：为了提出值为v且编号为n的Proposal，必须存在一个包含超过一半Acceptors的集合S，满足(1) 没有任何S中的Acceptors曾经接受（Accept）过编号比n小的Proposal，或者(2) v和S中的Acceptors所接受过(Accept)的编号最大且小于n的Proposal值一致</strong><br>  满足P2c即满足P2b即满足P2a即满足P2。至此Paxos提出了Proposer的执行流程，以满足P2c：</p>
+<ol>
+<li><p>Proposer选择一个新的编号n，向超过一半的Acceptors发送请求消息，Acceptor回复: (a)承诺不会接受编号比n小的proposal，以及(b)它所接受过的编号比n小的最大Proposal（如果有）。该请求称为Prepare请求。</p>
+</li>
+<li><p>如果Proposer收到超过一半Acceptors的回复，它就可以提出Proposal，Proposal的值为收到回复中编号最大的Proposal的值，如果没有这样的值，则可以自由提出任何值。</p>
+</li>
+<li><p>向收到回复的Acceptors发送Accept请求，请求对方接受提出的Proposal。<br>仔细品味Proposer的执行流程，其完全吻合P2c中的要求，但你可能也发现了，当多个Proposer同时运行时，有可能出现没有任何Proposal可以成功被接受的情况（编号递增的交替完成第一步），这就是Paxos算法的Liveness问题，或者叫“活锁”，论文中建议通过对Proposers引入选主算法选出Distinguished Proposer来全权负责提出Proposal来解决这个问题，但是即使在出现多个Proposers同时提出Proposal的情况时，Paxos算法也可以保证Safety。</p>
+<p>接下来看看Acceptors的执行过程，和我们对P2做的事情一样，我们对P1进行延伸：</p>
+</li>
+</ol>
+<p>  <strong>P1a：Acceptor可以接受（Accept）编号为n的Proposal当且仅当它没有回复过一个具有更大编号的Prepare消息</strong><br>  易见，P1a包含了P1，对于Acceptors：</p>
+<ol>
+<li>当收到Prepare请求时，如果其编号n大于之前所收到的Prepare消息，则回复。</li>
+<li>当收到Accept请求时，仅当它没有回复过一个具有更大编号的Prepare消息，接受该Proposal并回复。<br>以上涵盖了满足P1a和P2b的一套完整一致性算法。</li>
+</ol>
 
             </div>
             <hr/>
@@ -575,50 +605,50 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/07/25/数据结构：队列/">
+                <a href="/2019/09/16/Paxos算法/">
                     <div class="card-image">
                         
-                        <img src="/medias/banner/1.jpg" class="responsive-img" alt="数据结构：队列">
+                        <img src="/medias/article/images/arithmetic.jpg" class="responsive-img" alt="Paxos算法">
                         
-                        <span class="card-title">数据结构：队列</span>
+                        <span class="card-title">Paxos算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据结构:队列队列中的数据也呈线性排列。虽然与栈有些相似，但队列中添加和删除数据的操作分别是在两端进行的。就和“队列”这个名字一样，把它想象成排成一队的人更容易理解。在队列中，处理总是从第一名开始往后进行，而新来的人只能排在队尾
-这就是队列
+                            Paxos算法详解
+Paxos、Raft分布式一致性算法应用场景一文讲述了分布式一致性问题与分布式一致性算法的典型应用场景。作为分布式一致性代名词的Paxos算法号称是最难理解的算法
+
+一、Paxos算法背景Paxos算法是Lamport宗
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/数据结构/" class="post-category" target="_blank">
-                                    数据结构
+                            <a href="/categories/Java-知识库/" class="post-category" target="_blank">
+                                    Java 知识库
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/数据结构/" target="_blank">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
-                    <a href="/tags/队列/" target="_blank">
-                        <span class="chip bg-color">队列</span>
+                    <a href="/tags/算法/" target="_blank">
+                        <span class="chip bg-color">算法</span>
                     </a>
                     
                 </div>
@@ -632,30 +662,31 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/23/数据结构：数组/">
+                <a href="/2019/09/05/Reflections框架/">
                     <div class="card-image">
                         
-                        <img src="/medias/banner/1.jpg" class="responsive-img" alt="数据结构：数组">
+                        <img src="/medias/article/images/java8.jpg" class="responsive-img" alt="Reflections框架">
                         
-                        <span class="card-title">数据结构：数组</span>
+                        <span class="card-title">Reflections框架</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据结构：数组数组也是数据呈现线性排列的一种数据结。与前面一篇文章 数据结构：链表在数组中，访问数据十分简单，而添加数据和删除数据比较耗工夫数据按顺序存储在内存的连续空间内由于数据是存储在连续空间内的，所以每个数据的内存地址（在内存上的位置
+                            Reflections框架Reflections框架简介
+Reflections是一个能提供一站式服务的对象。它扫描工程的classpath，为元数据建索引，允许你运行时查询元数据信息。此外，他还能为你项目的lib库中所有的jar包保存和收
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-23
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-05
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/数据结构/" class="post-category" target="_blank">
-                                    数据结构
+                            <a href="/categories/Java-知识库/" class="post-category" target="_blank">
+                                    Java 知识库
                                 </a>
                             
                             
@@ -665,12 +696,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/数组/" target="_blank">
-                        <span class="chip bg-color">数组</span>
-                    </a>
-                    
-                    <a href="/tags/数据结构/" target="_blank">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>

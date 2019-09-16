@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Paxos算法</title>
+      <link href="/2019/09/16/Paxos%E7%AE%97%E6%B3%95/"/>
+      <url>/2019/09/16/Paxos%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Paxos算法详解"><a href="#Paxos算法详解" class="headerlink" title="Paxos算法详解"></a>Paxos算法详解</h2><blockquote><p>Paxos、Raft分布式一致性算法应用场景一文讲述了分布式一致性问题与分布式一致性算法的典型应用场景。作为分布式一致性代名词的Paxos算法号称是最难理解的算法</p></blockquote><h3 id="一、Paxos算法背景"><a href="#一、Paxos算法背景" class="headerlink" title="一、Paxos算法背景"></a>一、Paxos算法背景</h3><p>Paxos算法是Lamport宗师提出的一种基于消息传递的分布式一致性算法，使其获得2013年图灵奖。</p><p>Paxos由Lamport于1998年在《The Part-Time Parliament》论文中首次公开，最初的描述使用希腊的一个小岛Paxos作为比喻，描述了Paxos小岛中通过决议的流程，并以此命名这个算法，但是这个描述理解起来比较有挑战性。后来在2001年，Lamport觉得同行不能理解他的幽默感，于是重新发表了朴实的算法描述版本《Paxos Made Simple》。</p><p>自Paxos问世以来就持续垄断了分布式一致性算法，Paxos这个名词几乎等同于分布式一致性。Google的很多大型分布式系统都采用了Paxos算法来解决分布式一致性问题，如Chubby、Megastore以及Spanner等。开源的ZooKeeper，以及MySQL 5.7推出的用来取代传统的主从复制的MySQL Group Replication等纷纷采用Paxos算法解决分布式一致性问题。</p><p>然而，Paxos的最大特点就是难，不仅难以理解，更难以实现。</p><h3 id="二、Paxos算法流程"><a href="#二、Paxos算法流程" class="headerlink" title="二、Paxos算法流程"></a>二、Paxos算法流程</h3><p>Paxos算法解决的问题正是分布式一致性问题，即一个分布式系统中的各个进程如何就某个值（决议）达成一致。</p><h3 id="三、Multi-Paxos算法"><a href="#三、Multi-Paxos算法" class="headerlink" title="三、Multi-Paxos算法"></a>三、Multi-Paxos算法</h3><h4 id="附Paxos算法推导过程"><a href="#附Paxos算法推导过程" class="headerlink" title="附Paxos算法推导过程"></a>附Paxos算法推导过程</h4><p>Paxos算法的设计过程就是从正确性开始的，对于分布式一致性问题，很多进程提出（Propose）不同的值，共识算法保证最终只有其中一个值被选定，Safety表述如下：</p><ul><li>只有被提出（Propose）的值才可能被最终选定（Chosen）。</li><li>只有一个值会被选定（Chosen）。</li><li>进程只会获知到已经确认被选定（Chosen）的值。</li><li>Paxos以这几条约束作为出发点进行设计，只要算法最终满足这几点，正确性就不需要证明了。Paxos算法中共分为三种参与者：Proposer、Acceptor以及Learner，通常实现中每个进程都同时扮演这三个角色。</li></ul><p>Proposers向Acceptors提出Proposal，为了保证最多只有一个值被选定（Chosen），Proposal必须被超过一半的Acceptors所接受（Accept），且每个Acceptor只能接受一个值。</p><p>为了保证正常运行（必须有值被接受），所以Paxos算法中：</p><p>  <strong>P1：Acceptor必须接受（Accept）它所收到的第一个Proposal。</strong><br>  先来先服务，合情合理。但这样产生一个问题，如果多个Proposers同时提出Proposal，很可能会导致无法达成一致，因为没有Propopal被超过一半Acceptors的接受，因此，Acceptor必须能够接受多个Proposal，不同的Proposal由不同的编号进行区分，当某个Proposal被超过一半的Acceptors接受后，这个Proposal就被选定了。<br>  既然允许Acceptors接受多个Proposal就有可能出现多个不同值都被最终选定的情况，这违背了Safety要求，为了保证Safety要求，Paxos进一步提出：</p><p>  <strong>P2：如果值为v的Proposal被选定（Chosen），则任何被选定（Chosen）的具有更高编号的Proposal值也一定为v</strong><br>  只要算法同时满足P1和P2，就保证了Safety。P2是一个比较宽泛的约定，完全没有算法细节，我们对其进一步延伸：</p><p>  <strong>P2a：如果值为v的Proposal被选定（Chosen），则对所有的Acceptors，它们接受（Accept）的任何具有更高编号的Proposal值也一定为v。</strong><br>  如果满足P2a则一定满足P2，显然，因为只有首先被接受才有可能被最终选定。但是P2a依然难以实现，因为acceptor很有可能并不知道之前被选定的Proposal（恰好不在接受它的多数派中），因此进一步延伸</p><p>  <strong>P2b：如果值为v的Proposal被选定（Chosen），则对所有的Proposer，它们提出的的任何具有更高编号的Proposal值也一定为v。</strong><br>  更进一步的：</p><p>  <strong>P2c：为了提出值为v且编号为n的Proposal，必须存在一个包含超过一半Acceptors的集合S，满足(1) 没有任何S中的Acceptors曾经接受（Accept）过编号比n小的Proposal，或者(2) v和S中的Acceptors所接受过(Accept)的编号最大且小于n的Proposal值一致</strong><br>  满足P2c即满足P2b即满足P2a即满足P2。至此Paxos提出了Proposer的执行流程，以满足P2c：</p><ol><li><p>Proposer选择一个新的编号n，向超过一半的Acceptors发送请求消息，Acceptor回复: (a)承诺不会接受编号比n小的proposal，以及(b)它所接受过的编号比n小的最大Proposal（如果有）。该请求称为Prepare请求。</p></li><li><p>如果Proposer收到超过一半Acceptors的回复，它就可以提出Proposal，Proposal的值为收到回复中编号最大的Proposal的值，如果没有这样的值，则可以自由提出任何值。</p></li><li><p>向收到回复的Acceptors发送Accept请求，请求对方接受提出的Proposal。<br>仔细品味Proposer的执行流程，其完全吻合P2c中的要求，但你可能也发现了，当多个Proposer同时运行时，有可能出现没有任何Proposal可以成功被接受的情况（编号递增的交替完成第一步），这就是Paxos算法的Liveness问题，或者叫“活锁”，论文中建议通过对Proposers引入选主算法选出Distinguished Proposer来全权负责提出Proposal来解决这个问题，但是即使在出现多个Proposers同时提出Proposal的情况时，Paxos算法也可以保证Safety。</p><p>接下来看看Acceptors的执行过程，和我们对P2做的事情一样，我们对P1进行延伸：</p></li></ol><p>  <strong>P1a：Acceptor可以接受（Accept）编号为n的Proposal当且仅当它没有回复过一个具有更大编号的Prepare消息</strong><br>  易见，P1a包含了P1，对于Acceptors：</p><ol><li>当收到Prepare请求时，如果其编号n大于之前所收到的Prepare消息，则回复。</li><li>当收到Accept请求时，仅当它没有回复过一个具有更大编号的Prepare消息，接受该Proposal并回复。<br>以上涵盖了满足P1a和P2b的一套完整一致性算法。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java 知识库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Reflections框架</title>
       <link href="/2019/09/05/Reflections%E6%A1%86%E6%9E%B6/"/>
       <url>/2019/09/05/Reflections%E6%A1%86%E6%9E%B6/</url>
@@ -638,11 +663,11 @@
       
         <tags>
             
+            <tag> 回溯算法 </tag>
+            
             <tag> 动态规划 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> 回溯算法 </tag>
             
             <tag> 贪心算法 </tag>
             
