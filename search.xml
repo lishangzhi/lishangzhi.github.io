@@ -15,6 +15,8 @@
           
           <category> Java 知识库 </category>
           
+          <category> SpringBoot </category>
+          
       </categories>
       
       
@@ -167,6 +169,8 @@
           
           <category> Java 知识库 </category>
           
+          <category> SpringBoot </category>
+          
       </categories>
       
       
@@ -240,6 +244,8 @@
           
           <category> Java 知识库 </category>
           
+          <category> SpringBoot </category>
+          
       </categories>
       
       
@@ -270,9 +276,9 @@
       
         <tags>
             
-            <tag> 数据结构 </tag>
-            
             <tag> 哈希表 </tag>
+            
+            <tag> 数据结构 </tag>
             
         </tags>
       
@@ -400,6 +406,8 @@
           
           <category> Java 知识库 </category>
           
+          <category> SpringBoot </category>
+          
       </categories>
       
       
@@ -499,6 +507,8 @@
       <categories>
           
           <category> Java 知识库 </category>
+          
+          <category> SpringBoot </category>
           
       </categories>
       
