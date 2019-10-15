@@ -4,12 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringBoot之ConfigurationProperties, 算法与数据结构、机器学习、深度学习">
-    <meta name="description" content="前言ConfigurationProperties 是SpringBoot引入的一个和外部配置文件相关的注解类。它可以帮助我们更好的使用外置的配置文件属性。
-源码解析
-属性注入到Java类
-
-@Target({ ElementType.TY">
+    <meta name="keywords" content="SpringCloud之RefreshScope, 算法与数据结构、机器学习、深度学习">
+    <meta name="description" content="SpringCloud之RefreshScope@Scope 源码解读
+Scope(org.springframework.beans.factory.config.Scope)是Spring 2.0开始就有的核心的概念
+RefreshSc">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SpringBoot之ConfigurationProperties | 算法与数据结构、机器学习、深度学习</title>
+    <title>SpringCloud之RefreshScope | 算法与数据结构、机器学习、深度学习</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -252,7 +250,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        SpringBoot之ConfigurationProperties
+                        SpringCloud之RefreshScope
                     </div>
                 </div>
             </div>
@@ -363,8 +361,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/SpringBoot/" target="_blank">
-                                <span class="chip bg-color">SpringBoot</span>
+                            <a href="/tags/SpringCloud/" target="_blank">
+                                <span class="chip bg-color">SpringCloud</span>
                             </a>
                         
                     </div>
@@ -379,8 +377,8 @@
                                 Java 知识库
                             </a>
                         
-                            <a href="/categories/Java-知识库/SpringBoot/" class="post-category" target="_blank">
-                                SpringBoot
+                            <a href="/categories/Java-知识库/SpringCloud/" class="post-category" target="_blank">
+                                SpringCloud
                             </a>
                         
                     </div>
@@ -391,21 +389,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-10-14
+                    2019-10-15
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        550
+                        630
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        3 分
                     </div>
                     
                 
@@ -421,115 +419,144 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>ConfigurationProperties</code> 是<code>SpringBoot</code>引入的一个和外部配置文件相关的注解类。它可以帮助我们更好的使用外置的配置文件属性。</p>
-<h2 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h2><blockquote>
-<p>属性注入到Java类</p>
-</blockquote>
+                <h2 id="SpringCloud之RefreshScope"><a href="#SpringCloud之RefreshScope" class="headerlink" title="SpringCloud之RefreshScope"></a>SpringCloud之RefreshScope</h2><h3 id="Scope-源码解读"><a href="#Scope-源码解读" class="headerlink" title="@Scope 源码解读"></a>@Scope 源码解读</h3><ul>
+<li>Scope(<code>org.springframework.beans.factory.config.Scope</code>)是Spring 2.0开始就有的核心的概念</li>
+<li>RefreshScope(<code>org.springframework.cloud.context.scope.refresh</code>)是spring cloud提供的一种特殊的scope实现，用来实现配置、实例热加载。</li>
+<li>Scope -&gt; GenericScope -&gt; RefreshScope<br><img src="/medias/article/images/2019/10/15/RefreshScope.jpg" alt></li>
+<li>Scope与ApplicationContext生命周期<ul>
+<li>AbstractBeanFactory#doGetBean创建Bean实例</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">protected</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> T <span class="token function">doGetBean</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">final</span> RootBeanDefinition mbd <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>mbd<span class="token punctuation">.</span><span class="token function">isSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>mbd<span class="token punctuation">.</span><span class="token function">isPrototype</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+       <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          String scopeName <span class="token operator">=</span> mbd<span class="token punctuation">.</span><span class="token function">getScope</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">final</span> Scope scope <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>scopes<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>scopeName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          Object scopedInstance <span class="token operator">=</span> scope<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>beanName<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ObjectFactory</span><span class="token operator">&lt;</span>Object<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+ <span class="token punctuation">}</span></code></pre>
+<ul>
+<li>Singleton和Prototype是硬编码的，并不是Scope子类。 Scope实际上是自定义扩展的接口</li>
+<li>Scope Bean实例交由Scope自己创建，例如SessionScope是从Session中获取实例的，ThreadScope是从ThreadLocal中获取的，而RefreshScope是在内建缓存中获取的<ul>
+<li>@Scope 对象的实例化</li>
+</ul>
+</li>
+<li>@RefreshScope 是scopeName=”refresh”的 @Scope</li>
+</ul>
 <pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span> ElementType<span class="token punctuation">.</span>TYPE<span class="token punctuation">,</span> ElementType<span class="token punctuation">.</span>METHOD <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Scope</span><span class="token punctuation">(</span><span class="token string">"refresh"</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@Documented</span>
-<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">ConfigurationProperties</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@AliasFor</span><span class="token punctuation">(</span><span class="token string">"prefix"</span><span class="token punctuation">)</span>
-    String <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">""</span><span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@AliasFor</span><span class="token punctuation">(</span><span class="token string">"value"</span><span class="token punctuation">)</span>
-    String <span class="token function">prefix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">""</span><span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> <span class="token function">ignoreInvalidFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> <span class="token function">ignoreNestedProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> <span class="token function">ignoreUnknownFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Deprecated</span>
-    <span class="token keyword">boolean</span> <span class="token function">exceptionIfInvalid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">RefreshScope</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * @see Scope#proxyMode()
+     * @return proxy mode
+     */</span>
+    ScopedProxyMode <span class="token function">proxyMode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> ScopedProxyMode<span class="token punctuation">.</span>TARGET_CLASS<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <ul>
-<li>prefix &amp; value<ul>
-<li>prefix 属性可以指定配置文件中配置项的前缀，如此，相同前缀的配置项就可以统一解析。</li>
+<li>@Scope 的注册 AnnotatedBeanDefinitionReader#registerBean</li>
 </ul>
-</li>
-<li>ignoreInvalidFields<ul>
-<li>是否忽略不可用的字段，默认为false， 当配置项不能被正确转化为Java类的字段值时，会抛出异常。</li>
-</ul>
-</li>
-<li>ignoreNestedProperties<ul>
-<li>是否忽略嵌套属性，默认为false，</li>
-</ul>
-</li>
-<li>ignoreUnknownFields<ul>
-<li>是否忽略Java类不存在的字段，默认值为true。</li>
-</ul>
-</li>
-<li>exceptionIfInvalid<ul>
-<li>如果Java类加了注解@Validated，并且校验失败了，是否抛出异常。默认true</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>通过@ConfigurationProperties + @Bean注解在配置类的bean定义方法上</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
-<span class="token annotation punctuation">@ConfigurationProperties</span>
-<span class="token annotation punctuation">@PropertySource</span><span class="token punctuation">(</span><span class="token string">"classpath:configprops.properties"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConfigProperties</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Credentials</span> <span class="token punctuation">{</span>
-        <span class="token annotation punctuation">@Length</span><span class="token punctuation">(</span>max <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span> min <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">private</span> String authMethod<span class="token punctuation">;</span>
-        <span class="token keyword">private</span> String username<span class="token punctuation">;</span>
-        <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
-
-       <span class="token comment" spellcheck="true">// standard getters and setters</span>
-    <span class="token punctuation">}</span>
-    <span class="token annotation punctuation">@NotBlank</span>
-    <span class="token keyword">private</span> String host<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Min</span><span class="token punctuation">(</span><span class="token number">1025</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@Max</span><span class="token punctuation">(</span><span class="token number">65536</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> port<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Pattern</span><span class="token punctuation">(</span>regexp <span class="token operator">=</span> <span class="token string">"^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}$"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> String from<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Credentials credentials<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> defaultRecipients<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">></span> additionalHeaders<span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">// standard getters and setters</span>
-<span class="token punctuation">}</span></code></pre>
-<p>默认属性配置从<code>application.properties</code>文件中获取，也可以通过<code>@PropertySource</code>指定。<br><code>@Configuration</code>注解不可缺少。<br>资源文件内容如下：</p>
-<pre><code>#Simple properties
-mail.host=mailer@mail.com
-mail.port=9000
-mail.from=mailer@mail.com
-
-#List properties
-mail.defaultRecipients[0]=admin@mail.com
-mail.defaultRecipients[1]=owner@mail.com
-
-#Map Properties
-mail.additionalHeaders.redelivery=true
-mail.additionalHeaders.secure=true
-
-#Object properties
-mail.credentials.username=john
-mail.credentials.password=password
-mail.credentials.authMethod=SHA1</code></pre><p>内嵌类属性</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerBean</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    ScopeMetadata scopeMetadata <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>scopeMetadataResolver<span class="token punctuation">.</span><span class="token function">resolveScopeMetadata</span><span class="token punctuation">(</span>abd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      abd<span class="token punctuation">.</span><span class="token function">setScope</span><span class="token punctuation">(</span>scopeMetadata<span class="token punctuation">.</span><span class="token function">getScopeName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      definitionHolder <span class="token operator">=</span> AnnotationConfigUtils<span class="token punctuation">.</span><span class="token function">applyScopedProxyMode</span><span class="token punctuation">(</span>scopeMetadata<span class="token punctuation">,</span> definitionHolder<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>registry<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span></code></pre>
 <ul>
-<li><code>mail.credentials.username</code>可以注入到内嵌属性<code>credentials</code>中
-列表字段</li>
-<li><code>mail.defaultRecipients[0]</code> 可以注入到类的列表(数组页可以)属性中。<br>map字段 </li>
-<li><code>mail.additionalHeaders.redelivery</code> 格式的配置项也可以注入到Map类型的属性中。</li>
+<li>读取@Scope元数据， AnnotationScopeMetadataResolver#resolveScopeMetadata</li>
 </ul>
-<blockquote>
-<p>@ConfigurationProperties + @EnableConfigurationProperties</p>
-</blockquote>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
-<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"mail"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> ConfigProperties <span class="token function">mailConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ConfigProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> ScopeMetadata <span class="token function">resolveScopeMetadata</span><span class="token punctuation">(</span>BeanDefinition definition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          AnnotationAttributes attributes <span class="token operator">=</span> AnnotationConfigUtils<span class="token punctuation">.</span><span class="token function">attributesFor</span><span class="token punctuation">(</span>
+                  annDef<span class="token punctuation">.</span><span class="token function">getMetadata</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Scope<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>attributes <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              metadata<span class="token punctuation">.</span><span class="token function">setScopeName</span><span class="token punctuation">(</span>attributes<span class="token punctuation">.</span><span class="token function">getString</span><span class="token punctuation">(</span><span class="token string">"value"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              ScopedProxyMode proxyMode <span class="token operator">=</span> attributes<span class="token punctuation">.</span><span class="token function">getEnum</span><span class="token punctuation">(</span><span class="token string">"proxyMode"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>proxyMode <span class="token operator">==</span> null <span class="token operator">||</span> proxyMode <span class="token operator">==</span> ScopedProxyMode<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                  proxyMode <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>defaultProxyMode<span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
+              metadata<span class="token punctuation">.</span><span class="token function">setScopedProxyMode</span><span class="token punctuation">(</span>proxyMode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@SpringBootApplication</span>
-<span class="token annotation punctuation">@EnableConfigurationProperties</span><span class="token punctuation">(</span><span class="token punctuation">{</span>ConfigProperties<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Application</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
-        SpringApplication<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>Application<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<ul>
+<li>Scope实例对象通过ScopedProxyFactoryBean创建，其中通过AOP使其实现ScopedObject接口，这里不再展开<h3 id="RefreshScope-源码解读"><a href="#RefreshScope-源码解读" class="headerlink" title="@RefreshScope 源码解读"></a>@RefreshScope 源码解读</h3><h4 id="RefreshScope注册"><a href="#RefreshScope注册" class="headerlink" title="RefreshScope注册"></a>RefreshScope注册</h4><ul>
+<li>RefreshAutoConfiguration#RefreshScopeConfiguration</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token annotation punctuation">@ConditionalOnMissingBean</span><span class="token punctuation">(</span>RefreshScope<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">protected</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">RefreshScopeConfiguration</span> <span class="token keyword">implements</span> <span class="token class-name">BeanDefinitionRegistryPostProcessor</span><span class="token punctuation">{</span>
+ <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    registry<span class="token punctuation">.</span><span class="token function">registerBeanDefinition</span><span class="token punctuation">(</span><span class="token string">"refreshScope"</span><span class="token punctuation">,</span>
+    BeanDefinitionBuilder<span class="token punctuation">.</span><span class="token function">genericBeanDefinition</span><span class="token punctuation">(</span>RefreshScope<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">setRole</span><span class="token punctuation">(</span>BeanDefinition<span class="token punctuation">.</span>ROLE_INFRASTRUCTURE<span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">getBeanDefinition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>RefreshScope extends GenericScope, 大部分逻辑在 GenericScope 中</li>
+<li>GenericScope#postProcessBeanFactory 中向AbstractBeanFactory注册自己</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GenericScope</span> <span class="token keyword">implements</span> <span class="token class-name">Scope</span><span class="token punctuation">,</span> BeanFactoryPostProcessor<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">{</span>
+      <span class="token annotation punctuation">@Override</span>
+      <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postProcessBeanFactory</span><span class="token punctuation">(</span>ConfigurableListableBeanFactory beanFactory<span class="token punctuation">)</span>
+          <span class="token keyword">throws</span> BeansException <span class="token punctuation">{</span>
+          beanFactory<span class="token punctuation">.</span><span class="token function">registerScope</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token comment" spellcheck="true">/*refresh*/</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token comment" spellcheck="true">/*RefreshScope*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h4 id="RefreshScope-刷新过程"><a href="#RefreshScope-刷新过程" class="headerlink" title="RefreshScope 刷新过程"></a>RefreshScope 刷新过程</h4><ul>
+<li>入口在ContextRefresher#refresh</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">synchronized</span> Set<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">refresh</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Set<span class="token operator">&lt;</span>String<span class="token operator">></span> keys <span class="token operator">=</span> <span class="token function">refreshEnvironment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>scope<span class="token punctuation">.</span><span class="token function">refreshAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> keys<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">synchronized</span> Set<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">refreshEnvironment</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> before <span class="token operator">=</span> <span class="token function">extract</span><span class="token punctuation">(</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token function">getEnvironment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPropertySources</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">addConfigFilesToEnvironment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  Set<span class="token operator">&lt;</span>String<span class="token operator">></span> keys <span class="token operator">=</span> <span class="token function">changes</span><span class="token punctuation">(</span>before<span class="token punctuation">,</span>
+      <span class="token function">extract</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token function">getEnvironment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPropertySources</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">keySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token function">publishEvent</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EnvironmentChangeEvent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">,</span> keys<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> keys<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>①提取标准参数(SYSTEM,JNDI,SERVLET)之外所有参数变量</li>
+<li>②把原来的Environment里的参数放到一个新建的Spring Context容器下重新加载，完事之后关闭新容器</li>
+<li>③提起更新过的参数(排除标准参数)</li>
+<li>④比较出变更项</li>
+<li>⑤发布环境变更事件,接收：EnvironmentChangeListener／LoggingRebinder</li>
+<li>⑥RefreshScope用新的环境参数重新生成Bean</li>
+<li>⑦重新生成的过程很简单，清除refreshscope缓存幷销毁Bean，下次就会重新从BeanFactory获取一个新的实例（该实例使用新的配置）</li>
+<li>⑧RefreshScope#refreshAll</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">refreshAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">&lt;</span>b<span class="token operator">></span><span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">&lt;</span><span class="token operator">/</span>b<span class="token operator">></span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token function">publishEvent</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">RefreshScopeRefreshedEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>⑨GenericScope#destroy</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    Collection<span class="token operator">&lt;</span>BeanLifecycleWrapper<span class="token operator">></span> wrappers <span class="token operator">=</span> <span class="token operator">&lt;</span>b<span class="token operator">></span><span class="token keyword">this</span><span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token operator">/</span>b<span class="token operator">></span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>BeanLifecycleWrapper wrapper <span class="token operator">:</span> wrappers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">&lt;</span>b<span class="token operator">></span>wrapper<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">&lt;</span><span class="token operator">/</span>b<span class="token operator">></span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<h2 id="属性校验"><a href="#属性校验" class="headerlink" title="属性校验"></a>属性校验</h2><p>可以给属性类上加入<code>javax.validation.constraints.*</code>中的注解，来对配置项进行校验。配合<code>exceptionIfInvalid</code>可以更早的发现问题。</p>
 
             </div>
             <hr/>
@@ -683,9 +710,10 @@ mail.credentials.authMethod=SHA1</code></pre><p>内嵌类属性</p>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/10/15/SpringCloud之RefreshScope/">
                     <div class="card-image">
@@ -704,9 +732,9 @@ RefreshSc
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -723,6 +751,7 @@ RefreshSc
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -741,21 +770,22 @@ RefreshSc
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/10/14/Paxos算法/">
+                <a href="/2019/10/14/SpringBoot之ConfigurationProperties/">
                     <div class="card-image">
                         
-                        <img src="/medias/article/images/arithmetic.jpg" class="responsive-img" alt="Paxos算法">
+                        <img src="/medias/article/spring-boot.jpg" class="responsive-img" alt="SpringBoot之ConfigurationProperties">
                         
-                        <span class="card-title">Paxos算法</span>
+                        <span class="card-title">SpringBoot之ConfigurationProperties</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Paxos算法详解
-Paxos、Raft分布式一致性算法应用场景一文讲述了分布式一致性问题与分布式一致性算法的典型应用场景。作为分布式一致性代名词的Paxos算法号称是最难理解的算法
+                            前言ConfigurationProperties 是SpringBoot引入的一个和外部配置文件相关的注解类。它可以帮助我们更好的使用外置的配置文件属性。
+源码解析
+属性注入到Java类
 
-一、Paxos算法背景Paxos算法是Lamport宗
+@Target({ ElementType.TY
                         
                     </div>
                     <div class="publish-info">
@@ -770,6 +800,10 @@ Paxos、Raft分布式一致性算法应用场景一文讲述了分布式一致�
                                     Java 知识库
                                 </a>
                             
+                            <a href="/categories/Java-知识库/SpringBoot/" class="post-category" target="_blank">
+                                    SpringBoot
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -777,8 +811,8 @@ Paxos、Raft分布式一致性算法应用场景一文讲述了分布式一致�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/算法/" target="_blank">
-                        <span class="chip bg-color">算法</span>
+                    <a href="/tags/SpringBoot/" target="_blank">
+                        <span class="chip bg-color">SpringBoot</span>
                     </a>
                     
                 </div>
