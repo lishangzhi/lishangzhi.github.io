@@ -61,7 +61,7 @@
 <meta property="og:description" content="前提在阅读这篇博客之前，希望你对HashMap已经是有所理解的，如果你对java的cas操作也是有一定了解的，因为在这个类中大量使用到了cas相关的操作来保证线程安全的。概述ConcurrentHashMap这个类在java.lang.current包中，这个包中的类都是线程安全的。ConcurrentHashMap底层存储数据的结构与1.8的HashMap是一样的，都是数组+链表（或红黑树）的结">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/11/13/java_model.png">
-<meta property="og:updated_time" content="2019-11-14T09:33:58.048Z">
+<meta property="og:updated_time" content="2019-12-02T14:29:38.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ConcurrentHashMap源码分析">
 <meta name="twitter:description" content="前提在阅读这篇博客之前，希望你对HashMap已经是有所理解的，如果你对java的cas操作也是有一定了解的，因为在这个类中大量使用到了cas相关的操作来保证线程安全的。概述ConcurrentHashMap这个类在java.lang.current包中，这个包中的类都是线程安全的。ConcurrentHashMap底层存储数据的结构与1.8的HashMap是一样的，都是数组+链表（或红黑树）的结">
@@ -260,7 +260,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-14 17:33:58" itemprop="dateModified" datetime="2019-11-14T17:33:58+08:00">2019-11-14</time>
+                <time title="修改时间：2019-12-02 22:29:38" itemprop="dateModified" datetime="2019-12-02T22:29:38+08:00">2019-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,8 +268,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java-知识库/" itemprop="url" rel="index">
-                    <span itemprop="name">Java 知识库</span>
+                  <a href="/categories/Java-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Notes</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/JDK/" itemprop="url" rel="index">
+                    <span itemprop="name">JDK</span>
                   </a>
                 </span>
             </span>
@@ -602,20 +608,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
