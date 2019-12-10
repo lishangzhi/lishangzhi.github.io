@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title>Windows环境下安装 Gradle</title>
+      <link href="/2019/12/09/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85%20Gradle/"/>
+      <url>/2019/12/09/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85%20Gradle/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Windows环境下安装-Gradle"><a href="#Windows环境下安装-Gradle" class="headerlink" title="Windows环境下安装 Gradle"></a>Windows环境下安装 Gradle</h2><p>Gradle是一个基于Apache Ant和Apache Maven概念的项目自动化建构工具。它使用一种基于Groovy的特定领域语言来声明项目设置，而不是传统的XML。当前其支持的语言限于Java、Groovy和Scala，计划未来将支持更多的语言</p><p>由于在阅读Spring5 相关源码, 所以记录下Gradle载Windows环境下安装过程,毕竟少用Gradle</p><a id="more"></a><h3 id="下载Gradle"><a href="#下载Gradle" class="headerlink" title="下载Gradle"></a>下载Gradle</h3><p>在官网的版本 <a href="https://gradle.org/releases/" target="_blank" rel="noopener">发布页面</a> 找到 Download 的 binary-only 链接，点击即可下载了（后面的 complete 指的是完整版，我们只是使用的话并不需要下载那个<br><img src="/medias/article/images/2019/12/9/gradle.jpg" alt></p><h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>下载完成后，将文件解压出来<br><img src="/medias/article/images/2019/12/9/gradle-1.jpg" alt></p><p>现在，我们需要设置环境变量了</p><p>在 控制面板 &gt; 系统和安全 &gt; 系统 中找到 高级系统设置 项</p><ol><li>环境变量中增加名为GRADLE_HOME的变量名,值为Gralde的解压路径,例如D:\software\Gradle</li><li>在path的后追加%GRADLE_HOME%\bin;.<br><img src="/medias/article/images/2019/12/9/gradle-2.jpg" alt></li></ol><h3 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h3><p><code>Gradle -v</code></p><p><img src="/medias/article/images/2019/12/9/gradle-3.jpg" alt></p><h3 id="修改默认缓存目录"><a href="#修改默认缓存目录" class="headerlink" title="修改默认缓存目录"></a>修改默认缓存目录</h3><p>修改Gradle默认缓存目录可使用命令gradle -g 目录路径,例如gradle -g D:\software\Gradle.gradle</p><h3 id="修改全局默认仓库"><a href="#修改全局默认仓库" class="headerlink" title="修改全局默认仓库"></a>修改全局默认仓库</h3><pre class=" language-xml"><code class="language-xml">allprojects {    repositories {        maven {            url 'http://maven.aliyun.com/nexus/content/groups/public/'        }    }}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> z-Tools </category>
+          
+          <category> Gradle </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Gradle </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Gradle下载及安装教程</title>
+      <link href="/2019/12/05/Gradle%E4%B8%8B%E8%BD%BD%E5%8F%8A%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
+      <url>/2019/12/05/Gradle%E4%B8%8B%E8%BD%BD%E5%8F%8A%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>阿里妈妈：品牌广告中的 NLP 算法实践</title>
       <link href="/2019/12/02/%E9%98%BF%E9%87%8C%E5%A6%88%E5%A6%88%EF%BC%9A%E5%93%81%E7%89%8C%E5%B9%BF%E5%91%8A%E4%B8%AD%E7%9A%84%20NLP%20%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5/"/>
       <url>/2019/12/02/%E9%98%BF%E9%87%8C%E5%A6%88%E5%A6%88%EF%BC%9A%E5%93%81%E7%89%8C%E5%B9%BF%E5%91%8A%E4%B8%AD%E7%9A%84%20NLP%20%E7%AE%97%E6%B3%95%E5%AE%9E%E8%B7%B5/</url>
