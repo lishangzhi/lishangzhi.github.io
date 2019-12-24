@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Spring5源码分析[二]:Spring-webmvc MVC初始化</title>
+      <link href="/2019/12/24/Spring5%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%5B%E4%BA%8C%5D%20Spring-webmvc%E5%AE%B9%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96/"/>
+      <url>/2019/12/24/Spring5%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%5B%E4%BA%8C%5D%20Spring-webmvc%E5%AE%B9%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Spring5源码分析-二-Spring-webmvc-MVC初始化"><a href="#Spring5源码分析-二-Spring-webmvc-MVC初始化" class="headerlink" title="Spring5源码分析[二]:Spring-webmvc MVC初始化"></a>Spring5源码分析[二]:Spring-webmvc MVC初始化</h2><p>入口位于<code>DispatcherServlet</code>的<code>initStrategies</code>方法(经由<code>onRefresh</code>调用):</p><pre class=" language-java"><code class="language-java"><span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">initStrategies</span><span class="token punctuation">(</span>ApplicationContext context<span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token comment" spellcheck="true">// 文件上传支持</span>    <span class="token function">initMultipartResolver</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 地区解析器</span>    <span class="token function">initLocaleResolver</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 主题解析器</span>    <span class="token function">initThemeResolver</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// HandlerMapping检查</span>    <span class="token function">initHandlerMappings</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// HandlerAdapter检查</span>    <span class="token function">initHandlerAdapters</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// HandlerExceptionResolver检查</span>    <span class="token function">initHandlerExceptionResolvers</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// RequestToViewNameTranslator</span>    <span class="token function">initRequestToViewNameTranslator</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// ViewResolver检查</span>    <span class="token function">initViewResolvers</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// FlashMapManager</span>    <span class="token function">initFlashMapManager</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><a id="more"></a><h3 id="文件上传支持"><a href="#文件上传支持" class="headerlink" title="文件上传支持"></a>文件上传支持</h3><p><code>MultipartResolver</code>用于开启Spring MVC文件上传功能，其类图<br><img src="/medias/article/images/2019/12/24/MultipartResolver.jpg" alt><br>也就是说，如果我们要使用文件上传功能，须在容器中注册一个MultipartResolver bean。当然，默认是没有的。</p><h3 id="地区解析器"><a href="#地区解析器" class="headerlink" title="地区解析器"></a>地区解析器</h3><p><code>LocaleResolver</code>接口定义了Spring MVC如何获取客户端(浏览器)的地区，<code>initLocaleResolver</code>方法在容器中寻找此bean，如果没有，注册<code>AcceptHeaderLocaleResolver</code>，即根据request的请求头Accept-Language获取地区。</p><p>spring-mvc采用了属性文件的方式配置默认策略(即bean)，此文件位于spring-mvc的jar包的<code>org.springframework.web.servlet</code>下。</p><h3 id="主题解析器"><a href="#主题解析器" class="headerlink" title="主题解析器"></a>主题解析器</h3><p>ThemeResolver接口配合Spring标签库使用可以通过动态决定使用的css以及图片的方式达到换肤的效果，其类图:<br><img src="/medias/article/images/2019/12/24/ThemeResolver.jpg" alt><br>如果容器中不存在叫做<code>themeResolver</code>的bean，<code>initThemeResolver</code>方法将向容器中注册<code>FixedThemeResolver</code>，此bean只能提供一套默认的主题，名为theme。</p><h3 id="HandlerMapping检查"><a href="#HandlerMapping检查" class="headerlink" title="HandlerMapping检查"></a>HandlerMapping检查</h3><p><code>initHandlerMappings</code>方法用于确保容器中<strong>至少含有一个HandlerMapping对象</strong>。从前面配置解析-注解驱动一节中可以看出，注解驱动导致已经注册了两个此对象。<br>如果没有开启注解驱动，那么将会使用默认的HandlerMapping，相关源码:</p><pre class=" language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>handlerMappings <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">this</span><span class="token punctuation">.</span>handlerMappings <span class="token operator">=</span> <span class="token function">getDefaultStrategies</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> HandlerMapping<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span>logger<span class="token punctuation">.</span><span class="token function">isDebugEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        logger<span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">"No HandlerMappings found in servlet '"</span> <span class="token operator">+</span> <span class="token function">getServletName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"': using default"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre><p>前面提到了，默认的策略由<code>DispatcherServlet.properties</code>决定，目前是<strong>BeanNameUrlHandlerMapping和DefaultAnnotationHandlerMapping</strong>。</p><h3 id="HandlerAdapter检查"><a href="#HandlerAdapter检查" class="headerlink" title="HandlerAdapter检查"></a>HandlerAdapter检查</h3><p>套路和上面完全一样，默认使用<code>HttpRequestHandlerAdapter</code>、<code>SimpleControllerHandlerAdapter</code>和<code>AnnotationMethodHandlerAdapter</code>。</p><h3 id="HandlerExceptionResolver检查"><a href="#HandlerExceptionResolver检查" class="headerlink" title="HandlerExceptionResolver检查"></a>HandlerExceptionResolver检查</h3><p>套路和上面完全一样，默认使用<code>AnnotationMethodHandlerExceptionResolver</code>、<code>ResponseStatusExceptionResolver</code>、<code>DefaultHandlerExceptionResolver</code></p><h3 id="RequestToViewNameTranslator"><a href="#RequestToViewNameTranslator" class="headerlink" title="RequestToViewNameTranslator"></a>RequestToViewNameTranslator</h3><p><code>initRequestToViewNameTranslator</code>方法回向容器中注册一个<code>DefaultRequestToViewNameTranslator</code>对象，此接口用以完成从<code>HttpServletRequest</code>到视图名的解析，其使用场景是给定的URL无法匹配任何控制器时。<br><code>DefaultRequestToViewNameTranslator</code>的转换例子:</p><p><a href="http://localhost:8080/gamecast/display.html" target="_blank" rel="noopener">http://localhost:8080/gamecast/display.html</a> -&gt; display(视图)<br>其类图:<br><img src="/medias/article/images/2019/12/24/ThemeResolver.jpg" alt></p><h3 id="ViewResolver检查"><a href="#ViewResolver检查" class="headerlink" title="ViewResolver检查"></a>ViewResolver检查</h3><p>熟悉的套路，默认使用<code>InternalResourceViewResolver</code>。</p><h3 id="FlashMapManager"><a href="#FlashMapManager" class="headerlink" title="FlashMapManager"></a>FlashMapManager</h3><p><code>initFlashMapManager</code>方法会向容器注册<code>SessionFlashMapManager</code>对象，类图:<br><img src="/medias/article/images/2019/12/24/FlashMapManager.jpg" alt><br>此接口和FlashMap搭配使用，<strong>用于在请求重定向时保存/传递参数</strong>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java Notes </category>
+          
+          <category> Spring </category>
+          
+          <category> Spring5 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spring5 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Spring5源码分析[二]:Spring-webmvc容器初始化</title>
       <link href="/2019/12/20/Spring5%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%5B%E4%BA%8C%5D-Spring-webmvc%E5%AE%B9%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96/"/>
       <url>/2019/12/20/Spring5%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%5B%E4%BA%8C%5D-Spring-webmvc%E5%AE%B9%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
@@ -1035,11 +1064,11 @@
       
         <tags>
             
+            <tag> 回溯算法 </tag>
+            
             <tag> 动态规划 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> 回溯算法 </tag>
             
             <tag> 贪心算法 </tag>
             

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="google-site-verification=HI-khpupWSMBRXsUMLtmTINo6qU6WC5kq7WYklRuw38">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Spring5源码分析[二]:Spring-webmvc MVC初始化入口位于DispatcherServlet的initStrategies方法(经由onRefresh调用):protected void initStrategies(ApplicationContext context) {     // 文件上传支持     initMultipartResolver(context);">
+<meta name="keywords" content="Spring5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring5源码分析[二]:Spring-webmvc MVC初始化">
+<meta property="og:url" content="https://lishangzhi.github.io/2019/12/24/Spring5源码分析[二] Spring-webmvc容器初始化/index.html">
+<meta property="og:site_name" content="AI Developers Geeks">
+<meta property="og:description" content="Spring5源码分析[二]:Spring-webmvc MVC初始化入口位于DispatcherServlet的initStrategies方法(经由onRefresh调用):protected void initStrategies(ApplicationContext context) {     // 文件上传支持     initMultipartResolver(context);">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/12/24/MultipartResolver.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/12/24/ThemeResolver.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/12/24/ThemeResolver.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/12/24/FlashMapManager.jpg">
+<meta property="og:updated_time" content="2019-12-24T07:31:43.427Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring5源码分析[二]:Spring-webmvc MVC初始化">
+<meta name="twitter:description" content="Spring5源码分析[二]:Spring-webmvc MVC初始化入口位于DispatcherServlet的initStrategies方法(经由onRefresh调用):protected void initStrategies(ApplicationContext context) {     // 文件上传支持     initMultipartResolver(context);">
+<meta name="twitter:image" content="https://lishangzhi.github.io/medias/article/images/2019/12/24/MultipartResolver.jpg">
+
+<link rel="canonical" href="https://lishangzhi.github.io/2019/12/24/Spring5源码分析[二] Spring-webmvc容器初始化/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Spring5源码分析[二]:Spring-webmvc MVC初始化 | AI Developers Geeks</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b35d66d5956e1bd83e6485b887c44452";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI Developers Geeks</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人工智能开发者</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/12/24/Spring5源码分析[二] Spring-webmvc容器初始化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/medias/avatar.jpg">
+      <meta itemprop="name" content="iByte">
+      <meta itemprop="description" content="博学，审问，慎思，明辨，笃行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI Developers Geeks">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring5源码分析[二]:Spring-webmvc MVC初始化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-24 23:41:45 / 修改时间：15:31:43" itemprop="dateCreated datePublished" datetime="2019-12-24T23:41:45+08:00">2019-12-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Notes</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/Spring/Spring5/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring5</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Spring5源码分析-二-Spring-webmvc-MVC初始化"><a href="#Spring5源码分析-二-Spring-webmvc-MVC初始化" class="headerlink" title="Spring5源码分析[二]:Spring-webmvc MVC初始化"></a>Spring5源码分析[二]:Spring-webmvc MVC初始化</h2><p>入口位于<code>DispatcherServlet</code>的<code>initStrategies</code>方法(经由<code>onRefresh</code>调用):</p><pre class=" language-java"><code class="language-java"><span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">initStrategies</span><span class="token punctuation">(</span>ApplicationContext context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 文件上传支持</span>
+    <span class="token function">initMultipartResolver</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 地区解析器</span>
+    <span class="token function">initLocaleResolver</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 主题解析器</span>
+    <span class="token function">initThemeResolver</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// HandlerMapping检查</span>
+    <span class="token function">initHandlerMappings</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// HandlerAdapter检查</span>
+    <span class="token function">initHandlerAdapters</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// HandlerExceptionResolver检查</span>
+    <span class="token function">initHandlerExceptionResolvers</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// RequestToViewNameTranslator</span>
+    <span class="token function">initRequestToViewNameTranslator</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// ViewResolver检查</span>
+    <span class="token function">initViewResolvers</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// FlashMapManager</span>
+    <span class="token function">initFlashMapManager</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre><a id="more"></a>
+
+<h3 id="文件上传支持"><a href="#文件上传支持" class="headerlink" title="文件上传支持"></a>文件上传支持</h3><p><code>MultipartResolver</code>用于开启Spring MVC文件上传功能，其类图<br><img src="/medias/article/images/2019/12/24/MultipartResolver.jpg" alt><br>也就是说，如果我们要使用文件上传功能，须在容器中注册一个MultipartResolver bean。当然，默认是没有的。</p>
+<h3 id="地区解析器"><a href="#地区解析器" class="headerlink" title="地区解析器"></a>地区解析器</h3><p><code>LocaleResolver</code>接口定义了Spring MVC如何获取客户端(浏览器)的地区，<code>initLocaleResolver</code>方法在容器中寻找此bean，如果没有，注册<code>AcceptHeaderLocaleResolver</code>，即根据request的请求头Accept-Language获取地区。</p>
+<p>spring-mvc采用了属性文件的方式配置默认策略(即bean)，此文件位于spring-mvc的jar包的<code>org.springframework.web.servlet</code>下。</p>
+<h3 id="主题解析器"><a href="#主题解析器" class="headerlink" title="主题解析器"></a>主题解析器</h3><p>ThemeResolver接口配合Spring标签库使用可以通过动态决定使用的css以及图片的方式达到换肤的效果，其类图:<br><img src="/medias/article/images/2019/12/24/ThemeResolver.jpg" alt><br>如果容器中不存在叫做<code>themeResolver</code>的bean，<code>initThemeResolver</code>方法将向容器中注册<code>FixedThemeResolver</code>，此bean只能提供一套默认的主题，名为theme。</p>
+<h3 id="HandlerMapping检查"><a href="#HandlerMapping检查" class="headerlink" title="HandlerMapping检查"></a>HandlerMapping检查</h3><p><code>initHandlerMappings</code>方法用于确保容器中<strong>至少含有一个HandlerMapping对象</strong>。从前面配置解析-注解驱动一节中可以看出，注解驱动导致已经注册了两个此对象。<br>如果没有开启注解驱动，那么将会使用默认的HandlerMapping，相关源码:</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>handlerMappings <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>handlerMappings <span class="token operator">=</span> <span class="token function">getDefaultStrategies</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> HandlerMapping<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>logger<span class="token punctuation">.</span><span class="token function">isDebugEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        logger<span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">"No HandlerMappings found in servlet '"</span> <span class="token operator">+</span> <span class="token function">getServletName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"': using default"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>前面提到了，默认的策略由<code>DispatcherServlet.properties</code>决定，目前是<strong>BeanNameUrlHandlerMapping和DefaultAnnotationHandlerMapping</strong>。</p>
+<h3 id="HandlerAdapter检查"><a href="#HandlerAdapter检查" class="headerlink" title="HandlerAdapter检查"></a>HandlerAdapter检查</h3><p>套路和上面完全一样，默认使用<code>HttpRequestHandlerAdapter</code>、<code>SimpleControllerHandlerAdapter</code>和<code>AnnotationMethodHandlerAdapter</code>。</p>
+<h3 id="HandlerExceptionResolver检查"><a href="#HandlerExceptionResolver检查" class="headerlink" title="HandlerExceptionResolver检查"></a>HandlerExceptionResolver检查</h3><p>套路和上面完全一样，默认使用<code>AnnotationMethodHandlerExceptionResolver</code>、<code>ResponseStatusExceptionResolver</code>、<code>DefaultHandlerExceptionResolver</code></p>
+<h3 id="RequestToViewNameTranslator"><a href="#RequestToViewNameTranslator" class="headerlink" title="RequestToViewNameTranslator"></a>RequestToViewNameTranslator</h3><p><code>initRequestToViewNameTranslator</code>方法回向容器中注册一个<code>DefaultRequestToViewNameTranslator</code>对象，此接口用以完成从<code>HttpServletRequest</code>到视图名的解析，其使用场景是给定的URL无法匹配任何控制器时。<br><code>DefaultRequestToViewNameTranslator</code>的转换例子:</p>
+<p><a href="http://localhost:8080/gamecast/display.html" target="_blank" rel="noopener">http://localhost:8080/gamecast/display.html</a> -&gt; display(视图)<br>其类图:<br><img src="/medias/article/images/2019/12/24/ThemeResolver.jpg" alt></p>
+<h3 id="ViewResolver检查"><a href="#ViewResolver检查" class="headerlink" title="ViewResolver检查"></a>ViewResolver检查</h3><p>熟悉的套路，默认使用<code>InternalResourceViewResolver</code>。</p>
+<h3 id="FlashMapManager"><a href="#FlashMapManager" class="headerlink" title="FlashMapManager"></a>FlashMapManager</h3><p><code>initFlashMapManager</code>方法会向容器注册<code>SessionFlashMapManager</code>对象，类图:<br><img src="/medias/article/images/2019/12/24/FlashMapManager.jpg" alt><br>此接口和FlashMap搭配使用，<strong>用于在请求重定向时保存/传递参数</strong>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Spring5/" rel="tag"># Spring5</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/20/Spring5源码分析[二]-Spring-webmvc容器初始化/" rel="next" title="Spring5源码分析[二]:Spring-webmvc容器初始化">
+                  <i class="fa fa-chevron-left"></i> Spring5源码分析[二]:Spring-webmvc容器初始化
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring5源码分析-二-Spring-webmvc-MVC初始化"><span class="nav-number">1.</span> <span class="nav-text">Spring5源码分析[二]:Spring-webmvc MVC初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件上传支持"><span class="nav-number">1.1.</span> <span class="nav-text">文件上传支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地区解析器"><span class="nav-number">1.2.</span> <span class="nav-text">地区解析器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题解析器"><span class="nav-number">1.3.</span> <span class="nav-text">主题解析器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlerMapping检查"><span class="nav-number">1.4.</span> <span class="nav-text">HandlerMapping检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlerAdapter检查"><span class="nav-number">1.5.</span> <span class="nav-text">HandlerAdapter检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlerExceptionResolver检查"><span class="nav-number">1.6.</span> <span class="nav-text">HandlerExceptionResolver检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestToViewNameTranslator"><span class="nav-number">1.7.</span> <span class="nav-text">RequestToViewNameTranslator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewResolver检查"><span class="nav-number">1.8.</span> <span class="nav-text">ViewResolver检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FlashMapManager"><span class="nav-number">1.9.</span> <span class="nav-text">FlashMapManager</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="iByte"
+    src="/medias/avatar.jpg">
+  <p class="site-author-name" itemprop="name">iByte</p>
+  <div class="site-description" itemprop="description">博学，审问，慎思，明辨，笃行</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/icloud-iot" title="Gitee &rarr; https://gitee.com/icloud-iot" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/lishangzhi" title="GitHub &rarr; https://github.com/lishangzhi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shangzhi.ibyte@gmail.com" title="E-Mail &rarr; mailto:shangzhi.ibyte@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gitee.com/ibyte/M-Pass" title="https://gitee.com/ibyte/M-Pass" rel="noopener" target="_blank">多租户系统微服务开发平台</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gitee.com/icloud-iot/python" title="https://gitee.com/icloud-iot/python" rel="noopener" target="_blank">Python-人工智能开发学习</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iByte</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
