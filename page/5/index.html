@@ -155,14 +155,14 @@
     <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
-
-  </li>
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-tags">
@@ -222,6 +222,97 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/07/07/Autowired和-Resource的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/medias/avatar.jpg">
+      <meta itemprop="name" content="iByte">
+      <meta itemprop="description" content="博学，审问，慎思，明辨，笃行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI Developers Geeks">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/07/Autowired和-Resource的区别/" class="post-title-link" itemprop="url">@Autowired和@Resource的区别</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-07 13:38:05" itemprop="dateCreated datePublished" datetime="2019-07-07T13:38:05+08:00">2019-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-02 22:36:51" itemprop="dateModified" datetime="2019-12-02T22:36:51+08:00">2019-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Notes</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Autowired和-Resource的区别是什么"><a href="#Autowired和-Resource的区别是什么" class="headerlink" title="@Autowired和@Resource的区别是什么?"></a>@Autowired和@Resource的区别是什么?</h2><blockquote>
+<p><font size="1">最近在实现NLP意图匹配时候接口实现，默认支持了采用图灵nlp,采用云问nlp,百度nlp和公司内部自研的nlp; 基础接口都一样实现方式不一样而已,在定义完NLPWrapedService接口后统一,四个实现类全部实现NLPWrapedService，在注入的时候采用<code>@Autowired</code>在业务端确定Nlp类型后AI端无法注入指定的实现类，后续调整为@Resource;顺便查了相关资料补充下</font></p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/07/Autowired和-Resource的区别/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -638,7 +729,7 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 *。</
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
