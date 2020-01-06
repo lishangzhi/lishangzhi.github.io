@@ -226,6 +226,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/11/13/ConcurrentHashMap源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/medias/avatar.jpg">
+      <meta itemprop="name" content="iByte">
+      <meta itemprop="description" content="博学，审问，慎思，明辨，笃行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI Developers Geeks">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/13/ConcurrentHashMap源码分析/" class="post-title-link" itemprop="url">ConcurrentHashMap源码分析</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-13 11:08:38" itemprop="dateCreated datePublished" datetime="2019-11-13T11:08:38+08:00">2019-11-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-02 22:29:38" itemprop="dateModified" datetime="2019-12-02T22:29:38+08:00">2019-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Notes</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/JDK/" itemprop="url" rel="index">
+                    <span itemprop="name">JDK</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>在阅读这篇博客之前，希望你对HashMap已经是有所理解的，如果你对java的cas操作也是有一定了解的，因为在这个类中大量使用到了cas相关的操作来保证线程安全的。</p><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>ConcurrentHashMap这个类在java.lang.current包中，这个包中的类都是线程安全的。ConcurrentHashMap底层存储数据的结构与1.8的HashMap是一样的，都是数组+链表（或红黑树）的结构。在日常的开发中，我们最长用到的键值对存储结构的是HashMap，但是我们知道，这个类是非线程安全的，在高并发的场景下，在进行put操作的时候有可能进入死循环从而使服务器的cpu使用率达到100%；sun公司因此也给出了与之对应的线程安全的类。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/11/13/ConcurrentHashMap源码分析/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/11/06/Paxos算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -951,104 +1040,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/09/05/Reflections框架/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/medias/avatar.jpg">
-      <meta itemprop="name" content="iByte">
-      <meta itemprop="description" content="博学，审问，慎思，明辨，笃行">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AI Developers Geeks">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/05/Reflections框架/" class="post-title-link" itemprop="url">Reflections框架</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-09-05 18:58:53" itemprop="dateCreated datePublished" datetime="2019-09-05T18:58:53+08:00">2019-09-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-02 22:32:00" itemprop="dateModified" datetime="2019-12-02T22:32:00+08:00">2019-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Notes</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java-Notes/JDK/" itemprop="url" rel="index">
-                    <span itemprop="name">JDK</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Reflections框架"><a href="#Reflections框架" class="headerlink" title="Reflections框架"></a>Reflections框架</h2><h3 id="Reflections框架简介"><a href="#Reflections框架简介" class="headerlink" title="Reflections框架简介"></a>Reflections框架简介</h3><blockquote>
-<p>Reflections是一个能提供一站式服务的对象。它扫描工程的classpath，为元数据建索引，允许你运行时查询元数据信息。此外，他还能为你项目的lib库中所有的jar包保存和收集元数据。</p>
-</blockquote><h4 id="Reflections-的用处"><a href="#Reflections-的用处" class="headerlink" title="Reflections 的用处"></a>Reflections 的用处</h4><ul>
-<li>获取某个类型的全部子类</li>
-<li>只要类型、构造器、方法，字段上带有特定注解，便能获取带有这个注解的全部信息（类型、构造器、方法，字段）</li>
-<li>获取所有能匹配某个正则表达式的资源</li>
-<li>获取所有带有特定签名的方法，包括参数，参数注解，返回类型</li>
-<li>获取所有方法的名字</li>
-<li>获取代码里所有字段、方法名、构造器的使用</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/09/05/Reflections框架/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1099,20 +1090,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1161,8 +1152,8 @@
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

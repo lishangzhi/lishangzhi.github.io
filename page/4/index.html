@@ -226,6 +226,89 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/07/23/数据结构：数组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/medias/avatar.jpg">
+      <meta itemprop="name" content="iByte">
+      <meta itemprop="description" content="博学，审问，慎思，明辨，笃行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI Developers Geeks">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/23/数据结构：数组/" class="post-title-link" itemprop="url">数据结构：数组</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-23 14:23:27" itemprop="dateCreated datePublished" datetime="2019-07-23T14:23:27+08:00">2019-07-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-02 22:06:18" itemprop="dateModified" datetime="2019-12-02T22:06:18+08:00">2019-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data-Structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="数据结构：数组"><a href="#数据结构：数组" class="headerlink" title="数据结构：数组"></a>数据结构：数组</h2><p>数组也是数据呈现线性排列的一种数据结。与前面一篇文章 <a href="https://lishangzhi.github.io/2019/07/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E9%93%BE%E8%A1%A8/">数据结构：链表</a><br>在数组中，访问数据十分简单，而添加数据和删除数据比较耗工夫<br><img src="/medias/article/images/2019/7/23/1.png" alt><br>数据按顺序存储在内存的连续空间内<br><img src="/medias/article/images/2019/7/23/2.jpg" alt><br>由于数据是存储在连续空间内的，所以每个数据的内存地址（在内存上的位置）都可以通过数组下标算出，我们也就可以借此直接访问目标数据（这叫作“随机访问”）<br><img src="/medias/article/images/2019/7/23/3.jpg" alt><br>比如现在我们想要访问Red。如果使用指针就只能从头开始查找，但在数组中，只需要指定a[2]，便能直接访问Red;但是，如果想在任意位置上添加或者删除数据，数组的操作就要比链表复杂多了。这里我们尝试将Green添加到第2个位置;首先，在数组的末尾确保需要增加的存储空间<br><br><img src="/medias/article/images/2019/7/23/4.jpg" alt><br>为了给新数据腾出位置，要把已有数据一个个移开。首先把Red往后移,然后把Yellow往后移,<br><img src="/medias/article/images/2019/7/23/5.jpg" alt><br>最后在空出来的位置上写入Green,添加数据的操作就完成了<br><img src="/medias/article/images/2019/7/23/6.jpg" alt><br>反过来，如果想要删除Green……首先，删掉目标数据（在这里指Green）,然后把后面的数据一个个往空位移。先把Yellow往前移,接下来移动Red,最后再删掉多余的空间。这样一来Green便被删掉了<br><img src="/medias/article/images/2019/7/23/7.jpg" alt></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/23/数据结构：数组/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/07/22/数据结构：链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -953,97 +1036,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/07/08/Spring的五种依赖注入方式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/medias/avatar.jpg">
-      <meta itemprop="name" content="iByte">
-      <meta itemprop="description" content="博学，审问，慎思，明辨，笃行">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AI Developers Geeks">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/08/Spring的五种依赖注入方式/" class="post-title-link" itemprop="url">Spring的五种依赖注入方式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-08 15:17:03" itemprop="dateCreated datePublished" datetime="2019-07-08T15:17:03+08:00">2019-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-02 22:32:21" itemprop="dateModified" datetime="2019-12-02T22:32:21+08:00">2019-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Notes</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java-Notes/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Spring的五种依赖注入方式"><a href="#Spring的五种依赖注入方式" class="headerlink" title="Spring的五种依赖注入方式"></a>Spring的五种依赖注入方式</h2><blockquote>
-<p><font size="1">Java开发中，某个类中需要依赖其它类的方法，则通常是new一个依赖类再调用类实例的方法，这种开发存在的问题是new的类实例不好统一管理，spring提出了依赖注入的思想，即依赖类不由程序员实例化，而是通过spring容器帮我们new指定实例并且将实例注入到需要该对象的类中。依赖注入的另一种说法是“控制反转”，通俗的理解是：平常我们new一个实例，这个实例的控制权是我们程序员，而控制反转是指new实例工作不由我们程序员来做而是交给spring容器来做</font></p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/07/08/Spring的五种依赖注入方式/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1094,20 +1086,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1156,8 +1148,8 @@
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
