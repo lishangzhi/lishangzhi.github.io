@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="google-site-verification=HI-khpupWSMBRXsUMLtmTINo6qU6WC5kq7WYklRuw38">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Reflections框架Reflections框架简介 Reflections是一个能提供一站式服务的对象。它扫描工程的classpath，为元数据建索引，允许你运行时查询元数据信息。此外，他还能为你项目的lib库中所有的jar包保存和收集元数据。 Reflections 的用处 获取某个类型的全部子类 只要类型、构造器、方法，字段上带有特定注解，便能获取带有这个注解的全部信息（类型、构造器、方">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reflections框架">
+<meta property="og:url" content="https://lishangzhi.github.io/2019/09/05/Reflections框架/index.html">
+<meta property="og:site_name" content="AI Developers Geeks">
+<meta property="og:description" content="Reflections框架Reflections框架简介 Reflections是一个能提供一站式服务的对象。它扫描工程的classpath，为元数据建索引，允许你运行时查询元数据信息。此外，他还能为你项目的lib库中所有的jar包保存和收集元数据。 Reflections 的用处 获取某个类型的全部子类 只要类型、构造器、方法，字段上带有特定注解，便能获取带有这个注解的全部信息（类型、构造器、方">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/9/5/reflections1.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/9/5/reflections.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/9/5/jdk-api.jpg.jpg">
+<meta property="og:updated_time" content="2019-12-02T14:32:00.948Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reflections框架">
+<meta name="twitter:description" content="Reflections框架Reflections框架简介 Reflections是一个能提供一站式服务的对象。它扫描工程的classpath，为元数据建索引，允许你运行时查询元数据信息。此外，他还能为你项目的lib库中所有的jar包保存和收集元数据。 Reflections 的用处 获取某个类型的全部子类 只要类型、构造器、方法，字段上带有特定注解，便能获取带有这个注解的全部信息（类型、构造器、方">
+<meta name="twitter:image" content="https://lishangzhi.github.io/medias/article/images/2019/9/5/reflections1.jpg">
+
+<link rel="canonical" href="https://lishangzhi.github.io/2019/09/05/Reflections框架/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Reflections框架 | AI Developers Geeks</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ef5c1c506a4f07f8f7a4f3eb85d2ab96";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI Developers Geeks</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人工智能开发者</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/09/05/Reflections框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/medias/avatar.jpg">
+      <meta itemprop="name" content="iByte">
+      <meta itemprop="description" content="博学，审问，慎思，明辨，笃行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI Developers Geeks">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Reflections框架
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-05 18:58:53" itemprop="dateCreated datePublished" datetime="2019-09-05T18:58:53+08:00">2019-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-02 22:32:00" itemprop="dateModified" datetime="2019-12-02T22:32:00+08:00">2019-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Notes</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/JDK/" itemprop="url" rel="index">
+                    <span itemprop="name">JDK</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Reflections框架"><a href="#Reflections框架" class="headerlink" title="Reflections框架"></a>Reflections框架</h2><h3 id="Reflections框架简介"><a href="#Reflections框架简介" class="headerlink" title="Reflections框架简介"></a>Reflections框架简介</h3><blockquote>
+<p>Reflections是一个能提供一站式服务的对象。它扫描工程的classpath，为元数据建索引，允许你运行时查询元数据信息。此外，他还能为你项目的lib库中所有的jar包保存和收集元数据。</p>
+</blockquote><h4 id="Reflections-的用处"><a href="#Reflections-的用处" class="headerlink" title="Reflections 的用处"></a>Reflections 的用处</h4><ul>
+<li>获取某个类型的全部子类</li>
+<li>只要类型、构造器、方法，字段上带有特定注解，便能获取带有这个注解的全部信息（类型、构造器、方法，字段）</li>
+<li>获取所有能匹配某个正则表达式的资源</li>
+<li>获取所有带有特定签名的方法，包括参数，参数注解，返回类型</li>
+<li>获取所有方法的名字</li>
+<li>获取代码里所有字段、方法名、构造器的使用</li>
+</ul><a id="more"></a>
+
+<h4 id="Reflections-相关资料地址"><a href="#Reflections-相关资料地址" class="headerlink" title="Reflections 相关资料地址"></a>Reflections 相关资料地址</h4><table>
+<thead>
+<tr>
+<th>说明</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JavaDoc地址</td>
+<td><a href="http://ronmamo.github.io/reflections/index.html?org/reflections/Reflections.html" target="_blank" rel="noopener">JavaDoc-链接地址</a></td>
+</tr>
+<tr>
+<td>Java Code Examples</td>
+<td><a href="https://www.programcreek.com/java-api-examples/index.php?api=org.reflections.Reflections" target="_blank" rel="noopener">Java Code-链接地址</a></td>
+</tr>
+</tbody></table>
+<h3 id="Reflections官方案例"><a href="#Reflections官方案例" class="headerlink" title="Reflections官方案例"></a>Reflections官方案例</h3><p>指定扫描包路径<br><img src="/medias/article/images/2019/9/5/reflections1.jpg" alt></p>
+<pre class=" language-java"><code class="language-java">Reflections reflections <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Reflections</span><span class="token punctuation">(</span><span class="token string">"my.package.prefix"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//or</span>
+Reflections reflections <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Reflections</span><span class="token punctuation">(</span>ClasspathHelper<span class="token punctuation">.</span><span class="token function">forPackage</span><span class="token punctuation">(</span><span class="token string">"my.package.prefix"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+    <span class="token keyword">new</span> <span class="token class-name">SubTypesScanner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">TypesAnnotationScanner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">FilterBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">include</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//or using the ConfigurationBuilder</span>
+<span class="token keyword">new</span> <span class="token class-name">Reflections</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ConfigurationBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">filterInputsBy</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FilterBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">include</span><span class="token punctuation">(</span>FilterBuilder<span class="token punctuation">.</span><span class="token function">prefix</span><span class="token punctuation">(</span><span class="token string">"my.project.prefix"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">setUrls</span><span class="token punctuation">(</span>ClasspathHelper<span class="token punctuation">.</span><span class="token function">forPackage</span><span class="token punctuation">(</span><span class="token string">"my.project.prefix"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">setScanners</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SubTypesScanner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">TypeAnnotationsScanner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filterResultsBy</span><span class="token punctuation">(</span>optionalFilter<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>常用扫描结果<br><img src="/medias/article/images/2019/9/5/reflections.jpg" alt></p>
+<pre class=" language-java"><code class="language-java">Set<span class="token operator">&lt;</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Module</span><span class="token operator">>></span> modules <span class="token operator">=</span> reflections<span class="token punctuation">.</span><span class="token function">getSubTypesOf</span><span class="token punctuation">(</span>com<span class="token punctuation">.</span>google<span class="token punctuation">.</span>inject<span class="token punctuation">.</span>Module<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Set<span class="token operator">&lt;</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">>></span> singletons <span class="token operator">=</span>             reflections<span class="token punctuation">.</span><span class="token function">getTypesAnnotatedWith</span><span class="token punctuation">(</span>javax<span class="token punctuation">.</span>inject<span class="token punctuation">.</span>Singleton<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Set<span class="token operator">&lt;</span>String<span class="token operator">></span> properties <span class="token operator">=</span>       reflections<span class="token punctuation">.</span><span class="token function">getResources</span><span class="token punctuation">(</span>Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span><span class="token string">".\*\.properties"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Set<span class="token operator">&lt;</span>Constructor<span class="token operator">></span> injectables <span class="token operator">=</span> reflections<span class="token punctuation">.</span><span class="token function">getConstructorsAnnotatedWith</span><span class="token punctuation">(</span>javax<span class="token punctuation">.</span>inject<span class="token punctuation">.</span>Inject<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Set<span class="token operator">&lt;</span>Method<span class="token operator">></span> deprecateds <span class="token operator">=</span>      reflections<span class="token punctuation">.</span><span class="token function">getMethodsAnnotatedWith</span><span class="token punctuation">(</span>javax<span class="token punctuation">.</span>ws<span class="token punctuation">.</span>rs<span class="token punctuation">.</span>Path<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Set<span class="token operator">&lt;</span>Field<span class="token operator">></span> ids <span class="token operator">=</span>               reflections<span class="token punctuation">.</span><span class="token function">getFieldsAnnotatedWith</span><span class="token punctuation">(</span>javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>Id<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Set<span class="token operator">&lt;</span>Method<span class="token operator">></span> someMethods <span class="token operator">=</span>      reflections<span class="token punctuation">.</span><span class="token function">getMethodsMatchParams</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Set<span class="token operator">&lt;</span>Method<span class="token operator">></span> voidMethods <span class="token operator">=</span>      reflections<span class="token punctuation">.</span><span class="token function">getMethodsReturn</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Set<span class="token operator">&lt;</span>Method<span class="token operator">></span> pathParamMethods <span class="token operator">=</span> reflections<span class="token punctuation">.</span><span class="token function">getMethodsWithAnyParamAnnotated</span><span class="token punctuation">(</span>PathParam<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Set<span class="token operator">&lt;</span>Method<span class="token operator">></span> floatToString <span class="token operator">=</span>    reflections<span class="token punctuation">.</span><span class="token function">getConverters</span><span class="token punctuation">(</span>Float<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+List<span class="token operator">&lt;</span>String<span class="token operator">></span> parameterNames <span class="token operator">=</span>  reflections<span class="token punctuation">.</span><span class="token function">getMethodsParamNames</span><span class="token punctuation">(</span>Method<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Set<span class="token operator">&lt;</span>Member<span class="token operator">></span> fieldUsage <span class="token operator">=</span>       reflections<span class="token punctuation">.</span><span class="token function">getFieldUsage</span><span class="token punctuation">(</span>Field<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Set<span class="token operator">&lt;</span>Member<span class="token operator">></span> methodUsage <span class="token operator">=</span>      reflections<span class="token punctuation">.</span><span class="token function">getMethodUsage</span><span class="token punctuation">(</span>Method<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Set<span class="token operator">&lt;</span>Member<span class="token operator">></span> constructorUsage <span class="token operator">=</span> reflections<span class="token punctuation">.</span><span class="token function">getConstructorUsage</span><span class="token punctuation">(</span>Constructor<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h5 id="案例-1"><a href="#案例-1" class="headerlink" title="案例.1"></a>案例.1</h5><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+    Reflections reflections <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Reflections</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LukkitPlus<span class="token punctuation">.</span>BUKKIT_EVENTS <span class="token operator">=</span> reflections<span class="token punctuation">.</span><span class="token function">getSubTypesOf</span><span class="token punctuation">(</span>Event<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ClassPool classpath <span class="token operator">=</span> ClassPool<span class="token punctuation">.</span><span class="token function">getDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    CtClass eventClass <span class="token operator">=</span> classpath<span class="token punctuation">.</span><span class="token function">makeClass</span><span class="token punctuation">(</span><span class="token string">"online.pizzacrust.lukkitplus"</span> <span class="token operator">+</span>
+            <span class="token string">".EventCallback"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Event</span><span class="token operator">></span> event <span class="token operator">:</span> LukkitPlus<span class="token punctuation">.</span>BUKKIT_EVENTS<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        CtMethod eventMethod <span class="token operator">=</span> CtNewMethod<span class="token punctuation">.</span><span class="token function">make</span><span class="token punctuation">(</span>CtClass<span class="token punctuation">.</span>voidType<span class="token punctuation">,</span> <span class="token string">"on"</span> <span class="token operator">+</span> event<span class="token punctuation">.</span><span class="token function">getSimpleName</span>
+                <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">CtClass</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span> classpath<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">CtClass</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"online"</span> <span class="token operator">+</span>
+                <span class="token string">".pizzacrust.lukkitplus.EventCallbackGenerator.call($1);"</span><span class="token punctuation">,</span> eventClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        eventClass<span class="token punctuation">.</span><span class="token function">addMethod</span><span class="token punctuation">(</span>eventMethod<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        AnnotationsAttribute attribute <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AnnotationsAttribute</span><span class="token punctuation">(</span>eventClass<span class="token punctuation">.</span><span class="token function">getClassFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">getConstPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> AnnotationsAttribute<span class="token punctuation">.</span>visibleTag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Annotation eventHandlerAnnt <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Annotation</span><span class="token punctuation">(</span>EventHandler<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> eventClass
+                <span class="token punctuation">.</span><span class="token function">getClassFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getConstPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        attribute<span class="token punctuation">.</span><span class="token function">addAnnotation</span><span class="token punctuation">(</span>eventHandlerAnnt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        eventMethod<span class="token punctuation">.</span><span class="token function">getMethodInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span>attribute<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Done!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    eventClass<span class="token punctuation">.</span><span class="token function">writeFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="Reflections-实践案例"><a href="#Reflections-实践案例" class="headerlink" title="Reflections 实践案例"></a>Reflections 实践案例</h3><pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
+     * 程序启动
+     * @param args
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">getRequestMappingMethod</span><span class="token punctuation">(</span>
+                <span class="token string">"com.alibaba.sys.portal.core"</span><span class="token punctuation">,</span>
+                <span class="token string">"com.alibaba.sys.portal.core.controller"</span><span class="token punctuation">,</span> <span class="token string">"com.alibaba.sys.portal.core.service"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 获取指定模块所有方法
+     *
+     * @param scanPackage      设置扫描路径
+     * @param scopePackages    指定范围包
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">getRequestMappingMethod</span><span class="token punctuation">(</span>String scanPackage<span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> scopePackages<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        HashMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">></span> mehtodKV <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Reflections reflections <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Reflections</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ConfigurationBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">setUrls</span><span class="token punctuation">(</span>ClasspathHelper<span class="token punctuation">.</span><span class="token function">forPackage</span><span class="token punctuation">(</span>scanPackage<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">//扫描超类和类的接口，允许对子类型进行反向查找,扫描类的注释，其中@retention（retentionpolicy.runtime）</span>
+                <span class="token punctuation">.</span><span class="token function">setScanners</span><span class="token punctuation">(</span>
+                        <span class="token keyword">new</span> <span class="token class-name">TypeAnnotationsScanner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token keyword">new</span> <span class="token class-name">MethodParameterScanner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token keyword">new</span> <span class="token class-name">MethodAnnotationsScanner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                 <span class="token comment" spellcheck="true">//指定特定包扫描</span>
+                <span class="token punctuation">.</span><span class="token function">filterInputsBy</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FilterBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">includePackage</span><span class="token punctuation">(</span>scopePackages<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//获取 RequestMapping 所有的方法的类</span>
+        Set<span class="token operator">&lt;</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">>></span> allClass <span class="token operator">=</span> reflections<span class="token punctuation">.</span><span class="token function">getTypesAnnotatedWith</span><span class="token punctuation">(</span>RestController<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Set<span class="token operator">&lt;</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">>></span> serviceClass <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        allClass<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>tClass <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            Set<span class="token operator">&lt;</span>Annotation<span class="token operator">></span> annotationHashSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span>Annotation<span class="token operator">></span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span>tClass<span class="token punctuation">.</span><span class="token function">getDeclaredAnnotations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            annotationHashSet<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>annotation <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>annotation<span class="token punctuation">.</span><span class="token function">annotationType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>Service<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    serviceClass<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>tClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">return</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        allClass<span class="token punctuation">.</span><span class="token function">removeAll</span><span class="token punctuation">(</span>serviceClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token function">getRestfulApiInControllerPackage</span><span class="token punctuation">(</span>mehtodKV<span class="token punctuation">,</span>reflections<span class="token punctuation">,</span>allClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+     <span class="token comment" spellcheck="true">/**
+     * 扫描获取Controller 包里的接口
+     *
+     * @param mehtodKV
+     * @param reflections
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">getRestfulApiInControllerPackage</span><span class="token punctuation">(</span>HashMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">></span> mehtodKV<span class="token punctuation">,</span> Reflections reflections<span class="token punctuation">,</span> Set<span class="token operator">&lt;</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">>></span> typeClass<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> setMethods <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        typeClass<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>tClass <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//直接获取方法</span>
+            Method<span class="token punctuation">[</span><span class="token punctuation">]</span> declaredmethods <span class="token operator">=</span> tClass<span class="token punctuation">.</span><span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">//条件过滤</span>
+            CollectionUtils<span class="token punctuation">.</span><span class="token function">arrayToList</span><span class="token punctuation">(</span>declaredmethods<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>tMethod <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                        Method method <span class="token operator">=</span> <span class="token punctuation">(</span>Method<span class="token punctuation">)</span> tMethod<span class="token punctuation">;</span>
+                        setMethods<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>tClass<span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"."</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 按字母排序</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> methodList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>setMethods<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Collections<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>methodList<span class="token punctuation">,</span> Collator<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Locale<span class="token punctuation">.</span>CHINA<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//获取存在的所有的方法的类</span>
+        Set<span class="token operator">&lt;</span>Method<span class="token operator">></span> methods <span class="token operator">=</span> reflections<span class="token punctuation">.</span><span class="token function">getMethodsAnnotatedWith</span><span class="token punctuation">(</span>RequestMapping<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        methods<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>reflections<span class="token punctuation">.</span><span class="token function">getMethodsAnnotatedWith</span><span class="token punctuation">(</span>PostMapping<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        methods<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>method <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getAnnotation</span><span class="token punctuation">(</span>ApiOperation<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                mehtodKV<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getDeclaringClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"."</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> method<span class="token punctuation">.</span><span class="token function">getAnnotation</span><span class="token punctuation">(</span>ApiOperation<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"接口总数量:"</span> <span class="token operator">+</span> setMethods<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        methodList<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>methodName <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                    methodName <span class="token operator">=</span> StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>mehtodKV<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>methodName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> methodName <span class="token operator">+</span> <span class="token string">"="</span> <span class="token operator">:</span> methodName <span class="token operator">+</span> <span class="token string">"="</span> <span class="token operator">+</span> mehtodKV<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//首字母小写处理</span>
+                    String resource <span class="token operator">=</span> methodName<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>methodName<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> methodName<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>resource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<p>反射 <code>Class</code>,<code>Method</code>,<code>Constructor</code>,<code>Field</code>,<code>Member</code>等成员可自行通过JDK API 查阅相关资料进行更在细致化内容获取<br><em>Method</em><br><img src="/medias/article/images/2019/9/5/jdk-api.jpg.jpg" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/08/29/Spring Framework源码之SpringFactoriesLoader/" rel="next" title="Spring Framework源码之SpringFactoriesLoader">
+                  <i class="fa fa-chevron-left"></i> Spring Framework源码之SpringFactoriesLoader
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/10/14/SpringBoot之ConfigurationProperties/" rel="prev" title="SpringBoot之ConfigurationProperties">
+                  SpringBoot之ConfigurationProperties <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reflections框架"><span class="nav-number">1.</span> <span class="nav-text">Reflections框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflections框架简介"><span class="nav-number">1.1.</span> <span class="nav-text">Reflections框架简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reflections-的用处"><span class="nav-number">1.1.1.</span> <span class="nav-text">Reflections 的用处</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reflections-相关资料地址"><span class="nav-number">1.1.2.</span> <span class="nav-text">Reflections 相关资料地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflections官方案例"><span class="nav-number">1.2.</span> <span class="nav-text">Reflections官方案例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#案例-1"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">案例.1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflections-实践案例"><span class="nav-number">1.3.</span> <span class="nav-text">Reflections 实践案例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="iByte"
+    src="/medias/avatar.jpg">
+  <p class="site-author-name" itemprop="name">iByte</p>
+  <div class="site-description" itemprop="description">博学，审问，慎思，明辨，笃行</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/icloud-iot" title="Gitee &rarr; https://gitee.com/icloud-iot" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/lishangzhi" title="GitHub &rarr; https://github.com/lishangzhi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shangzhi.ibyte@gmail.com" title="E-Mail &rarr; mailto:shangzhi.ibyte@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gitee.com/ibyte/M-Pass" title="https://gitee.com/ibyte/M-Pass" rel="noopener" target="_blank">多租户系统微服务开发平台</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gitee.com/icloud-iot/python" title="https://gitee.com/icloud-iot/python" rel="noopener" target="_blank">Python-人工智能开发学习</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iByte</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

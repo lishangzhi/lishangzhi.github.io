@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="google-site-verification=HI-khpupWSMBRXsUMLtmTINo6qU6WC5kq7WYklRuw38">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="数据结构：哈希表哈希表存储的是由键（key）和值（value）组成的数据例如，我们将每个人的性别作为数据进行存储，键为人名，值为对应的性别。此处准备了6个箱子（即长度为6的数组）来存储数据。假设我们需要查询Ally的性别，由于不知道Ally的数据存储在哪个箱子里，所以只能从头开始查询。这个操作便叫作“线性查找”（线性查找的讲解在3-1节）。0号箱子中存储的键是Joe而不是Ally。1号箱子中的也不">
+<meta name="keywords" content="哈希表,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构：哈希表">
+<meta property="og:url" content="https://lishangzhi.github.io/2019/07/26/数据结构：哈希表/index.html">
+<meta property="og:site_name" content="AI Developers Geeks">
+<meta property="og:description" content="数据结构：哈希表哈希表存储的是由键（key）和值（value）组成的数据例如，我们将每个人的性别作为数据进行存储，键为人名，值为对应的性别。此处准备了6个箱子（即长度为6的数组）来存储数据。假设我们需要查询Ally的性别，由于不知道Ally的数据存储在哪个箱子里，所以只能从头开始查询。这个操作便叫作“线性查找”（线性查找的讲解在3-1节）。0号箱子中存储的键是Joe而不是Ally。1号箱子中的也不">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/1.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/2.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/3.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/4.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/7.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/8.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/9.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/10.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/11.jpg">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/14.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/15.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/16.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/21.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/22.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/23.png">
+<meta property="og:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/24.png">
+<meta property="og:updated_time" content="2019-12-02T14:06:11.120Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构：哈希表">
+<meta name="twitter:description" content="数据结构：哈希表哈希表存储的是由键（key）和值（value）组成的数据例如，我们将每个人的性别作为数据进行存储，键为人名，值为对应的性别。此处准备了6个箱子（即长度为6的数组）来存储数据。假设我们需要查询Ally的性别，由于不知道Ally的数据存储在哪个箱子里，所以只能从头开始查询。这个操作便叫作“线性查找”（线性查找的讲解在3-1节）。0号箱子中存储的键是Joe而不是Ally。1号箱子中的也不">
+<meta name="twitter:image" content="https://lishangzhi.github.io/medias/article/images/2019/7/26/1.png">
+
+<link rel="canonical" href="https://lishangzhi.github.io/2019/07/26/数据结构：哈希表/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>数据结构：哈希表 | AI Developers Geeks</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ef5c1c506a4f07f8f7a4f3eb85d2ab96";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI Developers Geeks</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人工智能开发者</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/07/26/数据结构：哈希表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/medias/avatar.jpg">
+      <meta itemprop="name" content="iByte">
+      <meta itemprop="description" content="博学，审问，慎思，明辨，笃行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI Developers Geeks">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构：哈希表
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-26 09:11:35" itemprop="dateCreated datePublished" datetime="2019-07-26T09:11:35+08:00">2019-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-02 22:06:11" itemprop="dateModified" datetime="2019-12-02T22:06:11+08:00">2019-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data-Structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="数据结构：哈希表"><a href="#数据结构：哈希表" class="headerlink" title="数据结构：哈希表"></a>数据结构：哈希表</h2><p>哈希表存储的是由键（key）和值（value）组成的数据<br><img src="/medias/article/images/2019/7/26/1.png" alt><br>例如，我们将每个人的性别作为数据进行存储，键为人名，值为对应的性别。<br><img src="/medias/article/images/2019/7/26/2.png" alt><br>此处准备了6个箱子（即长度为6的数组）来存储数据。假设我们需要查询Ally的性别，由于不知道Ally的数据存储在哪个箱子里，所以只能从头开始查询。这个操作便叫作“线性查找”（线性查找的讲解在3-1节）。<br><img src="/medias/article/images/2019/7/26/3.png" alt><br>0号箱子中存储的键是Joe而不是Ally。<br><img src="/medias/article/images/2019/7/26/4.png" alt><br>1号箱子中的也不是Ally。<br>同样，2号、3号箱子中的也都不是Ally。<br>查找到4号箱子的时候，发现其中数据的键为<br><img src="/medias/article/images/2019/7/26/7.jpg" alt><br>Ally。把键对应的值取出，我们就知道Ally的性别为女（F）了。<br>数据量越多，线性查找耗费的时间就越长。由此可知：由于数据的查询较为耗时，所以此处并不适合使用数组来存储数据。<br>但使用哈希表便可以解决这个问题。首先准备好数组，这次我们用5个箱子的数组来存储数据。<br>尝试把Joe存进去。<br><img src="/medias/article/images/2019/7/26/8.jpg" alt><br>使用哈希函数（Hash）计算Joe的键，也就是字符串“Joe”的哈希值。得到的结果为4928<br><img src="/medias/article/images/2019/7/26/9.jpg" alt><br>将得到的哈希值除以数组的长度5，求得其余数。这样的求余运算叫作“mod运算”。此处mod运算的结果为3。<br><img src="/medias/article/images/2019/7/26/10.jpg" alt><br>因此，我们将Joe的数据存进数组的3号箱子中。重复前面的操作，将其他数据也存进数组中。<br><img src="/medias/article/images/2019/7/26/11.jpg" alt><br>Sue键的哈希值为7291, mod 5的结果为1，将Sue的数据存进1号箱中。<br>Dan键的哈希值为1539, mod 5的结果为4，将Dan的数据存进4号箱中。<br><img src="/medias/article/images/2019/7/26/14.png" alt><br>Nell键的哈希值为6276, mod 5的结果为1。本应将其存进数组的1号箱中，但此时1号箱中已经存储了Sue的数据。这种存储位置重复了的情况便叫作“冲突”。<br><img src="/medias/article/images/2019/7/26/15.png" alt><br>遇到这种情况，可使用链表在已有数据的后面继续存储新的数据。<br><img src="/medias/article/images/2019/7/26/16.png" alt><br>Ally键的哈希值为9143, mod 5的结果为3。本应将其存储在数组的3号箱中，但3号箱中已经有了Joe的数据，所以使用链表，在其后面存储Ally的数据。<br>Bob键的哈希值为5278, mod 5的结果为3。本应将其存储在数组的3号箱中，但3号箱中已经有了Joe和Ally的数据，所以使用链表，在Ally的后面继续存储Bob的数据。<br>像这样存储完所有数据，哈希表也就制作完成了。<br>接下来讲解数据的查询方法。假设我们要查询Dan的性别。<br>为了知道Dan存储在哪个箱子里，首先需要算出Dan键的哈希值，然后对其进行mod运算。最后得到的结果为4，于是我们知道了它存储在4号箱中。<br>查看4号箱可知，其中的数据的键与Dan一致，于是取出对应的值。由此我们便知道了Dan的性别为男（M）。<br><img src="/medias/article/images/2019/7/26/21.png" alt><br>那么，想要查询Ally的性别时该怎么做呢？为了找到它的存储位置，先要算出Ally键的哈希值，再对其进行mod运算。最终得到的结果为3。<br><img src="/medias/article/images/2019/7/26/22.png" alt><br>然而3号箱中数据的键是Joe而不是Ally。此时便需要对Joe所在的链表进行线性查找。<br><img src="/medias/article/images/2019/7/26/23.png" alt><br>于是我们找到了键为Ally的数据。取出其对应的值，便知道了Ally的性别为女（F）。<br><img src="/medias/article/images/2019/7/26/24.png" alt></p><a id="more"></a>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在哈希表中，我们可以利用哈希函数快速访问到数组中的目标数据。如果发生哈希冲突，就使用链表进行存储。这样一来，不管数据量为多少，我们都能够灵活应对。<br>如果数组的空间太小，使用哈希表的时候就容易发生冲突，线性查找的使用频率也会更高；反过来，如果数组的空间太大，就会出现很多空箱子，造成内存的浪费。因此，给数组设定合适的空间非常重要。</p>
+<h3 id="1-补充说明"><a href="#1-补充说明" class="headerlink" title="1. 补充说明"></a>1. 补充说明</h3><h4 id="1-1-链地址法"><a href="#1-1-链地址法" class="headerlink" title="1.1 链地址法"></a>1.1 链地址法</h4><p>在存储数据的过程中，如果发生冲突，可以利用链表在已有数据的后面插入新数据来解决冲突。这种方法被称为“链地址法”。</p>
+<h4 id="1-2-开放地址法"><a href="#1-2-开放地址法" class="headerlink" title="1.2 开放地址法"></a>1.2 开放地址法</h4><p>除了链地址法以外，还有几种解决冲突的方法。其中，应用较为广泛的是“开放地址法”。这种方法是指当冲突发生时，立刻计算出一个候补地址（数组上的位置）并将数据存进去。<br>如果仍然有冲突，便继续计算下一个候补地址，直到有空地址为止。可以通过多次使用哈希函数或“线性探测法”等方法计算候补地址。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/哈希表/" rel="tag"># 哈希表</a>
+              <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/07/25/数据结构：队列/" rel="next" title="数据结构：队列">
+                  <i class="fa fa-chevron-left"></i> 数据结构：队列
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/08/01/SpringBoot配置加载顺序/" rel="prev" title="SpringBoot配置加载顺序">
+                  SpringBoot配置加载顺序 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构：哈希表"><span class="nav-number">1.</span> <span class="nav-text">数据结构：哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-补充说明"><span class="nav-number">1.2.</span> <span class="nav-text">1. 补充说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-链地址法"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1 链地址法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-开放地址法"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2 开放地址法</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="iByte"
+    src="/medias/avatar.jpg">
+  <p class="site-author-name" itemprop="name">iByte</p>
+  <div class="site-description" itemprop="description">博学，审问，慎思，明辨，笃行</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/icloud-iot" title="Gitee &rarr; https://gitee.com/icloud-iot" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/lishangzhi" title="GitHub &rarr; https://github.com/lishangzhi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shangzhi.ibyte@gmail.com" title="E-Mail &rarr; mailto:shangzhi.ibyte@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gitee.com/ibyte/M-Pass" title="https://gitee.com/ibyte/M-Pass" rel="noopener" target="_blank">多租户系统微服务开发平台</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gitee.com/icloud-iot/python" title="https://gitee.com/icloud-iot/python" rel="noopener" target="_blank">Python-人工智能开发学习</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iByte</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

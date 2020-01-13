@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="google-site-verification=HI-khpupWSMBRXsUMLtmTINo6qU6WC5kq7WYklRuw38">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Java系列之注解 Java 注解（Annotation）又称之为 Java 标注、元数据，是 Java 1.5 之后加入的一种特殊语法，通过注解可以标注 Java 中的类、方法、属性、参数、包等，可以通过反射原理对这些元数据进行访问，注解的使用不会影响程序的正常运行，只会对编译器警告等辅助工具产生影响">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java系列之注解">
+<meta property="og:url" content="https://lishangzhi.github.io/2019/10/17/Java系列之注解/index.html">
+<meta property="og:site_name" content="AI Developers Geeks">
+<meta property="og:description" content="Java系列之注解 Java 注解（Annotation）又称之为 Java 标注、元数据，是 Java 1.5 之后加入的一种特殊语法，通过注解可以标注 Java 中的类、方法、属性、参数、包等，可以通过反射原理对这些元数据进行访问，注解的使用不会影响程序的正常运行，只会对编译器警告等辅助工具产生影响">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-02T14:31:02.149Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java系列之注解">
+<meta name="twitter:description" content="Java系列之注解 Java 注解（Annotation）又称之为 Java 标注、元数据，是 Java 1.5 之后加入的一种特殊语法，通过注解可以标注 Java 中的类、方法、属性、参数、包等，可以通过反射原理对这些元数据进行访问，注解的使用不会影响程序的正常运行，只会对编译器警告等辅助工具产生影响">
+
+<link rel="canonical" href="https://lishangzhi.github.io/2019/10/17/Java系列之注解/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Java系列之注解 | AI Developers Geeks</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ef5c1c506a4f07f8f7a4f3eb85d2ab96";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI Developers Geeks</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人工智能开发者</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lishangzhi.github.io/2019/10/17/Java系列之注解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/medias/avatar.jpg">
+      <meta itemprop="name" content="iByte">
+      <meta itemprop="description" content="博学，审问，慎思，明辨，笃行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI Developers Geeks">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java系列之注解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-17 11:11:49" itemprop="dateCreated datePublished" datetime="2019-10-17T11:11:49+08:00">2019-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-02 22:31:02" itemprop="dateModified" datetime="2019-12-02T22:31:02+08:00">2019-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Notes</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Notes/JDK/" itemprop="url" rel="index">
+                    <span itemprop="name">JDK</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Java系列之注解"><a href="#Java系列之注解" class="headerlink" title="Java系列之注解"></a>Java系列之注解</h1><blockquote>
+<p>Java 注解（Annotation）又称之为 Java 标注、元数据，是 Java 1.5 之后加入的一种特殊语法，通过注解可以标注 Java 中的类、方法、属性、参数、包等，可以通过反射原理对这些元数据进行访问，注解的使用不会影响程序的正常运行，只会对编译器警告等辅助工具产生影响 </p>
+</blockquote><a id="more"></a>
+<h2 id="注解功能"><a href="#注解功能" class="headerlink" title="注解功能"></a>注解功能</h2><ol>
+<li>编译器可以使用注解来检测错误和取消警告；</li>
+<li>使用注解可以生成特定代码，如 ButtferKnife 使用注解简化 findViewById等；</li>
+<li>某些注解可以在运行时进行检查和操作。</li>
+</ol>
+<h2 id="注解定义"><a href="#注解定义" class="headerlink" title="注解定义"></a>注解定义</h2><p>注解的定义使用 @interface 作为关键字，实际上表示自动继承了 java.lang.annotation.Annotation 接口，定义格式参考如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span>ElementType<span class="token punctuation">.</span>TYPE<span class="token punctuation">,</span> ElementType<span class="token punctuation">.</span>METHOD<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">AuthValidators</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@AliasFor</span><span class="token punctuation">(</span><span class="token string">"value"</span><span class="token punctuation">)</span>
+    AuthValidator<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">validators</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="内置注解"><a href="#内置注解" class="headerlink" title="内置注解"></a>内置注解</h2><ul>
+<li><p>@Override  表示当前的方法将覆盖超类中的方法，编译时进行格式检查</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span>ElementType<span class="token punctuation">.</span>METHOD<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>SOURCE<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Override</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span></code></pre>
+</li>
+<li><p>@Deprecated 表示一个类或者是方法不再建议使用，将其标记为过时，但还是可以使用</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span>TYPE<span class="token punctuation">,</span> FIELD<span class="token punctuation">,</span> METHOD<span class="token punctuation">,</span> PARAMETER<span class="token punctuation">,</span> CONSTRUCTOR<span class="token punctuation">,</span> LOCAL_VARIABLE<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>SOURCE<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">SuppressWarnings</span> <span class="token punctuation">{</span>
+    String<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</li>
+<li><p>@SuppressWarnings 表示关闭不当的编译器警告信息</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token punctuation">{</span>CONSTRUCTOR<span class="token punctuation">,</span> FIELD<span class="token punctuation">,</span> LOCAL_VARIABLE<span class="token punctuation">,</span> METHOD<span class="token punctuation">,</span> PACKAGE<span class="token punctuation">,</span> PARAMETER<span class="token punctuation">,</span> TYPE<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Deprecated</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h2></li>
+<li><p>@Target</p>
+</li>
+<li><p>@Retention</p>
+</li>
+<li><p>@Documented</p>
+</li>
+<li><p>@Inherited</p>
+<h3 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h3><p>@Target 用来描述注解的使用范围,它的申明如下</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span>ElementType<span class="token punctuation">.</span>ANNOTATION_TYPE<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Target</span> <span class="token punctuation">{</span>
+  ElementType<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>由 @Target 声明可知使用 @Target 注解必须指定具体的 Java 成员，也就是该注解要使用到哪个位置，具体由枚举 ElementType 中定义，具体如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">enum</span> ElementType <span class="token punctuation">{</span>
+  TYPE<span class="token punctuation">,</span>           <span class="token comment" spellcheck="true">//类、接口、注解、枚举</span>
+  FIELD<span class="token punctuation">,</span>          <span class="token comment" spellcheck="true">//属性（包括枚举常量） </span>
+  METHOD<span class="token punctuation">,</span>         <span class="token comment" spellcheck="true">//方法</span>
+  PARAMETER<span class="token punctuation">,</span>      <span class="token comment" spellcheck="true">//参数 </span>
+  CONSTRUCTOR<span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">//构造方法</span>
+  LOCAL_VARIABLE<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//局部变量</span>
+  ANNOTATION_TYPE<span class="token punctuation">,</span><span class="token comment" spellcheck="true">//注解</span>
+  PACKAGE<span class="token punctuation">,</span>        <span class="token comment" spellcheck="true">//包</span>
+
+  <span class="token comment" spellcheck="true">/**
+   * 类型注解
+   * @since 1.8
+   */</span>
+  TYPE_PARAMETER<span class="token punctuation">,</span>
+  TYPE_USE
+<span class="token punctuation">}</span></code></pre>
+<h3 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h3><p>@Retention 表示在什么级别保存该注解的信息，它的声明如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span>ElementType<span class="token punctuation">.</span>ANNOTATION_TYPE<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Retention</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/**
+   * Returns the retention policy.
+   * @return the retention policy
+   */</span>
+  RetentionPolicy <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>由 @Retention 的声明可知，使用 @Retention 时，必须指定保存celue（RetentionPolicy），具体值如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">enum</span> RetentionPolicy <span class="token punctuation">{</span>
+  SOURCE<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">//在编译时会被丢弃，仅仅在源码中存在</span>
+  CLASS<span class="token punctuation">,</span>   <span class="token comment" spellcheck="true">//默认策略，运行时就会被丢弃，仅仅在 class 文件中</span>
+  RUNTIME  <span class="token comment" spellcheck="true">//编译时会将注解信息记录到class文件，运行时任然保留，可以通过反射获取注解信息</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="Documented-amp-Inherted"><a href="#Documented-amp-Inherted" class="headerlink" title="@Documented &amp; @Inherted"></a>@Documented &amp; @Inherted</h3><p>@Documented 和 @Inherited 都没有配置参数，是一种标记注解，@Documented 表示将该注解显示到用户文档中，@Inherited 表示该注解只有使用在类上才会有效，而且该注解会被子类继承。</p>
+</li>
+</ul>
+<h2 id="类型注解"><a href="#类型注解" class="headerlink" title="类型注解"></a>类型注解</h2><p>在对元注解的说明中可知从 Java8 开始新增了类型注解，如果在注解 @Target 使用这种注解，表明该注解可以在对应的任何地方使用，如在 @Target 中指定 TYPE_PARAMETER 就可在自定义类型的声明处使用该注解，如在 @Target 中指定 TYPE_USE 就可在任何类型前添加该类之间，主要是方便 Java 开发者使用类型注解和相关插件（Checker Framework）来检查来在编译期检查运行时的异常</p>
+<p>下面分别定义指定 TYPE_PARAMETER 和 TYPE_USE 的注解，具体如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//1. TYPE_PARAMETER</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token punctuation">{</span>ElementType<span class="token punctuation">.</span>TYPE_PARAMETER<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">TypeParameterAnnotation</span> <span class="token punctuation">{</span>
+    String <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//2. TYPE_USE</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span>value <span class="token operator">=</span> ElementType<span class="token punctuation">.</span>TYPE_USE<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">TypeUseAnnotation</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span></code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/10/15/SpringCloud之RefreshScope/" rel="next" title="SpringCloud之RefreshScope">
+                  <i class="fa fa-chevron-left"></i> SpringCloud之RefreshScope
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/10/31/使用Redis在Hibernate中进行缓存/" rel="prev" title="使用Redis在Hibernate中进行缓存">
+                  使用Redis在Hibernate中进行缓存 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java系列之注解"><span class="nav-number">1.</span> <span class="nav-text">Java系列之注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注解功能"><span class="nav-number">1.1.</span> <span class="nav-text">注解功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注解定义"><span class="nav-number">1.2.</span> <span class="nav-text">注解定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内置注解"><span class="nav-number">1.3.</span> <span class="nav-text">内置注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元注解"><span class="nav-number">1.4.</span> <span class="nav-text">元注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Target"><span class="nav-number">1.4.1.</span> <span class="nav-text">@Target</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Retention"><span class="nav-number">1.4.2.</span> <span class="nav-text">@Retention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Documented-amp-Inherted"><span class="nav-number">1.4.3.</span> <span class="nav-text">@Documented &amp; @Inherted</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型注解"><span class="nav-number">1.5.</span> <span class="nav-text">类型注解</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="iByte"
+    src="/medias/avatar.jpg">
+  <p class="site-author-name" itemprop="name">iByte</p>
+  <div class="site-description" itemprop="description">博学，审问，慎思，明辨，笃行</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/icloud-iot" title="Gitee &rarr; https://gitee.com/icloud-iot" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/lishangzhi" title="GitHub &rarr; https://github.com/lishangzhi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shangzhi.ibyte@gmail.com" title="E-Mail &rarr; mailto:shangzhi.ibyte@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gitee.com/ibyte/M-Pass" title="https://gitee.com/ibyte/M-Pass" rel="noopener" target="_blank">多租户系统微服务开发平台</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gitee.com/icloud-iot/python" title="https://gitee.com/icloud-iot/python" rel="noopener" target="_blank">Python-人工智能开发学习</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iByte</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
